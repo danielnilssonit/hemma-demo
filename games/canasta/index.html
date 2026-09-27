@@ -5378,6 +5378,14 @@ const Hemma = (() => {
     setTimeout(() => finish(null), 2500);
   });
   // Ljudet av eller på från plattan medan spelet är öppet
+  // Visningen i plattan: ett parti med fyra börjar direkt (utdelningen syns)
+  addEventListener('message', e => {
+    if (!fromHemma(e) || !H.cfg || e.data.t !== 'demo' || H.atTable()) return;
+    UI.closeAll();
+    const names = AI.NAMES.slice(0, 3);
+    const seats = [{name: H.cfg.me.name, kind: 'human', av: H.cfg.me.av}, ...names.map(n => ({name: n.name, av: n.av, kind: 'cpu', level: 'medel'}))];
+    Game.start(new Net.LocalSession({players: 4, seats, opts: {target: 5000, ask: true, frozen: false}, saveKey: null}), {fresh: true});
+  });
   addEventListener('message', e => {
     if (!fromHemma(e) || !H.cfg || e.data.t !== 'sound') return;
     H.cfg.sound = !!e.data.on;
