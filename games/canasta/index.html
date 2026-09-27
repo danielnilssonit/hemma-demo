@@ -5437,6 +5437,8 @@ const Hemma = (() => {
 
   // Figuren i ringen: initialer (som i plattan) eller en figur
   H.av = v => h('span', {class: 'av' + (/^[A-ZÅÄÖ]{1,2}$/.test(v || '') ? ' ini' : '')}, v);
+  // Presentationsklickern (PageDown och PageUp) styr den guidade visningen i plattan även när spelet har fokus
+  addEventListener('keydown', e => { if (framed && (e.key === 'PageDown' || e.key === 'PageUp')) { e.preventDefault(); H.send({t: 'key', key: e.key}); } });
   return H;
 })();
 

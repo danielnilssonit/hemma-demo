@@ -5574,6 +5574,8 @@ const Hemma = (() => {
 
   // Träffpunkt Hemmas märke: huset med lampan i fönstret
   H.mark = (size = 34) => `<svg viewBox="0 0 48 48" width="${size}" height="${size}" aria-hidden="true"><path d="M6 22 24 7l18 15v19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V22Z" fill="#2E5883"/><path d="M3 23.5 24 6l21 17.5" fill="none" stroke="#F2A516" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="29" r="11" fill="#FFD27A" opacity=".28"/><rect x="17.5" y="22.5" width="13" height="13" rx="1.5" fill="#FFD27A"/><path d="M24 22.5v13M17.5 29h13" stroke="#2E5883" stroke-width="1.6"/></svg>`;
+  // Presentationsklickern (PageDown och PageUp) styr den guidade visningen i plattan även när spelet har fokus
+  addEventListener('keydown', e => { if (framed && (e.key === 'PageDown' || e.key === 'PageUp')) { e.preventDefault(); H.send({t: 'key', key: e.key}); } });
   return H;
 })();
 
