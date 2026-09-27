@@ -4418,10 +4418,11 @@ function GameFrame({ gp }) {
         const base = new URL(src.replace(/[^/]*$/, ''), document.baseURI).href;
         fr.removeAttribute('src');
         fr.srcdoc = text.replace(/<head>/i, `<head><base href="${base}">`);
-      } catch (e) { if (alive && !ready) setState('fail'); }
+      } catch (e) { /* det andra sättet provas efter en stund */ }
     };
-    if (INLINE_GAMES) inline(); else fr.src = src;
-    const t1 = setTimeout(() => { if (!ready) inline(); }, 7000);
+    const direct = () => { if (!alive || ready) return; fr.removeAttribute('srcdoc'); fr.src = src; };
+    if (INLINE_GAMES) inline(); else direct();
+    const t1 = setTimeout(() => { if (!ready) (INLINE_GAMES ? direct : inline)(); }, 7000);
     const t2 = setTimeout(() => { if (alive && !ready) setState('fail'); }, 16000);
     return () => { alive = false; clearTimeout(t1); clearTimeout(t2); offSound(); window.removeEventListener('message', onMsg); };
   }, []);
