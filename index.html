@@ -1480,8 +1480,9 @@ a.g-act { text-decoration: none; }
 .ab-x { width: 40px; height: 40px; }
 @media screen and (max-width: 820px) { .ab-dots { display: none; } .ab-t { max-width: 40vw; } }
 
-/* Under filmen får listen en egen plats längst ned, så att den inte ligger över plattans knappar */
-.shell.auto .shell-body { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
+/* Under filmen får listen och raden med berättarens text en egen plats längst ned, så att de inte ligger över plattan */
+.shell.auto .shell-body { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
+.shell.auto .as-note.as-float { bottom: calc(214px + env(safe-area-inset-bottom, 0px)); }
 .device.with-auto .device-screen { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
 .device.with-auto { background: #0D1829; }
 
@@ -1509,6 +1510,64 @@ a.g-act { text-decoration: none; }
   background: transparent; color: var(--sh-ink); font: inherit; font-weight: 700; font-size: 17px; cursor: pointer; }
 .start-steg:hover { background: rgba(255, 255, 255, .06); }
 
+/* ---------- Öppningen: ensamheten i siffror ---------- */
+.ao-stats { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3.4vw, 56px); width: 100%; max-width: 1120px; margin: 4px 0 30px; }
+.ao-stat { opacity: 0; transform: translateY(12px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+.ao-stat.on { opacity: 1; transform: none; }
+.ao-stat strong { display: block; white-space: nowrap; font-family: Lexend, var(--f-ui); font-weight: 800; font-size: clamp(52px, 8vw, 124px); line-height: 1; letter-spacing: -.02em;
+  color: #F2A516; font-variant-numeric: tabular-nums; }
+.ao-stat span { display: block; max-width: 22em; margin-top: 14px; font-size: clamp(18px, 1.9vw, 26px); line-height: 1.35; color: #E9EEF4; text-wrap: pretty; }
+.ao-src { margin: 20px 0 0; font-size: 14px; color: #8FA3B8; }
+
+/* ---------- Titeln ---------- */
+.ac-titlecard .ac-main { align-items: center; max-width: none; margin: 0 auto; padding-inline: clamp(24px, 5vw, 80px); text-align: center; }
+.ac-titlecard .ac-mark { margin-bottom: 20px; animation: markIn 1.1s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes markIn { from { opacity: 0; transform: scale(.8); } }
+.ac-titlecard .ac-title { margin-bottom: 16px; white-space: nowrap; font-size: clamp(44px, 7.4vw, 118px); }
+@media (max-width: 600px) { .ac-titlecard .ac-title { white-space: normal; } }
+.ac-tag { max-width: 28em; margin: 0 0 32px; font-size: clamp(20px, 2.3vw, 31px); font-weight: 600; line-height: 1.4; color: #FFD27A; text-wrap: balance; }
+
+/* ---------- Förslaget ---------- */
+.ac-offer .ac-title { margin-bottom: 26px; }
+.ao-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; max-width: 1120px; margin: 0 0 26px; }
+.ao-tiles div { padding: 20px 22px; border-radius: 18px; background: rgba(255, 255, 255, .05); border: 1px solid #2E4A6B; }
+.ao-tiles strong { display: block; font-family: Lexend, var(--f-ui); font-weight: 800; font-size: clamp(36px, 4.4vw, 62px); line-height: 1.05; color: #F2A516; }
+.ao-tiles div:nth-child(3) strong { font-size: clamp(26px, 3vw, 42px); }
+.ao-tiles span { display: block; margin-top: 8px; font-size: clamp(16px, 1.6vw, 21px); line-height: 1.35; color: #C9D5E2; }
+.ac-offer .ac-lead { margin-bottom: 24px; }
+
+/* ---------- Slutet: demons adress med QR-kod ---------- */
+.ae-row { display: flex; align-items: center; gap: clamp(24px, 4vw, 64px); width: 100%; }
+.ae-text { flex: 1; min-width: 0; }
+.ac-end .ac-title { margin-bottom: 16px; font-size: clamp(38px, 5.4vw, 78px); }
+.ac-end .ac-lead { margin-bottom: 0; }
+.ae-contact { margin: 18px 0 0; font-size: clamp(17px, 1.6vw, 22px); font-weight: 700; color: #E9EEF4; }
+.ae-qr { flex: none; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 18px 16px; border-radius: 22px; background: #FFFFFF;
+  color: #0D1829; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+.ae-qr svg { display: block; width: clamp(150px, 16vw, 240px); height: auto; aspect-ratio: 1; }
+.ae-qr p { margin: 0; font-size: 15px; font-weight: 700; }
+.ae-qr strong { display: block; margin-bottom: 2px; font-family: var(--f-display); font-size: 20px; color: #1D5E86; }
+.ac-end .ac-sub { margin-top: 26px; min-height: 0; }
+.ac-end .ac-btns { margin-top: 22px; }
+
+/* ---------- Övergången till ett steg: en kort toning till mörkt ---------- */
+.adip { position: fixed; inset: 0; z-index: 69; background: #0B1626; pointer-events: none; animation: adip .7s ease-in-out both; }
+.adip.from-card { animation-name: adipCard; }
+@keyframes adip { 0% { opacity: 0; } 45%, 55% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes adipCard { 0%, 55% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---------- Raden längst ned under ett steg: tiden, stegets namn och det berättaren säger ---------- */
+.alow { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); z-index: 66; transform: translateX(-50%); display: flex; flex-direction: column;
+  gap: 6px; width: min(1100px, calc(100vw - 40px)); box-sizing: border-box; padding: 12px 22px 14px; border-radius: 16px; background: rgba(11, 22, 38, .92);
+  border: 1px solid #2E4A6B; border-left: 4px solid #F2A516; color: #FFFFFF; font-family: var(--f-ui); box-shadow: 0 14px 40px rgba(0, 0, 0, .4); pointer-events: none;
+  animation: alowIn .5s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes alowIn { from { opacity: 0; transform: translate(-50%, 12px); } }
+.alow-ey { display: flex; align-items: baseline; gap: 12px; margin: 0; font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #A3B3C6; }
+.alow-ey b { font-family: Lexend, var(--f-ui); font-size: 16px; letter-spacing: .02em; color: #F2A516; }
+.alow-sub { margin: 0; font-size: 23px; font-weight: 600; line-height: 1.35; text-wrap: pretty; animation: acSub .35s ease both; }
+@media (max-width: 600px) { .alow { width: calc(100vw - 24px); padding: 10px 14px; } .alow-sub { font-size: 17px; } .ao-stats, .ao-tiles { grid-template-columns: 1fr; } .ae-row { flex-direction: column; align-items: flex-start; } }
+@media (max-width: 700px), (max-height: 520px) { .ae-qr svg { display: none; } }
+
 /* ---------- Mobilen ---------- */
 /* Startrutan får alltid plats: den rullar när skärmen är låg (en mobil på bredden), och där står texten bredvid knapparna */
 .start-scrim { display: flex; overflow-y: auto; }
@@ -1533,6 +1592,8 @@ a.g-act { text-decoration: none; }
 /* Filmen på en låg skärm: mindre kort och list, så att plattan blir så stor som möjligt */
 @media (max-height: 520px) {
   .shell.auto .shell-body { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
+  .alow { display: none; }
+  .shell.auto .as-note.as-float { bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
   .shell.auto .stage { padding: 6px 10px 20px; }
   .shell.auto .stage-row { gap: 12px; }   /* samma avstånd som Stage räknar med (24-shell.js) */
   .shell.auto .stage-note { bottom: 4px; font-size: 10.5px; }
@@ -1569,7 +1630,7 @@ a.g-act { text-decoration: none; }
 @keyframes arTurn { 0%, 30% { transform: rotate(0); } 55%, 85% { transform: rotate(-90deg); } 100% { transform: rotate(0); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .ac, .ac-main > *, .ac-sub, .at-tag, .as-hole, .as-note, .ap-paused { animation: none; }
+  .ac, .ac-main > *, .ac-sub, .at-tag, .as-hole, .as-note, .ap-paused, .alow, .alow-sub, .adip { animation: none; }
   .as-hole::after, .ar-rotate svg, .ac-rot svg { animation: none; }
   .as-hole { transition: none; }
 }
@@ -1585,10 +1646,10 @@ a.g-act { text-decoration: none; }
 <script>
 (() => {
 'use strict';
-const VOICE_INFO = {"lines":{"app_morgon":{"file":"voice/app_morgon.mp3","who":"app","text":"God morgon, Ingrid! Hur mår du i dag?","dur":2.52},"app_mood_bra":{"file":"voice/app_mood_bra.mp3","who":"app","text":"Vad skönt att höra! Ha en riktigt fin dag.","dur":3.42},"app_mood_okej":{"file":"voice/app_mood_okej.mp3","who":"app","text":"Tack för att du berättar. Titta gärna in i Fikarummet, där finns sällskap hela förmiddagen.","dur":6.76},"app_mood_ring":{"file":"voice/app_mood_ring.mp3","who":"app","text":"Tack för att du berättar. Vill du att någon från träffpunkten ringer dig en stund i dag?","dur":5.63},"app_ring_ja":{"file":"voice/app_ring_ja.mp3","who":"app","text":"Då ringer Lena dig före lunch. Ta hand om dig så länge.","dur":3.84},"app_lampa":{"file":"voice/app_lampa.mp3","who":"app","text":"Nu lyser din lampa. Dina vänner ser att du gärna vill prata.","dur":4.84},"app_anmalan":{"file":"voice/app_anmalan.mp3","who":"app","text":"Om en halvtimme börjar Spelstunden. Vill du vara med och spela? Välj ett spel, så hittar vi sällskap åt dig.","dur":7.94},"app_anmald":{"file":"voice/app_anmald.mp3","who":"app","text":"Nu är du anmäld. Vi säger till när det börjar.","dur":2.79},"app_start":{"file":"voice/app_start.mp3","who":"app","text":"Nu börjar Spelstunden! Dina bordsgrannar väntar på dig.","dur":4.25},"app_bingo":{"file":"voice/app_bingo.mp3","who":"app","text":"Nu börjar bingon från träffpunkten. Vill du vara med och spela?","dur":4.69},"app_halsning":{"file":"voice/app_halsning.mp3","who":"app","text":"Du har fått en bildhälsning från Anna.","dur":2.15},"app_karin_ringer":{"file":"voice/app_karin_ringer.mp3","who":"app","text":"Karin ringer dig.","dur":1.2},"app_anna_ringer":{"file":"voice/app_anna_ringer.mp3","who":"app","text":"Anna ringer dig.","dur":1.11},"app_lena_ringer":{"file":"voice/app_lena_ringer.mp3","who":"app","text":"Lena från träffpunkten ringer dig.","dur":2.36},"app_fodelsedag":{"file":"voice/app_fodelsedag.mp3","who":"app","text":"I dag fyller Margareta nittio år! Vill du skicka en hälsning?","dur":4.73},"lena_fika1":{"file":"voice/lena_fika1.mp3","who":"lena","text":"Hej och välkommen in i Fikarummet! Hej Ingrid, vad roligt att du tittade in.","dur":7.05},"lena_fika2":{"file":"voice/lena_fika2.mp3","who":"lena","text":"Klockan två är det Spelstund. Då blir det Yatzy, canasta och fia.","dur":8.76},"lena_fika3":{"file":"voice/lena_fika3.mp3","who":"lena","text":"Vad fint! Ingrid, vilken cykel hade du? Du kan svara på Dagens fråga på startsidan.","dur":6.51},"lena_fika4":{"file":"voice/lena_fika4.mp3","who":"lena","text":"Glöm inte att bingon börjar klockan tre. Då kan ni vara med hemifrån!","dur":4.71},"lena_ring1":{"file":"voice/lena_ring1.mp3","who":"lena","text":"Hej Ingrid, det är Lena från träffpunkten. Du ville att någon skulle ringa. Hur har du det i dag?","dur":8.24},"lena_ring2":{"file":"voice/lena_ring2.mp3","who":"lena","text":"Vad bra att du säger det. Vill du att jag anmäler dig till Spelstunden i eftermiddag? Karin ska också vara med.","dur":7.7},"lena_ring3":{"file":"voice/lena_ring3.mp3","who":"lena","text":"Då gör vi så. Ring mig när du vill. Ha det så gott så länge!","dur":6.96},"lena_vinka":{"file":"voice/lena_vinka.mp3","who":"lena","text":"Hej Ingrid, vad roligt att du vinkar! Säg till när du vill säga något.","dur":5},"karin_fika1":{"file":"voice/karin_fika1.mp3","who":"karin","text":"Hej Ingrid! Har du fått i dig ditt kaffe?","dur":3.24},"karin_fika2":{"file":"voice/karin_fika2.mp3","who":"karin","text":"Jag är med på Yatzy! Ingrid, du är väl också med?","dur":4.59},"karin_fika3":{"file":"voice/karin_fika3.mp3","who":"karin","text":"Nu måste jag ta in tvätten, men vi hörs i eftermiddag!","dur":3.59},"karin_ring1":{"file":"voice/karin_ring1.mp3","who":"karin","text":"Hej Ingrid! Jag såg att din lampa lyste, så jag tänkte ringa. Hur har du det i dag?","dur":7.65},"karin_ring2":{"file":"voice/karin_ring2.mp3","who":"karin","text":"Vad skönt. Du, ska vi åka till träffpunkten tillsammans på onsdag? Min son kan skjutsa oss båda.","dur":7.75},"karin_ring3":{"file":"voice/karin_ring3.mp3","who":"karin","text":"Härligt! Då säger vi så. Vi hörs på Spelstunden!","dur":4.48},"karin_y_hej":{"file":"voice/karin_y_hej.mp3","who":"karin","text":"Hej allihop! Lycka till nu!","dur":2.92},"karin_y_bra":{"file":"voice/karin_y_bra.mp3","who":"karin","text":"Kåk! Den tar jag.","dur":1.69},"karin_y_yatzy":{"file":"voice/karin_y_yatzy.mp3","who":"karin","text":"Yatzy! Nej men titta, fem lika!","dur":3.65},"karin_y_stryk":{"file":"voice/karin_y_stryk.mp3","who":"karin","text":"Äsch, det blev ingenting. Jag får stryka.","dur":3.04},"karin_y_berom":{"file":"voice/karin_y_berom.mp3","who":"karin","text":"Snyggt, Ingrid! Vilken tur du har.","dur":2.75},"karin_y_prat":{"file":"voice/karin_y_prat.mp3","who":"karin","text":"Ingrid, kommer du på bingon sen? Då kan vi heja på varandra.","dur":4.69},"karin_y_slut":{"file":"voice/karin_y_slut.mp3","who":"karin","text":"Tack för spelet allihop! Det var så roligt.","dur":4.05},"bengt_fika1":{"file":"voice/bengt_fika1.mp3","who":"bengt","text":"God morgon allihop. Här i Skegrie blåser det rejält i dag.","dur":4.9},"bengt_fika2":{"file":"voice/bengt_fika2.mp3","who":"bengt","text":"Dagens fråga var om första cykeln. Min var en blå Crescent, som jag fick när jag fyllde tolv.","dur":8.55},"bengt_y_hej":{"file":"voice/bengt_y_hej.mp3","who":"bengt","text":"Hej hej! Nu kör vi. Jag känner mig i form i dag.","dur":3.57},"bengt_y_bra":{"file":"voice/bengt_y_bra.mp3","who":"bengt","text":"Stor stege! Där satt den.","dur":3.3},"bengt_y_yatzy":{"file":"voice/bengt_y_yatzy.mp3","who":"bengt","text":"Yatzy! Det har inte hänt sedan jul.","dur":3.24},"bengt_y_stryk":{"file":"voice/bengt_y_stryk.mp3","who":"bengt","text":"Nej, nu blev det pannkaka. Jag stryker.","dur":3.84},"bengt_y_berom":{"file":"voice/bengt_y_berom.mp3","who":"bengt","text":"Bra kastat, Ingrid!","dur":1.97},"bengt_y_prat":{"file":"voice/bengt_y_prat.mp3","who":"bengt","text":"Det här påminner mig om när vi spelade på rasterna på Gummifabriken.","dur":4.54},"bengt_y_slut":{"file":"voice/bengt_y_slut.mp3","who":"bengt","text":"Tack för i dag. Samma tid i morgon?","dur":2.77},"sonja_fika1":{"file":"voice/sonja_fika1.mp3","who":"sonja","text":"Ja, det är riktigt höstväder. Jag tänkte gå till affären, men jag stannar nog inne i dag.","dur":8.24},"sonja_fika2":{"file":"voice/sonja_fika2.mp3","who":"sonja","text":"Åh, jag hade en röd Monark. Den fick jag ärva av min storebror.","dur":6.12},"sonja_y_hej":{"file":"voice/sonja_y_hej.mp3","who":"sonja","text":"Hej Ingrid! Vad roligt att vi hamnade vid samma bord.","dur":4.35},"sonja_y_bra":{"file":"voice/sonja_y_bra.mp3","who":"sonja","text":"Oj, vad fint det blev! Det skriver jag.","dur":2.82},"sonja_y_yatzy":{"file":"voice/sonja_y_yatzy.mp3","who":"sonja","text":"Yatzy! Jag kan inte tro det!","dur":3.51},"sonja_y_stryk":{"file":"voice/sonja_y_stryk.mp3","who":"sonja","text":"Aj då. Det får bli en nolla den här gången.","dur":4.37},"sonja_y_berom":{"file":"voice/sonja_y_berom.mp3","who":"sonja","text":"Åh, grattis Ingrid! Det var snyggt.","dur":3.81},"sonja_y_prat":{"file":"voice/sonja_y_prat.mp3","who":"sonja","text":"Har ni märkt att det har blivit så mörkt på kvällarna nu?","dur":4.37},"sonja_y_slut":{"file":"voice/sonja_y_slut.mp3","who":"sonja","text":"Tack för spelet! Vi ses på bingon.","dur":3.33},"mats_intro":{"file":"voice/mats_intro.mp3","who":"mats","text":"Hej och välkomna till bingo här på träffpunkten! Och extra välkomna, ni som är med hemifrån. Vi ser er på tv:n här i salen!","dur":9.07},"mats_forsta":{"file":"voice/mats_forsta.mp3","who":"mats","text":"Då drar vi första numret.","dur":1.08},"mats_kolla":{"file":"voice/mats_kolla.mp3","who":"mats","text":"Ett ögonblick, jag kontrollerar brickan.","dur":1.89},"mats_bingo_ingrid":{"file":"voice/mats_bingo_ingrid.mp3","who":"mats","text":"Vi har en bingo! Och det är Ingrid, som är med hemifrån i Anderslöv. Grattis, Ingrid!","dur":5.36},"mats_bingo_gunvor":{"file":"voice/mats_bingo_gunvor.mp3","who":"mats","text":"Bingo! Grattis till Gunvor, som är med hemifrån i Smygehamn!","dur":2.91},"mats_ny_runda":{"file":"voice/mats_ny_runda.mp3","who":"mats","text":"Då kör vi en ny runda. Rensa brickorna!","dur":1.83},"mats_hej_0":{"file":"voice/mats_hej_0.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Hej allihop!","dur":1.78},"mats_hej_1":{"file":"voice/mats_hej_1.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Spara en bulle åt mig!","dur":2.23},"mats_hej_2":{"file":"voice/mats_hej_2.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Vad roligt att vara med!","dur":2.75},"mats_hej_3":{"file":"voice/mats_hej_3.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Tack för i dag!","dur":1.9},"anna_ring1":{"file":"voice/anna_ring1.mp3","who":"anna","text":"Hej mormor! Vad roligt att du svarade. Elsa sitter här bredvid mig och vill säga hej.","dur":4.78},"anna_ring2":{"file":"voice/anna_ring2.mp3","who":"anna","text":"Hon undrar om du vill spela Yatzy med henne på söndag, när vi kommer och hälsar på.","dur":3.75},"anna_ring3":{"file":"voice/anna_ring3.mp3","who":"anna","text":"Vad bra! Då tar vi med kanelbullar. Kram mormor, vi ses på söndag!","dur":3.82},"support_1":{"file":"voice/support_1.mp3","who":"support","text":"Hej Ingrid, det är Johan på supporten. Hur kan jag hjälpa dig?","dur":3.35},"support_2":{"file":"voice/support_2.mp3","who":"support","text":"Om du säger ja kan jag se din skärm en liten stund, så visar jag hur man gör.","dur":4.62},"support_3":{"file":"voice/support_3.mp3","who":"support","text":"Så där, nu är det klart. Ring när du vill, vi finns här vardagar mellan åtta och fem.","dur":5.32},"anna_fotboll":{"file":"voice/anna_fotboll.mp3","who":"anna","text":"Hej mormor! Här är Elsa på fotbollsmatchen i dag. Hon gjorde två mål! Vi kommer och hälsar på på söndag. Kram!","dur":5.87},"anna_bullar":{"file":"voice/anna_bullar.mp3","who":"anna","text":"Hej mormor! Vi bakade kanelbullar efter ditt recept. Nästan lika goda som dina!","dur":4.69},"anna_strand":{"file":"voice/anna_strand.mp3","who":"anna","text":"Hej mormor! Vi tog en promenad vid havet i kväll och tänkte på dig. Kram!","dur":3.68},"tour_intro":{"file":"voice/tour_intro.mp3","who":"guide","text":"Det här är Träffpunkt Hemma, en digital träffpunkt för äldre i Trelleborgs kommun. Vi följer Ingrid, 84 år, genom en helt vanlig måndag hemma i Anderslöv.","dur":10.6},"tour_morgon":{"file":"voice/tour_morgon.mp3","who":"guide","text":"Ingrid bor ensam. Knäna gör ont, och när det blåser går hon inte till träffpunkten. På köksbordet står plattan och visar dagen: veckodag, tid och vad som händer.","dur":11.25},"tour_halsning":{"file":"voice/tour_halsning.mp3","who":"guide","text":"Klockan nio hälsar plattan god morgon och frågar hur hon mår. Svaret är frivilligt. Mår hon inte så bra kan hon be att någon från träffpunkten ringer.","dur":10.14},"tour_idag":{"file":"voice/tour_idag.mp3","who":"guide","text":"Startsidan visar bara det viktigaste: vad som händer just nu, dagens program, vänner som gärna vill prata och dagens fråga. Stora knappar, med både bild och ord.","dur":13.15},"tour_tillganglig":{"file":"voice/tour_tillganglig.mp3","who":"guide","text":"Plattan anpassas efter den som använder den. Större text med ett tryck, mörk skärm för trötta ögon och uppläsning av det som står. Textstorleken följer med in i spelen.","dur":14.34},"tour_lampa":{"file":"voice/tour_lampa.mp3","who":"guide","text":"Förr tände man en lampa i fönstret när man gärna tog emot besök. Här fungerar det likadant. Ingrid tänder sin lampa, och snart ringer väninnan Karin.","dur":10.85},"tour_fika":{"file":"voice/tour_fika.mp3","who":"guide","text":"Fikarummet är öppet förmiddag och eftermiddag, med en värd från träffpunkten. Man går in och ut som på en riktig träffpunkt. Allt som sägs textas, och mikrofonen stängs av med en stor knapp.","dur":12.55},"tour_gympa":{"file":"voice/tour_gympa.mp3","who":"guide","text":"Från Träffpunkt Trelleborg sänds sittgympa. Ingrid gör samma rörelser som gruppen i salen, sittande vid köksbordet.","dur":7.48},"tour_anslag":{"file":"voice/tour_anslag.mp3","who":"guide","text":"Anslagstavlan är ett lugnt forum där deltagarna delar minnen från Trelleborg förr. Allt kan läsas upp, och den som vill svarar med rösten i stället för att skriva.","dur":11.58},"tour_grannar":{"file":"voice/tour_grannar.mp3","who":"guide","text":"Under Grannar ser Ingrid vilka som bor i närheten. Bara orten visas, aldrig adressen. Hon föreslår en fika med Karin, och Karin tackar ja.","dur":10.73},"tour_canasta":{"file":"voice/tour_canasta.mp3","who":"guide","text":"När hon vill spelar Ingrid på egen hand. Canasta, Yatzy, Fia med knuff, patiens och dagens korsord finns i plattan, med stor text, lugnt tempo och uppläsning.","dur":12.28},"tour_familj":{"file":"voice/tour_familj.mp3","who":"guide","text":"Barnbarnet Anna har en enkel sida i mobilen. Hon ser att mormors lampa lyser och skickar en bild från fotbollen. Den kommer direkt till plattan.","dur":10.51},"tour_anmalan":{"file":"voice/tour_anmalan.mp3","who":"guide","text":"Halv två frågar plattan om Ingrid vill vara med på Spelstunden. Hon väljer Yatzy och vill gärna sitta med Karin.","dur":6.91},"tour_bord":{"file":"voice/tour_bord.mp3","who":"guide","text":"Klockan två delar plattformen automatiskt in alla i bord om två till fyra. Vänner hamnar vid samma bord, och ingen blir sittande ensam.","dur":9.11},"tour_spel":{"file":"voice/tour_spel.mp3","who":"guide","text":"Ingrid spelar Yatzy med Karin, Bengt och Sonja. Rösterna är på från början, namnen syns och allt som sägs textas.","dur":7.27},"tour_bingo":{"file":"voice/tour_bingo.mp3","who":"guide","text":"Klockan tre sänds bingo från Träffpunkt Trelleborg. De som är hemma spelar med på plattan och syns på tv:n i salen. Och i dag får Ingrid bingo.","dur":10.32},"tour_personal":{"file":"voice/tour_personal.mp3","who":"guide","text":"Personalen på träffpunkten ser vad som händer i dag, vem som vill bli uppringd och hur många som är med, utan att övervaka någon.","dur":8.4},"tour_meddelande":{"file":"voice/tour_meddelande.mp3","who":"guide","text":"Vid storm eller halka skickar personalen ett meddelande till alla plattor på en gång, och det läses upp.","dur":7.48},"tour_forslag":{"file":"voice/tour_forslag.mp3","who":"guide","text":"Träffpunkt Hemma ersätter inte de fysiska träffpunkterna. Den gör dem större. Förslaget är en pilot med 25 deltagare i sex månader, där ensamheten mäts före och efter.","dur":12.28},"tour_slut":{"file":"voice/tour_slut.mp3","who":"guide","text":"Tack för att ni tittade. Träffpunkt Hemma: en träffpunkt som finns hemma hos var och en, varje dag.","dur":6.81},"nr_1":{"file":"voice/nr_1.mp3","who":"mats","text":"B 1","dur":0.79},"nr_2":{"file":"voice/nr_2.mp3","who":"mats","text":"B 2","dur":0.63},"nr_3":{"file":"voice/nr_3.mp3","who":"mats","text":"B 3","dur":0.79},"nr_4":{"file":"voice/nr_4.mp3","who":"mats","text":"B 4","dur":0.79},"nr_5":{"file":"voice/nr_5.mp3","who":"mats","text":"B 5","dur":0.69},"nr_6":{"file":"voice/nr_6.mp3","who":"mats","text":"B 6","dur":0.69},"nr_7":{"file":"voice/nr_7.mp3","who":"mats","text":"B 7","dur":0.79},"nr_8":{"file":"voice/nr_8.mp3","who":"mats","text":"B 8","dur":0.64},"nr_9":{"file":"voice/nr_9.mp3","who":"mats","text":"B 9","dur":0.77},"nr_10":{"file":"voice/nr_10.mp3","who":"mats","text":"B 10","dur":0.69},"nr_11":{"file":"voice/nr_11.mp3","who":"mats","text":"B 11","dur":0.58},"nr_12":{"file":"voice/nr_12.mp3","who":"mats","text":"B 12","dur":0.42},"nr_13":{"file":"voice/nr_13.mp3","who":"mats","text":"B 13","dur":0.54},"nr_14":{"file":"voice/nr_14.mp3","who":"mats","text":"B 14","dur":0.66},"nr_15":{"file":"voice/nr_15.mp3","who":"mats","text":"B 15","dur":0.59},"nr_16":{"file":"voice/nr_16.mp3","who":"mats","text":"I 16","dur":0.63},"nr_17":{"file":"voice/nr_17.mp3","who":"mats","text":"I 17","dur":0.54},"nr_18":{"file":"voice/nr_18.mp3","who":"mats","text":"I 18","dur":0.56},"nr_19":{"file":"voice/nr_19.mp3","who":"mats","text":"I 19","dur":0.68},"nr_20":{"file":"voice/nr_20.mp3","who":"mats","text":"I 20","dur":0.77},"nr_21":{"file":"voice/nr_21.mp3","who":"mats","text":"I 21","dur":0.61},"nr_22":{"file":"voice/nr_22.mp3","who":"mats","text":"I 22","dur":0.67},"nr_23":{"file":"voice/nr_23.mp3","who":"mats","text":"I 23","dur":0.88},"nr_24":{"file":"voice/nr_24.mp3","who":"mats","text":"I 24","dur":0.82},"nr_25":{"file":"voice/nr_25.mp3","who":"mats","text":"I 25","dur":0.83},"nr_26":{"file":"voice/nr_26.mp3","who":"mats","text":"I 26","dur":0.79},"nr_27":{"file":"voice/nr_27.mp3","who":"mats","text":"I 27","dur":0.7},"nr_28":{"file":"voice/nr_28.mp3","who":"mats","text":"I 28","dur":0.71},"nr_29":{"file":"voice/nr_29.mp3","who":"mats","text":"I 29","dur":0.59},"nr_30":{"file":"voice/nr_30.mp3","who":"mats","text":"I 30","dur":0.57},"nr_31":{"file":"voice/nr_31.mp3","who":"mats","text":"N 31","dur":0.72},"nr_32":{"file":"voice/nr_32.mp3","who":"mats","text":"N 32","dur":0.68},"nr_33":{"file":"voice/nr_33.mp3","who":"mats","text":"N 33","dur":0.65},"nr_34":{"file":"voice/nr_34.mp3","who":"mats","text":"N 34","dur":0.73},"nr_35":{"file":"voice/nr_35.mp3","who":"mats","text":"N 35","dur":0.81},"nr_36":{"file":"voice/nr_36.mp3","who":"mats","text":"N 36","dur":0.84},"nr_37":{"file":"voice/nr_37.mp3","who":"mats","text":"N 37","dur":0.73},"nr_38":{"file":"voice/nr_38.mp3","who":"mats","text":"N 38","dur":0.72},"nr_39":{"file":"voice/nr_39.mp3","who":"mats","text":"N 39","dur":1.05},"nr_40":{"file":"voice/nr_40.mp3","who":"mats","text":"N 40","dur":0.82},"nr_41":{"file":"voice/nr_41.mp3","who":"mats","text":"N 41","dur":0.66},"nr_42":{"file":"voice/nr_42.mp3","who":"mats","text":"N 42","dur":0.75},"nr_43":{"file":"voice/nr_43.mp3","who":"mats","text":"N 43","dur":0.69},"nr_44":{"file":"voice/nr_44.mp3","who":"mats","text":"N 44","dur":0.85},"nr_45":{"file":"voice/nr_45.mp3","who":"mats","text":"N 45","dur":0.75},"nr_46":{"file":"voice/nr_46.mp3","who":"mats","text":"G 46","dur":0.77},"nr_47":{"file":"voice/nr_47.mp3","who":"mats","text":"G 47","dur":0.74},"nr_48":{"file":"voice/nr_48.mp3","who":"mats","text":"G 48","dur":0.67},"nr_49":{"file":"voice/nr_49.mp3","who":"mats","text":"G 49","dur":1.12},"nr_50":{"file":"voice/nr_50.mp3","who":"mats","text":"G 50","dur":0.66},"nr_51":{"file":"voice/nr_51.mp3","who":"mats","text":"G 51","dur":0.66},"nr_52":{"file":"voice/nr_52.mp3","who":"mats","text":"G 52","dur":0.74},"nr_53":{"file":"voice/nr_53.mp3","who":"mats","text":"G 53","dur":0.72},"nr_54":{"file":"voice/nr_54.mp3","who":"mats","text":"G 54","dur":0.75},"nr_55":{"file":"voice/nr_55.mp3","who":"mats","text":"G 55","dur":0.68},"nr_56":{"file":"voice/nr_56.mp3","who":"mats","text":"G 56","dur":0.8},"nr_57":{"file":"voice/nr_57.mp3","who":"mats","text":"G 57","dur":0.77},"nr_58":{"file":"voice/nr_58.mp3","who":"mats","text":"G 58","dur":0.74},"nr_59":{"file":"voice/nr_59.mp3","who":"mats","text":"G 59","dur":0.75},"nr_60":{"file":"voice/nr_60.mp3","who":"mats","text":"G 60","dur":0.66},"nr_61":{"file":"voice/nr_61.mp3","who":"mats","text":"O 61","dur":0.67},"nr_62":{"file":"voice/nr_62.mp3","who":"mats","text":"O 62","dur":0.92},"nr_63":{"file":"voice/nr_63.mp3","who":"mats","text":"O 63","dur":0.78},"nr_64":{"file":"voice/nr_64.mp3","who":"mats","text":"O 64","dur":0.79},"nr_65":{"file":"voice/nr_65.mp3","who":"mats","text":"O 65","dur":0.98},"nr_66":{"file":"voice/nr_66.mp3","who":"mats","text":"O 66","dur":1.07},"nr_67":{"file":"voice/nr_67.mp3","who":"mats","text":"O 67","dur":0.91},"nr_68":{"file":"voice/nr_68.mp3","who":"mats","text":"O 68","dur":0.8},"nr_69":{"file":"voice/nr_69.mp3","who":"mats","text":"O 69","dur":1.16},"nr_70":{"file":"voice/nr_70.mp3","who":"mats","text":"O 70","dur":0.7},"nr_71":{"file":"voice/nr_71.mp3","who":"mats","text":"O 71","dur":0.64},"nr_72":{"file":"voice/nr_72.mp3","who":"mats","text":"O 72","dur":0.96},"nr_73":{"file":"voice/nr_73.mp3","who":"mats","text":"O 73","dur":0.84},"nr_74":{"file":"voice/nr_74.mp3","who":"mats","text":"O 74","dur":0.77},"nr_75":{"file":"voice/nr_75.mp3","who":"mats","text":"O 75","dur":0.72},"gympa_0":{"file":"voice/gympa_0.mp3","who":"eva","text":"Sitt en bit ut på stolen, med båda fötterna i golvet.","dur":3.36},"gympa_1":{"file":"voice/gympa_1.mp3","who":"eva","text":"Lyft höger knä långsamt… och sänk.","dur":2.55},"gympa_2":{"file":"voice/gympa_2.mp3","who":"eva","text":"Nu vänster knä… och sänk.","dur":1.46},"gympa_3":{"file":"voice/gympa_3.mp3","who":"eva","text":"Sträck ut höger ben rakt fram. Håll kvar en stund… och sänk.","dur":3.93},"gympa_4":{"file":"voice/gympa_4.mp3","who":"eva","text":"Samma sak med vänster ben.","dur":1.37},"gympa_5":{"file":"voice/gympa_5.mp3","who":"eva","text":"Rulla axlarna bakåt, fem gånger.","dur":2.32},"gympa_6":{"file":"voice/gympa_6.mp3","who":"eva","text":"Andas in djupt… och ut. Bra jobbat!","dur":2.91},"quiz_intro":{"file":"voice/quiz_intro.mp3","who":"lena","text":"Välkommen till veckans frågesport om Trelleborg förr och nu! Sex frågor. Ta den tid du behöver.","dur":8.11},"quiz_slut":{"file":"voice/quiz_slut.mp3","who":"lena","text":"Bra kämpat! Nästa vecka kommer nya frågor. Och på tisdag klockan två kör vi frågesporten live tillsammans.","dur":12.66},"quiz_q0":{"file":"voice/quiz_q0.mp3","who":"lena","text":"Hur många palmer ställs ut på gatorna i Trelleborg varje sommar?","dur":3.51},"quiz_f0":{"file":"voice/quiz_f0.mp3","who":"lena","text":"Kommunen har drygt hundra palmer. De har stått på gatorna varje sommar sedan 1984 och övervintrar i ett växthus.","dur":12.06},"quiz_q1":{"file":"voice/quiz_q1.mp3","who":"lena","text":"Vilket år började tågfärjan gå mellan Trelleborg och Sassnitz?","dur":5.25},"quiz_f1":{"file":"voice/quiz_f1.mp3","who":"lena","text":"Tågfärjan började gå 1909. Den sista färjelinjen till Sassnitz lades ned hösten 2024.","dur":9.63},"quiz_q2":{"file":"voice/quiz_q2.mp3","who":"lena","text":"Vilka grundade Trelleborgs Gummifabrik år 1905?","dur":3.97},"quiz_f2":{"file":"voice/quiz_f2.mp3","who":"lena","text":"Henry Dunker och Johan Kock grundade Gummifabriken 1905. I dag heter företaget Trelleborg AB.","dur":9.5},"quiz_q3":{"file":"voice/quiz_q3.mp3","who":"lena","text":"Hur hög är fyren på Smygehuk?","dur":2.45},"quiz_f3":{"file":"voice/quiz_f3.mp3","who":"lena","text":"Fyren är 17 meter hög. Den tändes 1883, släcktes 1975 och tändes igen 2001.","dur":13.08},"quiz_q4":{"file":"voice/quiz_q4.mp3","who":"lena","text":"När hittades vikingaborgen Trelleborgen?","dur":2.81},"quiz_f4":{"file":"voice/quiz_f4.mp3","who":"lena","text":"Borgen hittades 1988. En fjärdedel av den byggdes upp igen och öppnade 1995.","dur":7.67},"quiz_q5":{"file":"voice/quiz_q5.mp3","who":"lena","text":"Vilken kung steg i land vid Stavstensudde år 1715?","dur":4.22},"quiz_f5":{"file":"voice/quiz_f5.mp3","who":"lena","text":"Karl XII kom i land vid Stavstensudde 1715. Minnesstenarna där restes 1768 och 1912.","dur":13.13},"welcome_hej":{"file":"voice/welcome_hej.mp3","who":"app","text":"Välkommen, Ingrid! Det här är din platta. Den är redan klar att använda, och du behöver aldrig komma ihåg något lösenord.","dur":8.23},"welcome_meny":{"file":"voice/welcome_meny.mp3","who":"app","text":"Menyn till vänster Menyn finns alltid på samma ställe. Tryck på I dag, så ser du vad som händer i dag.","dur":9.31},"welcome_lampa":{"file":"voice/welcome_lampa.mp3","who":"app","text":"Din lampa Tänd lampan uppe till höger när du gärna vill prata. Dina vänner ser det och kan ringa dig.","dur":9.16},"welcome_fika":{"file":"voice/welcome_fika.mp3","who":"app","text":"Fikarummet Under Prata finns Fikarummet. Där finns en värd varje förmiddag. Du kan bara lyssna om du vill.","dur":8.5},"welcome_hjalp":{"file":"voice/welcome_hjalp.mp3","who":"app","text":"Hjälp Längst ned finns Hjälp. Där kan du ringa supporten på vardagar. Du kan inte göra fel.","dur":9.2},"survey_intro":{"file":"voice/survey_intro.mp3","who":"app","text":"Tre korta frågor om hur du har det. Svaren visar om Träffpunkt Hemma gör nytta. Personalen ser bara svaren från alla tillsammans.","dur":10.8},"survey_q0":{"file":"voice/survey_q0.mp3","who":"app","text":"Hur ofta känner du att du saknar sällskap?","dur":2.96},"survey_q1":{"file":"voice/survey_q1.mp3","who":"app","text":"Hur ofta känner du dig utanför?","dur":2.53},"survey_q2":{"file":"voice/survey_q2.mp3","who":"app","text":"Hur ofta känner du dig isolerad från andra?","dur":3.45},"survey_tack":{"file":"voice/survey_tack.mp3","who":"app","text":"Tack för dina svar! Nästa gång frågar vi om en månad.","dur":4.21},"notice_storm":{"file":"voice/notice_storm.mp3","who":"app","text":"Meddelande från träffpunkten. Träffpunkt Trelleborg och Träffpunkt Anderslöv är stängda i morgon på grund av stormen. Fikarummet och Spelstunden är öppna som vanligt här på plattan.","dur":13.25},"notice_halka":{"file":"voice/notice_halka.mp3","who":"app","text":"Meddelande från träffpunkten. Det blir halt ute i morgon bitti. Vänta gärna med promenaden till eftermiddagen. Fikarummet öppnar som vanligt klockan nio.","dur":9.74},"notice_lucia":{"file":"voice/notice_lucia.mp3","who":"app","text":"Meddelande från träffpunkten. Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder luciatåget här på plattan, så att alla kan vara med.","dur":10.75},"post_gummi_0":{"file":"voice/post_gummi_0.mp3","who":"app","text":"Bengt Hansson skriver: Jag började på Gummifabriken 1955, femton år gammal. Det luktade gummi över hela stan när vinden låg på. Var det fler här som jobbade där?","dur":13.77},"post_gummi_1":{"file":"voice/post_gummi_1.mp3","who":"app","text":"Ulla Carlsson skriver: Min pappa jobbade där i över trettio år. Vi barn fick följa med på julfesten varje år. Jag minns den stora granen i matsalen!","dur":11.41},"post_gummi_2":{"file":"voice/post_gummi_2.mp3","who":"app","text":"Sven-Erik Lind skriver: Jag var på verkstaden på sextiotalet. Tunga dagar, men bra kamrater. Vi spelade kort på rasterna.","dur":11.03},"post_gummi_3":{"file":"voice/post_gummi_3.mp3","who":"app","text":"Karin Olsson skriver: Min man tog bussen dit från Anderslöv varje morgon i tjugo år. Han sa alltid att det var de bästa arbetskamraterna han haft.","dur":11.85},"post_farjan_0":{"file":"voice/post_farjan_0.mp3","who":"app","text":"Gösta Persson skriver: Som pojke stod jag i hamnen och tittade på när tågvagnarna rullade ombord på färjan. Hela tåg på en båt! Det var något alldeles särskilt.","dur":14.11},"post_farjan_1":{"file":"voice/post_farjan_1.mp3","who":"app","text":"Kerstin Wallin skriver: Vi åkte över till Sassnitz en gång på sextiotalet. Jag minns hur annorlunda allt var på andra sidan.","dur":9.68},"post_pelargon_0":{"file":"voice/post_pelargon_0.mp3","who":"app","text":"Karin Olsson skriver: Nu börjar nätterna bli kalla. Jag tar in mina pelargoner i helgen. Klipper ni ner dem först?","dur":8.98},"post_pelargon_1":{"file":"voice/post_pelargon_1.mp3","who":"app","text":"Lennart Åkesson skriver: Jag klipper ner dem till en tredjedel och ställer dem svalt i källaren. De klarar sig fint till våren.","dur":9.45},"post_pelargon_2":{"file":"voice/post_pelargon_2.mp3","who":"app","text":"Anna-Lisa Håkansson skriver: Mina står i köksfönstret hela vintern. De blommar nästan jämt!","dur":6.93},"post_aggakaka_0":{"file":"voice/post_aggakaka_0.mp3","who":"app","text":"Barbro Persson skriver: Barnbarnen vill lära sig göra äggakaka. Serverar ni den med stekt fläsk och lingon, eller med äppelmos?","dur":9.42},"post_aggakaka_1":{"file":"voice/post_aggakaka_1.mp3","who":"app","text":"Elsa Lundgren skriver: Fläsk och lingon, självklart! Så gjorde min mor alltid.","dur":7.06},"post_aggakaka_2":{"file":"voice/post_aggakaka_2.mp3","who":"app","text":"Rolf Gustavsson skriver: Hos oss blev det äppelmos, och lite socker på.","dur":5.77},"post_melodikrysset_0":{"file":"voice/post_melodikrysset_0.mp3","who":"app","text":"Sonja Mårtensson skriver: Är det fler som löser Melodikrysset? Vi kanske kan lyssna tillsammans i Fikarummet på lördag förmiddag?","dur":9.47},"post_melodikrysset_1":{"file":"voice/post_melodikrysset_1.mp3","who":"app","text":"Rune Jeppsson skriver: Bra idé! Jag har löst det sedan sjuttiotalet.","dur":5.56},"post_melodikrysset_2":{"file":"voice/post_melodikrysset_2.mp3","who":"app","text":"Lena Berg skriver: Vilken fin idé! Jag öppnar Fikarummet klockan tio på lördag, så kan ni lyssna och lösa det tillsammans.","dur":10.65},"post_lucia_0":{"file":"voice/post_lucia_0.mp3","who":"app","text":"Margareta Ek skriver: Blir det luciatåg på träffpunkten i år? Det var så fint förra året.","dur":7.54},"post_lucia_1":{"file":"voice/post_lucia_1.mp3","who":"app","text":"Lena Berg skriver: Ja! Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder det här, så att alla som är hemma kan vara med.","dur":10.76},"post_textstorlek_0":{"file":"voice/post_textstorlek_0.mp3","who":"app","text":"Stig Larsson skriver: Jag ser dåligt på kvällarna. Går det att göra texten större?","dur":5.82},"post_textstorlek_1":{"file":"voice/post_textstorlek_1.mp3","who":"app","text":"Lena Berg skriver: Hej Stig! Tryck på Mitt konto uppe i hörnet och välj Extra stor text. Ring gärna supporten om det krånglar.","dur":12.17}},"levels":{"voice/app_morgon.mp3":0,"voice/app_mood_bra.mp3":0.1,"voice/app_mood_okej.mp3":0.1,"voice/app_mood_ring.mp3":0,"voice/app_ring_ja.mp3":0,"voice/app_lampa.mp3":0,"voice/app_anmalan.mp3":0,"voice/app_anmald.mp3":0,"voice/app_start.mp3":0,"voice/app_bingo.mp3":-0.2,"voice/app_halsning.mp3":0,"voice/app_karin_ringer.mp3":-0.1,"voice/app_anna_ringer.mp3":0,"voice/app_lena_ringer.mp3":0,"voice/app_fodelsedag.mp3":0,"voice/lena_fika1.mp3":-0.1,"voice/lena_fika2.mp3":0,"voice/lena_fika3.mp3":0.1,"voice/lena_fika4.mp3":0,"voice/lena_ring1.mp3":0.1,"voice/lena_ring2.mp3":0,"voice/lena_ring3.mp3":0,"voice/lena_vinka.mp3":-0.1,"voice/karin_fika1.mp3":0,"voice/karin_fika2.mp3":-0.1,"voice/karin_fika3.mp3":0,"voice/karin_ring1.mp3":0,"voice/karin_ring2.mp3":0,"voice/karin_ring3.mp3":0,"voice/karin_y_hej.mp3":0,"voice/karin_y_bra.mp3":-0.1,"voice/karin_y_yatzy.mp3":-0.1,"voice/karin_y_stryk.mp3":0.1,"voice/karin_y_berom.mp3":0,"voice/karin_y_prat.mp3":0,"voice/karin_y_slut.mp3":0,"voice/bengt_fika1.mp3":-0.1,"voice/bengt_fika2.mp3":0,"voice/bengt_y_hej.mp3":-0.1,"voice/bengt_y_bra.mp3":0,"voice/bengt_y_yatzy.mp3":0,"voice/bengt_y_stryk.mp3":0,"voice/bengt_y_berom.mp3":0,"voice/bengt_y_prat.mp3":0,"voice/bengt_y_slut.mp3":0,"voice/sonja_fika1.mp3":0,"voice/sonja_fika2.mp3":0,"voice/sonja_y_hej.mp3":0,"voice/sonja_y_bra.mp3":0.1,"voice/sonja_y_yatzy.mp3":0.1,"voice/sonja_y_stryk.mp3":0,"voice/sonja_y_berom.mp3":0,"voice/sonja_y_prat.mp3":0,"voice/sonja_y_slut.mp3":0,"voice/mats_intro.mp3":0.1,"voice/mats_forsta.mp3":0.1,"voice/mats_kolla.mp3":0.1,"voice/mats_bingo_ingrid.mp3":0.6,"voice/mats_bingo_gunvor.mp3":0,"voice/mats_ny_runda.mp3":0.1,"voice/mats_hej_0.mp3":0.1,"voice/mats_hej_1.mp3":0.1,"voice/mats_hej_2.mp3":0.1,"voice/mats_hej_3.mp3":0,"voice/anna_ring1.mp3":0,"voice/anna_ring2.mp3":0.1,"voice/anna_ring3.mp3":0,"voice/support_1.mp3":0,"voice/support_2.mp3":0,"voice/support_3.mp3":0,"voice/anna_fotboll.mp3":0,"voice/anna_bullar.mp3":0,"voice/anna_strand.mp3":0,"voice/tour_intro.mp3":0,"voice/tour_morgon.mp3":0,"voice/tour_halsning.mp3":0,"voice/tour_idag.mp3":0,"voice/tour_tillganglig.mp3":0,"voice/tour_lampa.mp3":0.1,"voice/tour_fika.mp3":0,"voice/tour_gympa.mp3":0,"voice/tour_anslag.mp3":0.1,"voice/tour_grannar.mp3":0,"voice/tour_canasta.mp3":0,"voice/tour_familj.mp3":0,"voice/tour_anmalan.mp3":0,"voice/tour_bord.mp3":0,"voice/tour_spel.mp3":0.1,"voice/tour_bingo.mp3":0,"voice/tour_personal.mp3":0,"voice/tour_meddelande.mp3":0,"voice/tour_forslag.mp3":0,"voice/tour_slut.mp3":0.1,"voice/nr_1.mp3":0.1,"voice/nr_2.mp3":0,"voice/nr_3.mp3":0.1,"voice/nr_4.mp3":0.1,"voice/nr_5.mp3":0.1,"voice/nr_6.mp3":0,"voice/nr_7.mp3":0.1,"voice/nr_8.mp3":-0.1,"voice/nr_9.mp3":-0.1,"voice/nr_10.mp3":0,"voice/nr_11.mp3":0.2,"voice/nr_12.mp3":1,"voice/nr_13.mp3":0.7,"voice/nr_14.mp3":1,"voice/nr_15.mp3":0.8,"voice/nr_16.mp3":0.3,"voice/nr_17.mp3":0.3,"voice/nr_18.mp3":0.6,"voice/nr_19.mp3":0.4,"voice/nr_20.mp3":0.3,"voice/nr_21.mp3":0.2,"voice/nr_22.mp3":0,"voice/nr_23.mp3":0.9,"voice/nr_24.mp3":0,"voice/nr_25.mp3":0.9,"voice/nr_26.mp3":0,"voice/nr_27.mp3":0.1,"voice/nr_28.mp3":0.1,"voice/nr_29.mp3":0.1,"voice/nr_30.mp3":0.9,"voice/nr_31.mp3":0.1,"voice/nr_32.mp3":0.5,"voice/nr_33.mp3":0.8,"voice/nr_34.mp3":0.3,"voice/nr_35.mp3":0.2,"voice/nr_36.mp3":0.1,"voice/nr_37.mp3":0.4,"voice/nr_38.mp3":0.2,"voice/nr_39.mp3":0,"voice/nr_40.mp3":0,"voice/nr_41.mp3":0.1,"voice/nr_42.mp3":0.8,"voice/nr_43.mp3":0.4,"voice/nr_44.mp3":0,"voice/nr_45.mp3":0.1,"voice/nr_46.mp3":0.4,"voice/nr_47.mp3":0.1,"voice/nr_48.mp3":0.7,"voice/nr_49.mp3":0.9,"voice/nr_50.mp3":0.1,"voice/nr_51.mp3":0.1,"voice/nr_52.mp3":0.1,"voice/nr_53.mp3":0,"voice/nr_54.mp3":0.2,"voice/nr_55.mp3":0.1,"voice/nr_56.mp3":0,"voice/nr_57.mp3":0,"voice/nr_58.mp3":0,"voice/nr_59.mp3":0,"voice/nr_60.mp3":0.2,"voice/nr_61.mp3":-0.1,"voice/nr_62.mp3":0.7,"voice/nr_63.mp3":0.1,"voice/nr_64.mp3":0.1,"voice/nr_65.mp3":0.8,"voice/nr_66.mp3":-0.1,"voice/nr_67.mp3":0.2,"voice/nr_68.mp3":0,"voice/nr_69.mp3":0.1,"voice/nr_70.mp3":0.5,"voice/nr_71.mp3":0.2,"voice/nr_72.mp3":0.8,"voice/nr_73.mp3":0,"voice/nr_74.mp3":0,"voice/nr_75.mp3":0.1,"voice/gympa_0.mp3":0,"voice/gympa_1.mp3":0,"voice/gympa_2.mp3":0.1,"voice/gympa_3.mp3":0.1,"voice/gympa_4.mp3":0.2,"voice/gympa_5.mp3":0,"voice/gympa_6.mp3":0,"voice/quiz_intro.mp3":0,"voice/quiz_slut.mp3":0,"voice/quiz_q0.mp3":0,"voice/quiz_f0.mp3":0.1,"voice/quiz_q1.mp3":0,"voice/quiz_f1.mp3":0.1,"voice/quiz_q2.mp3":0,"voice/quiz_f2.mp3":0,"voice/quiz_q3.mp3":0.1,"voice/quiz_f3.mp3":0,"voice/quiz_q4.mp3":0.1,"voice/quiz_f4.mp3":0.1,"voice/quiz_q5.mp3":0,"voice/quiz_f5.mp3":0,"voice/welcome_hej.mp3":0,"voice/welcome_meny.mp3":0.1,"voice/welcome_lampa.mp3":0,"voice/welcome_fika.mp3":0,"voice/welcome_hjalp.mp3":0.1,"voice/survey_intro.mp3":0,"voice/survey_q0.mp3":-0.3,"voice/survey_q1.mp3":0.1,"voice/survey_q2.mp3":0,"voice/survey_tack.mp3":0.1,"voice/notice_storm.mp3":0.1,"voice/notice_halka.mp3":0,"voice/notice_lucia.mp3":0,"voice/post_gummi_0.mp3":0,"voice/post_gummi_1.mp3":0.1,"voice/post_gummi_2.mp3":0,"voice/post_gummi_3.mp3":0.1,"voice/post_farjan_0.mp3":0.1,"voice/post_farjan_1.mp3":0.1,"voice/post_pelargon_0.mp3":-0.1,"voice/post_pelargon_1.mp3":0.1,"voice/post_pelargon_2.mp3":0,"voice/post_aggakaka_0.mp3":0,"voice/post_aggakaka_1.mp3":0,"voice/post_aggakaka_2.mp3":0,"voice/post_melodikrysset_0.mp3":0,"voice/post_melodikrysset_1.mp3":0,"voice/post_melodikrysset_2.mp3":0,"voice/post_lucia_0.mp3":0,"voice/post_lucia_1.mp3":0,"voice/post_textstorlek_0.mp3":0,"voice/post_textstorlek_1.mp3":0}};
+const VOICE_INFO = {"lines":{"app_morgon":{"file":"voice/app_morgon.mp3","who":"app","text":"God morgon, Ingrid! Hur mår du i dag?","dur":2.52},"app_mood_bra":{"file":"voice/app_mood_bra.mp3","who":"app","text":"Vad skönt att höra! Ha en riktigt fin dag.","dur":3.42},"app_mood_okej":{"file":"voice/app_mood_okej.mp3","who":"app","text":"Tack för att du berättar. Titta gärna in i Fikarummet, där finns sällskap hela förmiddagen.","dur":6.76},"app_mood_ring":{"file":"voice/app_mood_ring.mp3","who":"app","text":"Tack för att du berättar. Vill du att någon från träffpunkten ringer dig en stund i dag?","dur":5.63},"app_ring_ja":{"file":"voice/app_ring_ja.mp3","who":"app","text":"Då ringer Lena dig före lunch. Ta hand om dig så länge.","dur":3.84},"app_lampa":{"file":"voice/app_lampa.mp3","who":"app","text":"Nu lyser din lampa. Dina vänner ser att du gärna vill prata.","dur":4.84},"app_anmalan":{"file":"voice/app_anmalan.mp3","who":"app","text":"Om en halvtimme börjar Spelstunden. Vill du vara med och spela? Välj ett spel, så hittar vi sällskap åt dig.","dur":7.94},"app_anmald":{"file":"voice/app_anmald.mp3","who":"app","text":"Nu är du anmäld. Vi säger till när det börjar.","dur":2.79},"app_start":{"file":"voice/app_start.mp3","who":"app","text":"Nu börjar Spelstunden! Dina bordsgrannar väntar på dig.","dur":4.25},"app_bingo":{"file":"voice/app_bingo.mp3","who":"app","text":"Nu börjar bingon från träffpunkten. Vill du vara med och spela?","dur":4.69},"app_halsning":{"file":"voice/app_halsning.mp3","who":"app","text":"Du har fått en bildhälsning från Anna.","dur":2.15},"app_karin_ringer":{"file":"voice/app_karin_ringer.mp3","who":"app","text":"Karin ringer dig.","dur":1.2},"app_anna_ringer":{"file":"voice/app_anna_ringer.mp3","who":"app","text":"Anna ringer dig.","dur":1.11},"app_lena_ringer":{"file":"voice/app_lena_ringer.mp3","who":"app","text":"Lena från träffpunkten ringer dig.","dur":2.36},"app_fodelsedag":{"file":"voice/app_fodelsedag.mp3","who":"app","text":"I dag fyller Margareta nittio år! Vill du skicka en hälsning?","dur":4.73},"lena_fika1":{"file":"voice/lena_fika1.mp3","who":"lena","text":"Hej och välkommen in i Fikarummet! Hej Ingrid, vad roligt att du tittade in.","dur":7.05},"lena_fika2":{"file":"voice/lena_fika2.mp3","who":"lena","text":"Klockan två är det Spelstund. Då blir det Yatzy, canasta och fia.","dur":8.76},"lena_fika3":{"file":"voice/lena_fika3.mp3","who":"lena","text":"Vad fint! Ingrid, vilken cykel hade du? Du kan svara på Dagens fråga på startsidan.","dur":6.51},"lena_fika4":{"file":"voice/lena_fika4.mp3","who":"lena","text":"Glöm inte att bingon börjar klockan tre. Då kan ni vara med hemifrån!","dur":4.71},"lena_ring1":{"file":"voice/lena_ring1.mp3","who":"lena","text":"Hej Ingrid, det är Lena från träffpunkten. Du ville att någon skulle ringa. Hur har du det i dag?","dur":8.24},"lena_ring2":{"file":"voice/lena_ring2.mp3","who":"lena","text":"Vad bra att du säger det. Vill du att jag anmäler dig till Spelstunden i eftermiddag? Karin ska också vara med.","dur":7.7},"lena_ring3":{"file":"voice/lena_ring3.mp3","who":"lena","text":"Då gör vi så. Ring mig när du vill. Ha det så gott så länge!","dur":6.96},"lena_vinka":{"file":"voice/lena_vinka.mp3","who":"lena","text":"Hej Ingrid, vad roligt att du vinkar! Säg till när du vill säga något.","dur":5},"karin_fika1":{"file":"voice/karin_fika1.mp3","who":"karin","text":"Hej Ingrid! Har du fått i dig ditt kaffe?","dur":3.24},"karin_fika2":{"file":"voice/karin_fika2.mp3","who":"karin","text":"Jag är med på Yatzy! Ingrid, du är väl också med?","dur":4.59},"karin_fika3":{"file":"voice/karin_fika3.mp3","who":"karin","text":"Nu måste jag ta in tvätten, men vi hörs i eftermiddag!","dur":3.59},"karin_ring1":{"file":"voice/karin_ring1.mp3","who":"karin","text":"Hej Ingrid! Jag såg att din lampa lyste, så jag tänkte ringa. Hur har du det i dag?","dur":7.65},"karin_ring2":{"file":"voice/karin_ring2.mp3","who":"karin","text":"Vad skönt. Du, ska vi åka till träffpunkten tillsammans på onsdag? Min son kan skjutsa oss båda.","dur":7.75},"karin_ring3":{"file":"voice/karin_ring3.mp3","who":"karin","text":"Härligt! Då säger vi så. Vi hörs på Spelstunden!","dur":4.48},"karin_y_hej":{"file":"voice/karin_y_hej.mp3","who":"karin","text":"Hej allihop! Lycka till nu!","dur":2.92},"karin_y_bra":{"file":"voice/karin_y_bra.mp3","who":"karin","text":"Kåk! Den tar jag.","dur":1.69},"karin_y_yatzy":{"file":"voice/karin_y_yatzy.mp3","who":"karin","text":"Yatzy! Nej men titta, fem lika!","dur":3.65},"karin_y_stryk":{"file":"voice/karin_y_stryk.mp3","who":"karin","text":"Äsch, det blev ingenting. Jag får stryka.","dur":3.04},"karin_y_berom":{"file":"voice/karin_y_berom.mp3","who":"karin","text":"Snyggt, Ingrid! Vilken tur du har.","dur":2.75},"karin_y_prat":{"file":"voice/karin_y_prat.mp3","who":"karin","text":"Ingrid, kommer du på bingon sen? Då kan vi heja på varandra.","dur":4.69},"karin_y_slut":{"file":"voice/karin_y_slut.mp3","who":"karin","text":"Tack för spelet allihop! Det var så roligt.","dur":4.05},"bengt_fika1":{"file":"voice/bengt_fika1.mp3","who":"bengt","text":"God morgon allihop. Här i Skegrie blåser det rejält i dag.","dur":4.9},"bengt_fika2":{"file":"voice/bengt_fika2.mp3","who":"bengt","text":"Dagens fråga var om första cykeln. Min var en blå Crescent, som jag fick när jag fyllde tolv.","dur":8.55},"bengt_y_hej":{"file":"voice/bengt_y_hej.mp3","who":"bengt","text":"Hej hej! Nu kör vi. Jag känner mig i form i dag.","dur":3.57},"bengt_y_bra":{"file":"voice/bengt_y_bra.mp3","who":"bengt","text":"Stor stege! Där satt den.","dur":3.3},"bengt_y_yatzy":{"file":"voice/bengt_y_yatzy.mp3","who":"bengt","text":"Yatzy! Det har inte hänt sedan jul.","dur":3.24},"bengt_y_stryk":{"file":"voice/bengt_y_stryk.mp3","who":"bengt","text":"Nej, nu blev det pannkaka. Jag stryker.","dur":3.84},"bengt_y_berom":{"file":"voice/bengt_y_berom.mp3","who":"bengt","text":"Bra kastat, Ingrid!","dur":1.97},"bengt_y_prat":{"file":"voice/bengt_y_prat.mp3","who":"bengt","text":"Det här påminner mig om när vi spelade på rasterna på Gummifabriken.","dur":4.54},"bengt_y_slut":{"file":"voice/bengt_y_slut.mp3","who":"bengt","text":"Tack för i dag. Samma tid i morgon?","dur":2.77},"sonja_fika1":{"file":"voice/sonja_fika1.mp3","who":"sonja","text":"Ja, det är riktigt höstväder. Jag tänkte gå till affären, men jag stannar nog inne i dag.","dur":8.24},"sonja_fika2":{"file":"voice/sonja_fika2.mp3","who":"sonja","text":"Åh, jag hade en röd Monark. Den fick jag ärva av min storebror.","dur":6.12},"sonja_y_hej":{"file":"voice/sonja_y_hej.mp3","who":"sonja","text":"Hej Ingrid! Vad roligt att vi hamnade vid samma bord.","dur":4.35},"sonja_y_bra":{"file":"voice/sonja_y_bra.mp3","who":"sonja","text":"Oj, vad fint det blev! Det skriver jag.","dur":2.82},"sonja_y_yatzy":{"file":"voice/sonja_y_yatzy.mp3","who":"sonja","text":"Yatzy! Jag kan inte tro det!","dur":3.51},"sonja_y_stryk":{"file":"voice/sonja_y_stryk.mp3","who":"sonja","text":"Aj då. Det får bli en nolla den här gången.","dur":4.37},"sonja_y_berom":{"file":"voice/sonja_y_berom.mp3","who":"sonja","text":"Åh, grattis Ingrid! Det var snyggt.","dur":3.81},"sonja_y_prat":{"file":"voice/sonja_y_prat.mp3","who":"sonja","text":"Har ni märkt att det har blivit så mörkt på kvällarna nu?","dur":4.37},"sonja_y_slut":{"file":"voice/sonja_y_slut.mp3","who":"sonja","text":"Tack för spelet! Vi ses på bingon.","dur":3.33},"mats_intro":{"file":"voice/mats_intro.mp3","who":"mats","text":"Hej och välkomna till bingo här på träffpunkten! Och extra välkomna, ni som är med hemifrån. Vi ser er på tv:n här i salen!","dur":9.07},"mats_forsta":{"file":"voice/mats_forsta.mp3","who":"mats","text":"Då drar vi första numret.","dur":1.08},"mats_kolla":{"file":"voice/mats_kolla.mp3","who":"mats","text":"Ett ögonblick, jag kontrollerar brickan.","dur":1.89},"mats_bingo_ingrid":{"file":"voice/mats_bingo_ingrid.mp3","who":"mats","text":"Vi har en bingo! Och det är Ingrid, som är med hemifrån i Anderslöv. Grattis, Ingrid!","dur":5.36},"mats_bingo_gunvor":{"file":"voice/mats_bingo_gunvor.mp3","who":"mats","text":"Bingo! Grattis till Gunvor, som är med hemifrån i Smygehamn!","dur":2.91},"mats_ny_runda":{"file":"voice/mats_ny_runda.mp3","who":"mats","text":"Då kör vi en ny runda. Rensa brickorna!","dur":1.83},"mats_hej_0":{"file":"voice/mats_hej_0.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Hej allihop!","dur":1.78},"mats_hej_1":{"file":"voice/mats_hej_1.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Spara en bulle åt mig!","dur":2.23},"mats_hej_2":{"file":"voice/mats_hej_2.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Vad roligt att vara med!","dur":2.75},"mats_hej_3":{"file":"voice/mats_hej_3.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Tack för i dag!","dur":1.9},"anna_ring1":{"file":"voice/anna_ring1.mp3","who":"anna","text":"Hej mormor! Vad roligt att du svarade. Elsa sitter här bredvid mig och vill säga hej.","dur":4.78},"anna_ring2":{"file":"voice/anna_ring2.mp3","who":"anna","text":"Hon undrar om du vill spela Yatzy med henne på söndag, när vi kommer och hälsar på.","dur":3.75},"anna_ring3":{"file":"voice/anna_ring3.mp3","who":"anna","text":"Vad bra! Då tar vi med kanelbullar. Kram mormor, vi ses på söndag!","dur":3.82},"support_1":{"file":"voice/support_1.mp3","who":"support","text":"Hej Ingrid, det är Johan på supporten. Hur kan jag hjälpa dig?","dur":3.35},"support_2":{"file":"voice/support_2.mp3","who":"support","text":"Om du säger ja kan jag se din skärm en liten stund, så visar jag hur man gör.","dur":4.62},"support_3":{"file":"voice/support_3.mp3","who":"support","text":"Så där, nu är det klart. Ring när du vill, vi finns här vardagar mellan åtta och fem.","dur":5.32},"anna_fotboll":{"file":"voice/anna_fotboll.mp3","who":"anna","text":"Hej mormor! Här är Elsa på fotbollsmatchen i dag. Hon gjorde två mål! Vi kommer och hälsar på på söndag. Kram!","dur":5.87},"anna_bullar":{"file":"voice/anna_bullar.mp3","who":"anna","text":"Hej mormor! Vi bakade kanelbullar efter ditt recept. Nästan lika goda som dina!","dur":4.69},"anna_strand":{"file":"voice/anna_strand.mp3","who":"anna","text":"Hej mormor! Vi tog en promenad vid havet i kväll och tänkte på dig. Kram!","dur":3.68},"tour_intro":{"file":"voice/tour_intro.mp3","who":"guide","text":"4 600 personer i Trelleborgs kommun som är 65 eller äldre bor ensamma. Varannan med hemtjänst är besvärad av ensamhet. Och när knäna värker eller vädret är dåligt blir träffpunkten för långt bort.","dur":17.2},"tour_titel":{"file":"voice/tour_titel.mp3","who":"guide","text":"Träffpunkt Hemma tar träffpunkten hem till köksbordet. Följ med Ingrid, 84 år, genom en helt vanlig måndag i Anderslöv.","dur":8.03},"tour_morgon":{"file":"voice/tour_morgon.mp3","who":"guide","text":"Plattan står på Ingrids köksbord. När ingen rör den visar den dagen: tiden, vädret och vad som händer.","dur":7.83},"tour_halsning":{"file":"voice/tour_halsning.mp3","who":"guide","text":"Klockan nio säger plattan god morgon och frågar hur hon mår. Ett tryck räcker, och vill hon kan någon från träffpunkten ringa upp.","dur":8.12},"tour_idag":{"file":"voice/tour_idag.mp3","who":"guide","text":"Startsidan visar bara det viktigaste: vad som händer nu, dagens program och vänner som gärna vill prata. Stora knappar, med både bild och ord.","dur":11.01},"tour_tillganglig":{"file":"voice/tour_tillganglig.mp3","who":"guide","text":"Allt går att anpassa: större text, mörk skärm och uppläsning, med ett enda tryck. Textstorleken följer med in i spelen.","dur":10.64},"tour_lampa":{"file":"voice/tour_lampa.mp3","who":"guide","text":"Ingrid tänder sin lampa. Det betyder: jag är hemma och vill gärna prata. Väninnan Karin ser det och ringer upp.","dur":7.35},"tour_fika":{"file":"voice/tour_fika.mp3","who":"guide","text":"Förmiddagsfika i Fikarummet, med en värd från träffpunkten. Allt som sägs textas, och mikrofonen styrs med en stor knapp.","dur":8.98},"tour_gympa":{"file":"voice/tour_gympa.mp3","who":"guide","text":"Sittgympa direkt från Träffpunkt Trelleborg. Ingrid gör rörelserna vid köksbordet, samtidigt som gruppen i salen.","dur":6.63},"tour_anslag":{"file":"voice/tour_anslag.mp3","who":"guide","text":"På anslagstavlan delar deltagarna minnen från Trelleborg förr. Allt kan läsas upp, och den som vill svarar med rösten.","dur":7.74},"tour_grannar":{"file":"voice/tour_grannar.mp3","who":"guide","text":"Plattan visar vilka som bor i närheten, bara orten och aldrig adressen. Ingrid föreslår en fika, och Karin tackar ja.","dur":8.38},"tour_canasta":{"file":"voice/tour_canasta.mp3","who":"guide","text":"Canasta, Yatzy, fia, patiens och dagens kryss finns alltid i plattan, med stor text och lugnt tempo.","dur":10.71},"tour_familj":{"file":"voice/tour_familj.mp3","who":"guide","text":"Barnbarnet Anna skickar en bild från fotbollen. Den kommer direkt till mormors platta, och ett hjärta går tillbaka.","dur":7.34},"tour_anmalan":{"file":"voice/tour_anmalan.mp3","who":"guide","text":"Halv två frågar plattan om Ingrid vill vara med på Spelstunden. Hon väljer Yatzy och vill gärna sitta med Karin.","dur":7.13},"tour_bord":{"file":"voice/tour_bord.mp3","who":"guide","text":"Klockan två delas alla in i bord. Vänner hamnar tillsammans, och ingen blir sittande ensam.","dur":5.63},"tour_spel":{"file":"voice/tour_spel.mp3","who":"guide","text":"Vid bordet spelar Ingrid Yatzy med Karin, Bengt och Sonja, med röster och textning.","dur":5.4},"tour_bingo":{"file":"voice/tour_bingo.mp3","who":"guide","text":"Klockan tre sänds bingo från träffpunkten. Den som är hemma spelar med och syns på tv:n i salen. Och i dag blir det bingo för Ingrid!","dur":9.65},"tour_personal":{"file":"voice/tour_personal.mp3","who":"guide","text":"Personalen ser vad som händer, vem som vill bli uppringd och hur många som är med, utan att övervaka någon.","dur":6.21},"tour_meddelande":{"file":"voice/tour_meddelande.mp3","who":"guide","text":"Vid storm eller halka når personalen alla plattor på en gång, och meddelandet läses upp.","dur":5.65},"tour_forslag":{"file":"voice/tour_forslag.mp3","who":"guide","text":"Förslaget är en pilot med 25 deltagare i sex månader, där ensamheten mäts före och efter. Allt ingår, till ett fast pris per deltagare.","dur":11.29},"tour_slut":{"file":"voice/tour_slut.mp3","who":"guide","text":"Träffpunkt Hemma ersätter inte träffpunkterna. Den gör dem större. Prova demon själv, eller hör av er, så visar vi den.","dur":7.36},"nr_1":{"file":"voice/nr_1.mp3","who":"mats","text":"B 1","dur":0.79},"nr_2":{"file":"voice/nr_2.mp3","who":"mats","text":"B 2","dur":0.63},"nr_3":{"file":"voice/nr_3.mp3","who":"mats","text":"B 3","dur":0.79},"nr_4":{"file":"voice/nr_4.mp3","who":"mats","text":"B 4","dur":0.79},"nr_5":{"file":"voice/nr_5.mp3","who":"mats","text":"B 5","dur":0.69},"nr_6":{"file":"voice/nr_6.mp3","who":"mats","text":"B 6","dur":0.69},"nr_7":{"file":"voice/nr_7.mp3","who":"mats","text":"B 7","dur":0.79},"nr_8":{"file":"voice/nr_8.mp3","who":"mats","text":"B 8","dur":0.64},"nr_9":{"file":"voice/nr_9.mp3","who":"mats","text":"B 9","dur":0.77},"nr_10":{"file":"voice/nr_10.mp3","who":"mats","text":"B 10","dur":0.69},"nr_11":{"file":"voice/nr_11.mp3","who":"mats","text":"B 11","dur":0.58},"nr_12":{"file":"voice/nr_12.mp3","who":"mats","text":"B 12","dur":0.42},"nr_13":{"file":"voice/nr_13.mp3","who":"mats","text":"B 13","dur":0.54},"nr_14":{"file":"voice/nr_14.mp3","who":"mats","text":"B 14","dur":0.66},"nr_15":{"file":"voice/nr_15.mp3","who":"mats","text":"B 15","dur":0.59},"nr_16":{"file":"voice/nr_16.mp3","who":"mats","text":"I 16","dur":0.63},"nr_17":{"file":"voice/nr_17.mp3","who":"mats","text":"I 17","dur":0.54},"nr_18":{"file":"voice/nr_18.mp3","who":"mats","text":"I 18","dur":0.56},"nr_19":{"file":"voice/nr_19.mp3","who":"mats","text":"I 19","dur":0.68},"nr_20":{"file":"voice/nr_20.mp3","who":"mats","text":"I 20","dur":0.77},"nr_21":{"file":"voice/nr_21.mp3","who":"mats","text":"I 21","dur":0.61},"nr_22":{"file":"voice/nr_22.mp3","who":"mats","text":"I 22","dur":0.67},"nr_23":{"file":"voice/nr_23.mp3","who":"mats","text":"I 23","dur":0.88},"nr_24":{"file":"voice/nr_24.mp3","who":"mats","text":"I 24","dur":0.82},"nr_25":{"file":"voice/nr_25.mp3","who":"mats","text":"I 25","dur":0.83},"nr_26":{"file":"voice/nr_26.mp3","who":"mats","text":"I 26","dur":0.79},"nr_27":{"file":"voice/nr_27.mp3","who":"mats","text":"I 27","dur":0.7},"nr_28":{"file":"voice/nr_28.mp3","who":"mats","text":"I 28","dur":0.71},"nr_29":{"file":"voice/nr_29.mp3","who":"mats","text":"I 29","dur":0.59},"nr_30":{"file":"voice/nr_30.mp3","who":"mats","text":"I 30","dur":0.57},"nr_31":{"file":"voice/nr_31.mp3","who":"mats","text":"N 31","dur":0.72},"nr_32":{"file":"voice/nr_32.mp3","who":"mats","text":"N 32","dur":0.68},"nr_33":{"file":"voice/nr_33.mp3","who":"mats","text":"N 33","dur":0.65},"nr_34":{"file":"voice/nr_34.mp3","who":"mats","text":"N 34","dur":0.73},"nr_35":{"file":"voice/nr_35.mp3","who":"mats","text":"N 35","dur":0.81},"nr_36":{"file":"voice/nr_36.mp3","who":"mats","text":"N 36","dur":0.84},"nr_37":{"file":"voice/nr_37.mp3","who":"mats","text":"N 37","dur":0.73},"nr_38":{"file":"voice/nr_38.mp3","who":"mats","text":"N 38","dur":0.72},"nr_39":{"file":"voice/nr_39.mp3","who":"mats","text":"N 39","dur":1.05},"nr_40":{"file":"voice/nr_40.mp3","who":"mats","text":"N 40","dur":0.82},"nr_41":{"file":"voice/nr_41.mp3","who":"mats","text":"N 41","dur":0.66},"nr_42":{"file":"voice/nr_42.mp3","who":"mats","text":"N 42","dur":0.75},"nr_43":{"file":"voice/nr_43.mp3","who":"mats","text":"N 43","dur":0.69},"nr_44":{"file":"voice/nr_44.mp3","who":"mats","text":"N 44","dur":0.85},"nr_45":{"file":"voice/nr_45.mp3","who":"mats","text":"N 45","dur":0.75},"nr_46":{"file":"voice/nr_46.mp3","who":"mats","text":"G 46","dur":0.77},"nr_47":{"file":"voice/nr_47.mp3","who":"mats","text":"G 47","dur":0.74},"nr_48":{"file":"voice/nr_48.mp3","who":"mats","text":"G 48","dur":0.67},"nr_49":{"file":"voice/nr_49.mp3","who":"mats","text":"G 49","dur":1.12},"nr_50":{"file":"voice/nr_50.mp3","who":"mats","text":"G 50","dur":0.66},"nr_51":{"file":"voice/nr_51.mp3","who":"mats","text":"G 51","dur":0.66},"nr_52":{"file":"voice/nr_52.mp3","who":"mats","text":"G 52","dur":0.74},"nr_53":{"file":"voice/nr_53.mp3","who":"mats","text":"G 53","dur":0.72},"nr_54":{"file":"voice/nr_54.mp3","who":"mats","text":"G 54","dur":0.75},"nr_55":{"file":"voice/nr_55.mp3","who":"mats","text":"G 55","dur":0.68},"nr_56":{"file":"voice/nr_56.mp3","who":"mats","text":"G 56","dur":0.8},"nr_57":{"file":"voice/nr_57.mp3","who":"mats","text":"G 57","dur":0.77},"nr_58":{"file":"voice/nr_58.mp3","who":"mats","text":"G 58","dur":0.74},"nr_59":{"file":"voice/nr_59.mp3","who":"mats","text":"G 59","dur":0.75},"nr_60":{"file":"voice/nr_60.mp3","who":"mats","text":"G 60","dur":0.66},"nr_61":{"file":"voice/nr_61.mp3","who":"mats","text":"O 61","dur":0.67},"nr_62":{"file":"voice/nr_62.mp3","who":"mats","text":"O 62","dur":0.92},"nr_63":{"file":"voice/nr_63.mp3","who":"mats","text":"O 63","dur":0.78},"nr_64":{"file":"voice/nr_64.mp3","who":"mats","text":"O 64","dur":0.79},"nr_65":{"file":"voice/nr_65.mp3","who":"mats","text":"O 65","dur":0.98},"nr_66":{"file":"voice/nr_66.mp3","who":"mats","text":"O 66","dur":1.07},"nr_67":{"file":"voice/nr_67.mp3","who":"mats","text":"O 67","dur":0.91},"nr_68":{"file":"voice/nr_68.mp3","who":"mats","text":"O 68","dur":0.8},"nr_69":{"file":"voice/nr_69.mp3","who":"mats","text":"O 69","dur":1.16},"nr_70":{"file":"voice/nr_70.mp3","who":"mats","text":"O 70","dur":0.7},"nr_71":{"file":"voice/nr_71.mp3","who":"mats","text":"O 71","dur":0.64},"nr_72":{"file":"voice/nr_72.mp3","who":"mats","text":"O 72","dur":0.96},"nr_73":{"file":"voice/nr_73.mp3","who":"mats","text":"O 73","dur":0.84},"nr_74":{"file":"voice/nr_74.mp3","who":"mats","text":"O 74","dur":0.77},"nr_75":{"file":"voice/nr_75.mp3","who":"mats","text":"O 75","dur":0.72},"gympa_0":{"file":"voice/gympa_0.mp3","who":"eva","text":"Sitt en bit ut på stolen, med båda fötterna i golvet.","dur":3.36},"gympa_1":{"file":"voice/gympa_1.mp3","who":"eva","text":"Lyft höger knä långsamt… och sänk.","dur":2.55},"gympa_2":{"file":"voice/gympa_2.mp3","who":"eva","text":"Nu vänster knä… och sänk.","dur":1.46},"gympa_3":{"file":"voice/gympa_3.mp3","who":"eva","text":"Sträck ut höger ben rakt fram. Håll kvar en stund… och sänk.","dur":3.93},"gympa_4":{"file":"voice/gympa_4.mp3","who":"eva","text":"Samma sak med vänster ben.","dur":1.37},"gympa_5":{"file":"voice/gympa_5.mp3","who":"eva","text":"Rulla axlarna bakåt, fem gånger.","dur":2.32},"gympa_6":{"file":"voice/gympa_6.mp3","who":"eva","text":"Andas in djupt… och ut. Bra jobbat!","dur":2.91},"quiz_intro":{"file":"voice/quiz_intro.mp3","who":"lena","text":"Välkommen till veckans frågesport om Trelleborg förr och nu! Sex frågor. Ta den tid du behöver.","dur":8.11},"quiz_slut":{"file":"voice/quiz_slut.mp3","who":"lena","text":"Bra kämpat! Nästa vecka kommer nya frågor. Och på tisdag klockan två kör vi frågesporten live tillsammans.","dur":12.66},"quiz_q0":{"file":"voice/quiz_q0.mp3","who":"lena","text":"Hur många palmer ställs ut på gatorna i Trelleborg varje sommar?","dur":3.51},"quiz_f0":{"file":"voice/quiz_f0.mp3","who":"lena","text":"Kommunen har drygt hundra palmer. De har stått på gatorna varje sommar sedan 1984 och övervintrar i ett växthus.","dur":12.06},"quiz_q1":{"file":"voice/quiz_q1.mp3","who":"lena","text":"Vilket år började tågfärjan gå mellan Trelleborg och Sassnitz?","dur":5.25},"quiz_f1":{"file":"voice/quiz_f1.mp3","who":"lena","text":"Tågfärjan började gå 1909. Den sista färjelinjen till Sassnitz lades ned hösten 2024.","dur":9.63},"quiz_q2":{"file":"voice/quiz_q2.mp3","who":"lena","text":"Vilka grundade Trelleborgs Gummifabrik år 1905?","dur":3.97},"quiz_f2":{"file":"voice/quiz_f2.mp3","who":"lena","text":"Henry Dunker och Johan Kock grundade Gummifabriken 1905. I dag heter företaget Trelleborg AB.","dur":9.5},"quiz_q3":{"file":"voice/quiz_q3.mp3","who":"lena","text":"Hur hög är fyren på Smygehuk?","dur":2.45},"quiz_f3":{"file":"voice/quiz_f3.mp3","who":"lena","text":"Fyren är 17 meter hög. Den tändes 1883, släcktes 1975 och tändes igen 2001.","dur":13.08},"quiz_q4":{"file":"voice/quiz_q4.mp3","who":"lena","text":"När hittades vikingaborgen Trelleborgen?","dur":2.81},"quiz_f4":{"file":"voice/quiz_f4.mp3","who":"lena","text":"Borgen hittades 1988. En fjärdedel av den byggdes upp igen och öppnade 1995.","dur":7.67},"quiz_q5":{"file":"voice/quiz_q5.mp3","who":"lena","text":"Vilken kung steg i land vid Stavstensudde år 1715?","dur":4.22},"quiz_f5":{"file":"voice/quiz_f5.mp3","who":"lena","text":"Karl XII kom i land vid Stavstensudde 1715. Minnesstenarna där restes 1768 och 1912.","dur":13.13},"welcome_hej":{"file":"voice/welcome_hej.mp3","who":"app","text":"Välkommen, Ingrid! Det här är din platta. Den är redan klar att använda, och du behöver aldrig komma ihåg något lösenord.","dur":8.23},"welcome_meny":{"file":"voice/welcome_meny.mp3","who":"app","text":"Menyn till vänster Menyn finns alltid på samma ställe. Tryck på I dag, så ser du vad som händer i dag.","dur":9.31},"welcome_lampa":{"file":"voice/welcome_lampa.mp3","who":"app","text":"Din lampa Tänd lampan uppe till höger när du gärna vill prata. Dina vänner ser det och kan ringa dig.","dur":9.16},"welcome_fika":{"file":"voice/welcome_fika.mp3","who":"app","text":"Fikarummet Under Prata finns Fikarummet. Där finns en värd varje förmiddag. Du kan bara lyssna om du vill.","dur":8.5},"welcome_hjalp":{"file":"voice/welcome_hjalp.mp3","who":"app","text":"Hjälp Längst ned finns Hjälp. Där kan du ringa supporten på vardagar. Du kan inte göra fel.","dur":9.2},"survey_intro":{"file":"voice/survey_intro.mp3","who":"app","text":"Tre korta frågor om hur du har det. Svaren visar om Träffpunkt Hemma gör nytta. Personalen ser bara svaren från alla tillsammans.","dur":10.8},"survey_q0":{"file":"voice/survey_q0.mp3","who":"app","text":"Hur ofta känner du att du saknar sällskap?","dur":2.96},"survey_q1":{"file":"voice/survey_q1.mp3","who":"app","text":"Hur ofta känner du dig utanför?","dur":2.53},"survey_q2":{"file":"voice/survey_q2.mp3","who":"app","text":"Hur ofta känner du dig isolerad från andra?","dur":3.45},"survey_tack":{"file":"voice/survey_tack.mp3","who":"app","text":"Tack för dina svar! Nästa gång frågar vi om en månad.","dur":4.21},"notice_storm":{"file":"voice/notice_storm.mp3","who":"app","text":"Meddelande från träffpunkten. Träffpunkt Trelleborg och Träffpunkt Anderslöv är stängda i morgon på grund av stormen. Fikarummet och Spelstunden är öppna som vanligt här på plattan.","dur":13.25},"notice_halka":{"file":"voice/notice_halka.mp3","who":"app","text":"Meddelande från träffpunkten. Det blir halt ute i morgon bitti. Vänta gärna med promenaden till eftermiddagen. Fikarummet öppnar som vanligt klockan nio.","dur":9.74},"notice_lucia":{"file":"voice/notice_lucia.mp3","who":"app","text":"Meddelande från träffpunkten. Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder luciatåget här på plattan, så att alla kan vara med.","dur":10.75},"post_gummi_0":{"file":"voice/post_gummi_0.mp3","who":"app","text":"Bengt Hansson skriver: Jag började på Gummifabriken 1955, femton år gammal. Det luktade gummi över hela stan när vinden låg på. Var det fler här som jobbade där?","dur":13.77},"post_gummi_1":{"file":"voice/post_gummi_1.mp3","who":"app","text":"Ulla Carlsson skriver: Min pappa jobbade där i över trettio år. Vi barn fick följa med på julfesten varje år. Jag minns den stora granen i matsalen!","dur":11.41},"post_gummi_2":{"file":"voice/post_gummi_2.mp3","who":"app","text":"Sven-Erik Lind skriver: Jag var på verkstaden på sextiotalet. Tunga dagar, men bra kamrater. Vi spelade kort på rasterna.","dur":11.03},"post_gummi_3":{"file":"voice/post_gummi_3.mp3","who":"app","text":"Karin Olsson skriver: Min man tog bussen dit från Anderslöv varje morgon i tjugo år. Han sa alltid att det var de bästa arbetskamraterna han haft.","dur":11.85},"post_farjan_0":{"file":"voice/post_farjan_0.mp3","who":"app","text":"Gösta Persson skriver: Som pojke stod jag i hamnen och tittade på när tågvagnarna rullade ombord på färjan. Hela tåg på en båt! Det var något alldeles särskilt.","dur":14.11},"post_farjan_1":{"file":"voice/post_farjan_1.mp3","who":"app","text":"Kerstin Wallin skriver: Vi åkte över till Sassnitz en gång på sextiotalet. Jag minns hur annorlunda allt var på andra sidan.","dur":9.68},"post_pelargon_0":{"file":"voice/post_pelargon_0.mp3","who":"app","text":"Karin Olsson skriver: Nu börjar nätterna bli kalla. Jag tar in mina pelargoner i helgen. Klipper ni ner dem först?","dur":8.98},"post_pelargon_1":{"file":"voice/post_pelargon_1.mp3","who":"app","text":"Lennart Åkesson skriver: Jag klipper ner dem till en tredjedel och ställer dem svalt i källaren. De klarar sig fint till våren.","dur":9.45},"post_pelargon_2":{"file":"voice/post_pelargon_2.mp3","who":"app","text":"Anna-Lisa Håkansson skriver: Mina står i köksfönstret hela vintern. De blommar nästan jämt!","dur":6.93},"post_aggakaka_0":{"file":"voice/post_aggakaka_0.mp3","who":"app","text":"Barbro Persson skriver: Barnbarnen vill lära sig göra äggakaka. Serverar ni den med stekt fläsk och lingon, eller med äppelmos?","dur":9.42},"post_aggakaka_1":{"file":"voice/post_aggakaka_1.mp3","who":"app","text":"Elsa Lundgren skriver: Fläsk och lingon, självklart! Så gjorde min mor alltid.","dur":7.06},"post_aggakaka_2":{"file":"voice/post_aggakaka_2.mp3","who":"app","text":"Rolf Gustavsson skriver: Hos oss blev det äppelmos, och lite socker på.","dur":5.77},"post_melodikrysset_0":{"file":"voice/post_melodikrysset_0.mp3","who":"app","text":"Sonja Mårtensson skriver: Är det fler som löser Melodikrysset? Vi kanske kan lyssna tillsammans i Fikarummet på lördag förmiddag?","dur":9.47},"post_melodikrysset_1":{"file":"voice/post_melodikrysset_1.mp3","who":"app","text":"Rune Jeppsson skriver: Bra idé! Jag har löst det sedan sjuttiotalet.","dur":5.56},"post_melodikrysset_2":{"file":"voice/post_melodikrysset_2.mp3","who":"app","text":"Lena Berg skriver: Vilken fin idé! Jag öppnar Fikarummet klockan tio på lördag, så kan ni lyssna och lösa det tillsammans.","dur":10.65},"post_lucia_0":{"file":"voice/post_lucia_0.mp3","who":"app","text":"Margareta Ek skriver: Blir det luciatåg på träffpunkten i år? Det var så fint förra året.","dur":7.54},"post_lucia_1":{"file":"voice/post_lucia_1.mp3","who":"app","text":"Lena Berg skriver: Ja! Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder det här, så att alla som är hemma kan vara med.","dur":10.76},"post_textstorlek_0":{"file":"voice/post_textstorlek_0.mp3","who":"app","text":"Stig Larsson skriver: Jag ser dåligt på kvällarna. Går det att göra texten större?","dur":5.82},"post_textstorlek_1":{"file":"voice/post_textstorlek_1.mp3","who":"app","text":"Lena Berg skriver: Hej Stig! Tryck på Mitt konto uppe i hörnet och välj Extra stor text. Ring gärna supporten om det krånglar.","dur":12.17}},"levels":{"voice/app_morgon.mp3":0,"voice/app_mood_bra.mp3":0.1,"voice/app_mood_okej.mp3":0.1,"voice/app_mood_ring.mp3":0,"voice/app_ring_ja.mp3":0,"voice/app_lampa.mp3":0,"voice/app_anmalan.mp3":0,"voice/app_anmald.mp3":0,"voice/app_start.mp3":0,"voice/app_bingo.mp3":-0.2,"voice/app_halsning.mp3":0,"voice/app_karin_ringer.mp3":-0.1,"voice/app_anna_ringer.mp3":0,"voice/app_lena_ringer.mp3":0,"voice/app_fodelsedag.mp3":0,"voice/lena_fika1.mp3":-0.1,"voice/lena_fika2.mp3":0,"voice/lena_fika3.mp3":0.1,"voice/lena_fika4.mp3":0,"voice/lena_ring1.mp3":0.1,"voice/lena_ring2.mp3":0,"voice/lena_ring3.mp3":0,"voice/lena_vinka.mp3":-0.1,"voice/karin_fika1.mp3":0,"voice/karin_fika2.mp3":-0.1,"voice/karin_fika3.mp3":0,"voice/karin_ring1.mp3":0,"voice/karin_ring2.mp3":0,"voice/karin_ring3.mp3":0,"voice/karin_y_hej.mp3":0,"voice/karin_y_bra.mp3":-0.1,"voice/karin_y_yatzy.mp3":-0.1,"voice/karin_y_stryk.mp3":0.1,"voice/karin_y_berom.mp3":0,"voice/karin_y_prat.mp3":0,"voice/karin_y_slut.mp3":0,"voice/bengt_fika1.mp3":-0.1,"voice/bengt_fika2.mp3":0,"voice/bengt_y_hej.mp3":-0.1,"voice/bengt_y_bra.mp3":0,"voice/bengt_y_yatzy.mp3":0,"voice/bengt_y_stryk.mp3":0,"voice/bengt_y_berom.mp3":0,"voice/bengt_y_prat.mp3":0,"voice/bengt_y_slut.mp3":0,"voice/sonja_fika1.mp3":0,"voice/sonja_fika2.mp3":0,"voice/sonja_y_hej.mp3":0,"voice/sonja_y_bra.mp3":0.1,"voice/sonja_y_yatzy.mp3":0.1,"voice/sonja_y_stryk.mp3":0,"voice/sonja_y_berom.mp3":0,"voice/sonja_y_prat.mp3":0,"voice/sonja_y_slut.mp3":0,"voice/mats_intro.mp3":0.1,"voice/mats_forsta.mp3":0.1,"voice/mats_kolla.mp3":0.1,"voice/mats_bingo_ingrid.mp3":0.6,"voice/mats_bingo_gunvor.mp3":0,"voice/mats_ny_runda.mp3":0.1,"voice/mats_hej_0.mp3":0.1,"voice/mats_hej_1.mp3":0.1,"voice/mats_hej_2.mp3":0.1,"voice/mats_hej_3.mp3":0,"voice/anna_ring1.mp3":0,"voice/anna_ring2.mp3":0.1,"voice/anna_ring3.mp3":0,"voice/support_1.mp3":0,"voice/support_2.mp3":0,"voice/support_3.mp3":0,"voice/anna_fotboll.mp3":0,"voice/anna_bullar.mp3":0,"voice/anna_strand.mp3":0,"voice/tour_intro.mp3":0.1,"voice/tour_titel.mp3":0.1,"voice/tour_morgon.mp3":0,"voice/tour_halsning.mp3":0,"voice/tour_idag.mp3":0,"voice/tour_tillganglig.mp3":0.1,"voice/tour_lampa.mp3":0,"voice/tour_fika.mp3":0,"voice/tour_gympa.mp3":0,"voice/tour_anslag.mp3":0,"voice/tour_grannar.mp3":0.1,"voice/tour_canasta.mp3":0.1,"voice/tour_familj.mp3":0.1,"voice/tour_anmalan.mp3":0,"voice/tour_bord.mp3":0.1,"voice/tour_spel.mp3":-0.1,"voice/tour_bingo.mp3":0,"voice/tour_personal.mp3":0,"voice/tour_meddelande.mp3":0,"voice/tour_forslag.mp3":0,"voice/tour_slut.mp3":0,"voice/nr_1.mp3":0.1,"voice/nr_2.mp3":0,"voice/nr_3.mp3":0.1,"voice/nr_4.mp3":0.1,"voice/nr_5.mp3":0.1,"voice/nr_6.mp3":0,"voice/nr_7.mp3":0.1,"voice/nr_8.mp3":-0.1,"voice/nr_9.mp3":-0.1,"voice/nr_10.mp3":0,"voice/nr_11.mp3":0.2,"voice/nr_12.mp3":1,"voice/nr_13.mp3":0.7,"voice/nr_14.mp3":1,"voice/nr_15.mp3":0.8,"voice/nr_16.mp3":0.3,"voice/nr_17.mp3":0.3,"voice/nr_18.mp3":0.6,"voice/nr_19.mp3":0.4,"voice/nr_20.mp3":0.3,"voice/nr_21.mp3":0.2,"voice/nr_22.mp3":0,"voice/nr_23.mp3":0.9,"voice/nr_24.mp3":0,"voice/nr_25.mp3":0.9,"voice/nr_26.mp3":0,"voice/nr_27.mp3":0.1,"voice/nr_28.mp3":0.1,"voice/nr_29.mp3":0.1,"voice/nr_30.mp3":0.9,"voice/nr_31.mp3":0.1,"voice/nr_32.mp3":0.5,"voice/nr_33.mp3":0.8,"voice/nr_34.mp3":0.3,"voice/nr_35.mp3":0.2,"voice/nr_36.mp3":0.1,"voice/nr_37.mp3":0.4,"voice/nr_38.mp3":0.2,"voice/nr_39.mp3":0,"voice/nr_40.mp3":0,"voice/nr_41.mp3":0.1,"voice/nr_42.mp3":0.8,"voice/nr_43.mp3":0.4,"voice/nr_44.mp3":0,"voice/nr_45.mp3":0.1,"voice/nr_46.mp3":0.4,"voice/nr_47.mp3":0.1,"voice/nr_48.mp3":0.7,"voice/nr_49.mp3":0.9,"voice/nr_50.mp3":0.1,"voice/nr_51.mp3":0.1,"voice/nr_52.mp3":0.1,"voice/nr_53.mp3":0,"voice/nr_54.mp3":0.2,"voice/nr_55.mp3":0.1,"voice/nr_56.mp3":0,"voice/nr_57.mp3":0,"voice/nr_58.mp3":0,"voice/nr_59.mp3":0,"voice/nr_60.mp3":0.2,"voice/nr_61.mp3":-0.1,"voice/nr_62.mp3":0.7,"voice/nr_63.mp3":0.1,"voice/nr_64.mp3":0.1,"voice/nr_65.mp3":0.8,"voice/nr_66.mp3":-0.1,"voice/nr_67.mp3":0.2,"voice/nr_68.mp3":0,"voice/nr_69.mp3":0.1,"voice/nr_70.mp3":0.5,"voice/nr_71.mp3":0.2,"voice/nr_72.mp3":0.8,"voice/nr_73.mp3":0,"voice/nr_74.mp3":0,"voice/nr_75.mp3":0.1,"voice/gympa_0.mp3":0,"voice/gympa_1.mp3":0,"voice/gympa_2.mp3":0.1,"voice/gympa_3.mp3":0.1,"voice/gympa_4.mp3":0.2,"voice/gympa_5.mp3":0,"voice/gympa_6.mp3":0,"voice/quiz_intro.mp3":0,"voice/quiz_slut.mp3":0,"voice/quiz_q0.mp3":0,"voice/quiz_f0.mp3":0.1,"voice/quiz_q1.mp3":0,"voice/quiz_f1.mp3":0.1,"voice/quiz_q2.mp3":0,"voice/quiz_f2.mp3":0,"voice/quiz_q3.mp3":0.1,"voice/quiz_f3.mp3":0,"voice/quiz_q4.mp3":0.1,"voice/quiz_f4.mp3":0.1,"voice/quiz_q5.mp3":0,"voice/quiz_f5.mp3":0,"voice/welcome_hej.mp3":0,"voice/welcome_meny.mp3":0.1,"voice/welcome_lampa.mp3":0,"voice/welcome_fika.mp3":0,"voice/welcome_hjalp.mp3":0.1,"voice/survey_intro.mp3":0,"voice/survey_q0.mp3":-0.3,"voice/survey_q1.mp3":0.1,"voice/survey_q2.mp3":0,"voice/survey_tack.mp3":0.1,"voice/notice_storm.mp3":0.1,"voice/notice_halka.mp3":0,"voice/notice_lucia.mp3":0,"voice/post_gummi_0.mp3":0,"voice/post_gummi_1.mp3":0.1,"voice/post_gummi_2.mp3":0,"voice/post_gummi_3.mp3":0.1,"voice/post_farjan_0.mp3":0.1,"voice/post_farjan_1.mp3":0.1,"voice/post_pelargon_0.mp3":-0.1,"voice/post_pelargon_1.mp3":0.1,"voice/post_pelargon_2.mp3":0,"voice/post_aggakaka_0.mp3":0,"voice/post_aggakaka_1.mp3":0,"voice/post_aggakaka_2.mp3":0,"voice/post_melodikrysset_0.mp3":0,"voice/post_melodikrysset_1.mp3":0,"voice/post_melodikrysset_2.mp3":0,"voice/post_lucia_0.mp3":0,"voice/post_lucia_1.mp3":0,"voice/post_textstorlek_0.mp3":0,"voice/post_textstorlek_1.mp3":0}};
 const PUBLIC_BUILD = true;
 const INLINE_GAMES = false;
-const BUILD_ID = "c4812f193f";
+const BUILD_ID = "d17ec83f5c";
 const DEMO_LINK = {"url":"https://danielnilssonit.github.io/hemma-demo/","short":"danielnilssonit.github.io/hemma-demo","d":"M4 4h7v1h-7zM13 4h1v1h-1zM20 4h1v1h-1zM22 4h3v1h-3zM27 4h1v1h-1zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM16 5h1v1h-1zM19 5h2v1h-2zM22 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h3v1h-3zM16 6h1v1h-1zM18 6h3v1h-3zM23 6h4v1h-4zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h3v1h-3zM16 7h1v1h-1zM19 7h1v1h-1zM22 7h2v1h-2zM25 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h4v1h-4zM24 8h1v1h-1zM27 8h2v1h-2zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h3v1h-3zM17 9h1v1h-1zM22 9h2v1h-2zM25 9h2v1h-2zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h4v1h-4zM20 11h1v1h-1zM23 11h3v1h-3zM27 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h5v1h-5zM20 12h2v1h-2zM23 12h1v1h-1zM26 12h3v1h-3zM30 12h5v1h-5zM4 13h1v1h-1zM6 13h3v1h-3zM13 13h2v1h-2zM16 13h2v1h-2zM20 13h2v1h-2zM23 13h2v1h-2zM27 13h1v1h-1zM30 13h2v1h-2zM33 13h2v1h-2zM36 13h1v1h-1zM6 14h2v1h-2zM10 14h1v1h-1zM12 14h2v1h-2zM16 14h4v1h-4zM21 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM5 15h1v1h-1zM8 15h1v1h-1zM13 15h5v1h-5zM19 15h1v1h-1zM21 15h4v1h-4zM28 15h2v1h-2zM32 15h5v1h-5zM4 16h1v1h-1zM6 16h3v1h-3zM10 16h1v1h-1zM13 16h2v1h-2zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h6v1h-6zM31 16h3v1h-3zM35 16h2v1h-2zM4 17h2v1h-2zM7 17h1v1h-1zM11 17h3v1h-3zM17 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM27 17h1v1h-1zM30 17h1v1h-1zM33 17h1v1h-1zM35 17h2v1h-2zM5 18h3v1h-3zM9 18h3v1h-3zM14 18h2v1h-2zM18 18h3v1h-3zM24 18h1v1h-1zM26 18h1v1h-1zM29 18h2v1h-2zM33 18h1v1h-1zM35 18h1v1h-1zM9 19h1v1h-1zM14 19h1v1h-1zM18 19h2v1h-2zM22 19h1v1h-1zM25 19h1v1h-1zM29 19h2v1h-2zM32 19h3v1h-3zM4 20h1v1h-1zM9 20h3v1h-3zM18 20h2v1h-2zM21 20h2v1h-2zM26 20h4v1h-4zM31 20h2v1h-2zM36 20h1v1h-1zM6 21h2v1h-2zM11 21h1v1h-1zM13 21h2v1h-2zM16 21h1v1h-1zM18 21h1v1h-1zM20 21h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM30 21h2v1h-2zM33 21h2v1h-2zM36 21h1v1h-1zM4 22h5v1h-5zM10 22h4v1h-4zM16 22h4v1h-4zM22 22h1v1h-1zM24 22h2v1h-2zM28 22h5v1h-5zM34 22h2v1h-2zM4 23h1v1h-1zM6 23h2v1h-2zM12 23h2v1h-2zM15 23h1v1h-1zM18 23h3v1h-3zM23 23h1v1h-1zM25 23h3v1h-3zM29 23h1v1h-1zM31 23h5v1h-5zM5 24h1v1h-1zM7 24h2v1h-2zM10 24h1v1h-1zM13 24h3v1h-3zM18 24h2v1h-2zM22 24h1v1h-1zM25 24h1v1h-1zM27 24h3v1h-3zM31 24h3v1h-3zM36 24h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h2v1h-2zM11 25h1v1h-1zM13 25h1v1h-1zM16 25h2v1h-2zM19 25h3v1h-3zM24 25h1v1h-1zM26 25h2v1h-2zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h5v1h-5zM12 26h2v1h-2zM21 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM29 26h1v1h-1zM34 26h2v1h-2zM4 27h1v1h-1zM9 27h1v1h-1zM11 27h2v1h-2zM20 27h1v1h-1zM22 27h5v1h-5zM32 27h4v1h-4zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h2v1h-2zM13 28h1v1h-1zM15 28h1v1h-1zM18 28h1v1h-1zM20 28h2v1h-2zM23 28h2v1h-2zM26 28h1v1h-1zM28 28h5v1h-5zM35 28h2v1h-2zM12 29h2v1h-2zM16 29h2v1h-2zM20 29h5v1h-5zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h7v1h-7zM14 30h1v1h-1zM16 30h6v1h-6zM24 30h1v1h-1zM26 30h3v1h-3zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h2v1h-2zM17 31h3v1h-3zM21 31h3v1h-3zM27 31h2v1h-2zM32 31h3v1h-3zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h4v1h-4zM18 32h1v1h-1zM20 32h1v1h-1zM24 32h3v1h-3zM28 32h6v1h-6zM35 32h2v1h-2zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM16 33h2v1h-2zM19 33h1v1h-1zM22 33h1v1h-1zM27 33h3v1h-3zM32 33h3v1h-3zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h1v1h-1zM15 34h7v1h-7zM24 34h3v1h-3zM28 34h1v1h-1zM30 34h2v1h-2zM33 34h2v1h-2zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM15 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM29 35h1v1h-1zM32 35h3v1h-3zM4 36h7v1h-7zM12 36h2v1h-2zM17 36h3v1h-3zM21 36h1v1h-1zM24 36h1v1h-1zM26 36h3v1h-3zM31 36h1v1h-1zM35 36h1v1h-1z","n":41};
 const OFFLINE_SW = true;
 const PRICES = null;
@@ -2142,10 +2203,23 @@ const Voice = (() => {
   V.preload = ids => ids.forEach(id => { try { audioFor(id); } catch (e) { /* går inte */ } });
   // Spelar en replik direkt i ett "rum" (space). Ger ett löfte som blir klart när repliken är slut (eller avbruten).
   // onStart/onEnd: för att tända talaren och visa texten.
-  V.say = (space, id, { who = V.who(id), text = V.text(id), onStart, onEnd } = {}) => {
-    // Filmen visar ett kapitelkort (berättaren har ordet) eller är pausad: ingen replik börjar. Annars fortsätter till
-    // exempel sittgympans slinga att prata under nästa kapitels kort, tills nästa scen byter sida.
-    if (AutoTour.hold()) return Promise.resolve(false);
+  // (repliker som väntar på berättaren spelas efteråt en i taget, i tur och ordning; kommer en nyare i samma rum
+  // medan de väntar hoppas den äldre över, till exempel plattans hälsning när Ingrid redan har svarat)
+  let deferred = Promise.resolve();
+  const latest = {};
+  const say = (space, id, opts = {}) => {
+    // Filmen (22c-autotour.js): under ett helt kort, en övergång, en paus och när kapitlet avslutas börjar ingen ny
+    // replik (annars fortsätter till exempel sittgympans slinga att prata in i nästa kapitel). Pratar berättaren över
+    // scenen väntar repliken tills han har pratat klart, och hörs inte alls om kapitlet hinner ta slut.
+    if (AutoTour.mute()) return Promise.resolve(false);
+    const narr = AutoTour.narrating();
+    if (narr) {
+      const my = latest[space] = (latest[space] || 0) + 1;
+      const turn = deferred.then(() => narr).then(ok => (ok && latest[space] === my && !AutoTour.mute() ? say(space, id, opts) : false));
+      deferred = turn.catch(() => false);
+      return turn;
+    }
+    const { who = V.who(id), text = V.text(id), onStart, onEnd } = opts;
     const sp = spaces[space] || (spaces[space] = { token: 0, active: new Set() });
     const token = sp.token;
     return new Promise(done => {
@@ -2174,6 +2248,15 @@ const Voice = (() => {
       timer = setTimeout(finish, (dur + (a ? 1.2 : 0)) * 1000);
     });
   };
+  V.say = say;
+  // Säger repliken när rummet är tyst (väntar högst max ms på den som redan pratar där)
+  V.sayWhenFree = async (space, id, max = 6000) => {
+    const t0 = performance.now();
+    while (spaces[space] && spaces[space].active.size && performance.now() - t0 < max) await sleep(150);
+    return V.say(space, id);   // (via V.say, så att inspelningen av filmen ser repliken)
+  };
+  // Pratar någon just nu? (filmen låter repliken bli klar innan nästa kapitel börjar)
+  V.busy = () => Object.values(spaces).some(sp => sp.active.size > 0);
   // Tystar ett rum (när Ingrid lämnar det)
   V.stop = space => {
     const sp = spaces[space];
@@ -3092,7 +3175,8 @@ const Act = (() => {
   function incoming(s, from) {
     s.calls.incoming = { from, at: s.t };
     Sim.queue(s, { kind: 'call', from });
-    setTimeout(() => Voice.say('app', { lena: 'app_lena_ringer', anna: 'app_anna_ringer' }[from] || 'app_karin_ringer'), 900);
+    // (säger till när plattan inte pratar om något annat, till exempel lampan som just tändes)
+    setTimeout(() => Voice.sayWhenFree('app', { lena: 'app_lena_ringer', anna: 'app_anna_ringer' }[from] || 'app_karin_ringer'), 900);
   }
   A.incoming = from => mut(s => incoming(s, from));
   A.answerCall = () => mut(s => {
@@ -3507,7 +3591,13 @@ const Act = (() => {
     const s = App.s, L = s && s.live;
     if (!L || !L.on || liveBusy || !Sim.watching(s) || AutoTour.hold()) return;
     const now = performance.now();
-    if (L.status === 'intro') { mut(() => { L.status = 'calling'; L.nextCall = now + 900; }); await liveSay('mats_intro'); await sleep(400); await liveSay('mats_forsta'); return; }
+    // (presentationen och första repliken hör ihop: inget nummer ropas i pausen mellan dem)
+    if (L.status === 'intro') {
+      mut(() => { L.status = 'calling'; L.nextCall = now + 900; });
+      liveBusy = true;
+      try { await Voice.say('live', 'mats_intro'); await sleep(400); await Voice.say('live', 'mats_forsta'); } finally { liveBusy = false; }
+      return;
+    }
     if (L.status === 'ny') { mut(() => { L.status = 'calling'; L.nextCall = now + 800; }); await liveSay('mats_ny_runda'); return; }
     if (L.readQueue && L.readQueue.length && !L.claim) { const id = L.readQueue[0]; mut(() => { L.readQueue = L.readQueue.slice(1); }); await liveSay(id); return; }
     if (L.claim && L.status === 'calling') {
@@ -7140,7 +7230,8 @@ const TOUR = [
     text: ['Barnbarnet Anna har en enkel sida i mobilen. Hon ser om mormors lampa lyser och kan skicka en bild med ett röstmeddelande.',
       'Tryck på Skicka till mormor i mobilen. Bilden kommer direkt till plattan. Tryck sedan på Videosamtal, så ringer Anna.'] },
   { id: 'anmalan', title: 'Anmälan till Spelstunden', t: T(13, 30), view: 'platta',
-    setup: s => { s.senior.route = 'idag'; s.senior.idle = false; },
+    // (bildhälsningen från förra steget stängs, annars ligger den över anmälan)
+    setup: s => { s.senior.route = 'idag'; s.senior.idle = false; s.photos.forEach(p => { p.seen = true; }); s.queue = s.queue.filter(q => q.kind !== 'photo'); },
     text: ['En halvtimme innan Spelstunden frågar plattan om Ingrid vill vara med. Hon väljer spel och kan be att få sitta med en vän.',
       'Anmälningarna kommer in efter hand. Karin har redan valt Yatzy.'] },
   { id: 'bord', title: 'Borden delas in', t: T(14, 0), view: 'personal',
@@ -7215,18 +7306,24 @@ const Tour = {
 
 /* ---- 22c-autotour.js ---- */
 /* ================= Visningen som spelar upp sig själv ================= */
-// "Se visningen": demon som en film. Varje kapitel börjar med ett kort där berättaren (Peter, en skånsk röst som ingen i demon
-// har) säger vad som ska hända, med texten i takt med rösten. Sedan spelas kapitlet upp: steget i den guidade
-// visningen görs i ordning (Tour.go) och det som berättas händer av sig självt, med en strålkastare på det som visas.
-// Demons klocka står still under korten och när man pausar. Listen längst ned har paus, föregående och nästa kapitel
-// (Mellanslag, pilarna och klickern fungerar också).
+// "Se visningen": demon som en film, berättad av Peter (en skånsk röst som ingen i demon har).
+//   Öppningen: problemet i siffror (ensamheten i Trelleborg), sedan titeln. Två kort som täcker hela bilden.
+//   Dagen med Ingrid: varje steg i den guidade visningen (TOUR) är ett kapitel. En kort toning till mörkt, steget görs i
+//     ordning (Tour.go), och berättaren pratar över det som händer, med texten i en rad längst ned. Det som berättas
+//     händer av sig självt, med en strålkastare på det som visas. Repliker i demon väntar tills berättaren har pratat
+//     klart (Voice.say), och kapitlet slutar först när den som pratar har pratat klart, med en kort paus efteråt.
+//   Slutet: förslaget (piloten) och sist demons adress med QR-kod.
+// Demons klocka står still under korten, övergångarna, avslutningen av ett kapitel och när man pausar. Listen längst ned
+// har paus, föregående och nästa kapitel (Mellanslag, pilarna och klickern fungerar också).
 //   AUTO[id].cues: det som händer i kapitlet, i tur och ordning. Varje händelse väntar
 //     at: ms från kapitlets start, after: ms efter förra händelsen, when: tills något är sant (högst max ms)
 //   och gör sedan run() och/eller tänder strålkastaren (spot: CSS-väljare eller en funktion som ger elementet, note: text).
-//   AUTO[id].tail: hur länge kapitlet visas efter sista händelsen. until: kapitlet slutar tidigare när det är sant.
+//   AUTO[id].tail: hur länge kapitlet visas efter sista händelsen (sedan får den som pratar prata klart).
 //   AUTO[id].exit: körs när kapitlet lämnas (återställer det som kapitlet ändrade, till exempel textstorleken).
 const byText = (sel, re) => [...document.querySelectorAll(sel)].find(e => re.test(e.textContent || ''));
 const clickEl = el => { if (el) el.click(); };
+// Berättaren har pratat klart (för en stund sedan, så att repliker som väntade på honom har hunnit börja) och ingen pratar
+const settled = () => { const s = AutoTour.state(); return !!s && !!s.narr && s.narr.done && s.t - (s.narr.doneAt || 0) > 400 && !Voice.busy(); };
 
 // Yatzy vid bordet: spara tärningarna med det vanligaste talet (högst om det är lika) och skriv på bästa raden
 function autoHold() {
@@ -7260,28 +7357,12 @@ function autoBingo() {
     L.nextCall = performance.now() + 1200;
   });
 }
-// Förslaget rullar långsamt förbi
-function autoScroll(ms, px) {
-  const el = document.querySelector('.doc-stage');
-  if (!el) return;
-  const from = el.scrollTop, t0 = performance.now();
-  const step = now => {
-    if (!AutoTour.on() || !document.querySelector('.doc-stage')) return;
-    if (AutoTour.paused()) { requestAnimationFrame(step); return; }
-    const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-    el.scrollTop = from + px * e;
-    if (k < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
-
 const AUTO = {
-  // efter titelkortet: en kort blick på plattan, sedan första kapitlet (inte åtta tysta sekunder)
-  intro: { cues: [], tail: 3000 },
   morgon: { cues: [{ at: 900, spot: '.dayclock', note: 'Dagklockan: så ser plattan ut när ingen använder den' }], tail: 5200 },
   halsning: { cues: [
     { at: 1000, spot: '.face-bra', note: 'Ingrid svarar med ett enda tryck' },
-    { after: 1800, run: () => Act.mood('bra') }], tail: 4200 },
+    // (plattan hälsar först, sedan svarar Ingrid)
+    { after: 3400, when: settled, max: 12000, run: () => Act.mood('bra') }], tail: 4200 },
   idag: { cues: [
     { at: 700, spot: '.card.now', note: 'Det som händer just nu' },
     { after: 2600, spot: '.card.prog', note: 'Dagens program' },
@@ -7299,7 +7380,8 @@ const AUTO = {
     { at: 800, spot: '.tb-lamp', note: 'Ingrid tänder sin lampa' },
     { after: 1600, run: () => { if (!App.s.me.lamp) Act.toggleLamp(); } },
     { when: () => App.s.queue.some(q => q.kind === 'call'), max: 16000, spot: '.scrim .btn-ok', note: 'Karin ser lampan och ringer' },
-    { after: 2000, run: () => Act.answerCall(), spot: null },
+    // (Ingrid svarar när plattan har sagt att Karin ringer)
+    { after: 2000, when: settled, max: 8000, run: () => Act.answerCall(), spot: null },
     { after: 1500, spot: '.captions', note: 'Samtalet textas' }], tail: 11000 },
   fika: { cues: [
     { at: 2600, spot: '.captions', note: 'Allt som sägs textas' },
@@ -7326,12 +7408,14 @@ const AUTO = {
     { when: () => !!document.querySelector('.photo-m'), max: 8000, spot: '.photo-m', note: 'Bilden kommer direkt till plattan' },
     { after: 3000, spot: '.photo-m .btn-lamp', note: 'Ingrid skickar ett hjärta tillbaka' },
     { after: 1400, run: () => { const p = App.s.photos[0]; if (p) Act.photoHeart(p.id); } },
-    { after: 1200, spot: '.fam-sent', note: 'Anna ser hjärtat direkt' }], tail: 3600 },
+    { after: 1200, spot: '.fam-sent', note: 'Anna ser hjärtat direkt' }], tail: 3600,
+    exit: () => mut(s => { s.photos.forEach(p => { p.seen = true; }); s.queue = s.queue.filter(q => q.kind !== 'photo'); }) },
   anmalan: { cues: [
     { when: () => !!document.querySelector('.scrim .gp'), max: 5000 },
-    { after: 700, spot: '.scrim .gp', note: 'Ingrid väljer Yatzy' },
-    { after: 2200, spot: '.friend-pick .chip', note: '… och vill gärna sitta med Karin' },
-    { after: 2200, run: () => Act.signup('yatzy', 'karin'), spot: null }], tail: 3600 },
+    { after: 1800, spot: '.scrim .gp', note: 'Ingrid väljer Yatzy' },
+    { after: 2400, spot: '.friend-pick .chip', note: '… och vill gärna sitta med Karin' },
+    // (plattans fråga får bli klar innan hon anmäler sig)
+    { after: 2400, when: settled, max: 12000, run: () => Act.signup('yatzy', 'karin'), spot: null }], tail: 3600 },
   bord: { cues: [
     { at: 800, spot: () => byText('.st-card', /Borden kl/), note: 'Alla får ett bord på några sekunder' },
     { after: 3400, spot: '.st-tb.ingrid', note: 'Ingrid och Karin vid samma bord' }], tail: 3600 },
@@ -7346,7 +7430,8 @@ const AUTO = {
   bingo: { cues: [
     { at: 700, run: autoBingo },
     { after: 800, spot: '.bcard', note: 'Numren prickas av av sig själva, för den som vill' },
-    { when: () => { if (App.s.live.status === 'calling' && !App.s.live.claim) Act.liveSkip(); return App.s.live.hint > 0; }, max: 26000, spot: '.bingo-btn', note: 'BINGO!' },
+    // (nästa nummer ropas när den som pratar är klar, inte ovanpå)
+    { when: () => { if (App.s.live.status === 'calling' && !App.s.live.claim && !Voice.busy()) Act.liveSkip(); return App.s.live.hint > 0; }, max: 30000, spot: '.bingo-btn', note: 'BINGO!' },
     { after: 1500, run: () => Act.claim(), spot: null },
     { when: () => App.s.live.status === 'won', max: 15000, spot: () => document.querySelector('.tv-home') || document.querySelector('.bingo-win'), note: 'Ingrid syns på tv:n i salen' }], tail: 6500 },
   personal: { cues: [
@@ -7355,8 +7440,7 @@ const AUTO = {
   meddelande: { cues: [
     { at: 1000, spot: () => byText('.st-card .btn', /Skicka till plattorna/), note: 'Ett meddelande till alla plattor' },
     { after: 1800, run: () => { if (!App.s.notices.length) Act.sendNotice('storm'); }, spot: null },
-    { when: () => !!document.querySelector('.senior .scrim .modal'), max: 7000, spot: '.senior .scrim .modal', note: 'Det syns och läses upp på varje platta' }], tail: 6500 },
-  forslag: { cues: [{ at: 1200, run: () => autoScroll(15000, 2600) }], tail: 15500 }
+    { when: () => !!document.querySelector('.senior .scrim .modal'), max: 7000, spot: '.senior .scrim .modal', note: 'Det syns och läses upp på varje platta' }], tail: 6500 }
 };
 
 // Berättarens röst: alla klipp i en enda fil (voice/tour.pack.json, byggs av tools/build.mjs), eftersom artefakten får
@@ -7422,44 +7506,59 @@ const Narrator = (() => {
 })();
 
 const AutoTour = (() => {
-  // st: { i, phase: 'card' | 'scene' | 'end', paused, t, dur, cue, cueAt, waitFrom, spot, text }
-  let st = null, raf = 0, last = 0, clipMs = 0;
-  const chapters = () => [{ id: 'intro' }, ...TOUR.map((x, k) => ({ id: x.id, step: k })), { id: 'slut' }];
-  const stopAudio = () => Narrator.stop();
-  // kapitlet som spelas lämnas: återställ det som det ändrade
+  // st: { i, phase, paused, t, cue, cueAt, waitFrom, spot, narr, went, fromCard, closeStart, closeAt }
+  //   phase: 'card' (ett kort över hela bilden), 'dip' (toningen in i ett steg), 'scene' (steget spelas upp),
+  //          'closing' (steget är klart, den som pratar får prata klart) eller 'end' (slutkortet, väntar på ett tryck)
+  //   narr: berättarens replik i kapitlet { id, text, dur, nt (ms), done, promise }
+  let st = null, raf = 0, last = 0;
+  const DIP = 700, BREATH = 1400, CLOSE_MAX = 15000;
+  // Kapitlen: öppningen, titeln, stegen i den guidade visningen (förslaget blir ett kort) och slutet
+  const chapters = () => [{ id: 'intro', card: 'open' }, { id: 'titel', card: 'title' },
+    ...TOUR.map((x, k) => (x.id === 'forslag' ? { id: 'forslag', card: 'offer' } : { id: x.id, step: k })), { id: 'slut', card: 'end' }];
+  const info = () => (typeof VOICE_INFO !== 'undefined' && VOICE_INFO) || { lines: {}, levels: {} };
+  // kapitlet lämnas: återställ det som steget ändrade, och repliker som väntade på berättaren hörs inte
   function leave() {
-    if (!st || st.phase !== 'scene') return;
-    const A = AUTO[chapters()[st.i].id];
-    if (A && A.exit) { try { A.exit(); } catch (e) { console.error(e); } }
+    if (!st) return;
+    const ch = chapters()[st.i], A = AUTO[ch.id];
+    if (ch.step != null && st.went && A && A.exit) { try { A.exit(); } catch (e) { console.error(e); } }
+    if (st.narr) st.narr.resolve(false);
   }
-  function playLine(id) {
-    stopAudio();
-    const info = typeof VOICE_INFO !== 'undefined' ? VOICE_INFO : { lines: {}, levels: {} };
-    const L = info.lines[id];
-    clipMs = Voice.dur(id) * 1000;
-    if (!L || !PREFS.sound) return;
-    Narrator.play(id, info.levels[L.file] || 0);   // går det inte (ingen ljudfil, spärrat): texten räcker, tiden räknas ändå
+  // Berättarens replik: spelas med Narrator när ljudet är på. Tiden räknas ändå (texten visas i takt med rösten).
+  // delay: ms in i kapitlet innan han börjar (öppningen och titeln: bilden och musiken först)
+  function narrate(id, delay = 0) {
+    Narrator.stop();
+    const n = { id, text: Voice.text(id), dur: Voice.dur(id) * 1000, nt: 0, done: false, load: 0, delay, on: false };
+    n.promise = new Promise(r => { n.resolve = r; });
+    return n;
+  }
+  function narrStart(n) {
+    n.on = true;
+    const L = info().lines[n.id];
+    if (L && PREFS.sound) Narrator.play(n.id, info().levels[L.file] || 0);   // går det inte: texten räcker
+  }
+  function narrStep(dt) {
+    const n = st.narr;
+    if (!n || n.done) return;
+    if (!n.on) { if (st.t < n.delay) return; narrStart(n); }
+    const nv = Narrator.state();
+    if (nv.active && nv.started && !nv.ended) n.nt = Math.max(n.nt, nv.t);
+    // rösten laddas: vänta högst 3 s på den, sedan går texten utan ljud
+    else if (nv.active && !nv.started) { n.load += dt; if (n.load > 3000) Narrator.stop(); }
+    else n.nt += dt;
+    if (n.nt >= n.dur) { n.done = true; n.doneAt = st.t; n.resolve(true); }
   }
   function card(i) {
     const list = chapters();
     i = clamp(i, 0, list.length - 1);
+    const fromCard = !st || !!chapters()[st.i].card;
     leave();
     Voice.stopAll();
     const ch = list[i];
-    st = { i, phase: ch.id === 'slut' ? 'end' : 'card', paused: false, t: 0, cue: 0, spot: null, text: Voice.text('tour_' + ch.id) };
-    playLine('tour_' + ch.id);
-    st.dur = clipMs + 900;
+    st = { i, phase: ch.card ? (ch.card === 'end' ? 'end' : 'card') : 'dip', paused: false, t: 0, cue: 0, cueAt: 0, waitFrom: null,
+      spot: null, went: false, fromCard, closeStart: 0, closeAt: null };
+    st.narr = narrate('tour_' + ch.id, { open: 700, title: 900 }[ch.card] || 0);
     App.emit();
     run();
-  }
-  function scene() {
-    const ch = chapters()[st.i];
-    stopAudio();
-    Object.assign(st, { phase: 'scene', t: 0, cue: 0, cueAt: 0, waitFrom: null, spot: null, fade: true });
-    if (ch.step != null) Tour.go(ch.step);
-    App.emit();
-    const me = st;
-    setTimeout(() => { if (st === me) { st.fade = false; App.emit(); } }, 650);
   }
   function fire(c) {
     if (c.run) { try { c.run(); } catch (e) { console.error(e); } }
@@ -7469,10 +7568,15 @@ const AutoTour = (() => {
     App.emit();
   }
   function stepScene() {
-    const A = AUTO[chapters()[st.i].id] || { cues: [], tail: 8000 };
+    const A = AUTO[chapters()[st.i].id] || { cues: [], tail: 3000 };
     const c = A.cues[st.cue];
     if (!c) {
-      if (st.t - st.cueAt >= (A.tail || 6000) || (A.until && A.until())) next();
+      // klart när tiden efter sista händelsen har gått och berättaren har pratat klart (repliker som väntade på honom
+      // hinner börja: 0,3 s), sedan får den som pratar prata klart
+      const n = st.narr;
+      if (st.t - st.cueAt >= (A.tail != null ? A.tail : 3000) && n.done && st.t - n.doneAt >= 300) {
+        st.phase = 'closing'; st.closeStart = st.t; st.closeAt = null; App.emit();
+      }
       return;
     }
     const base = c.at != null ? 0 : st.cueAt;
@@ -7491,17 +7595,29 @@ const AutoTour = (() => {
     const dt = Math.min(250, now - last);
     last = now;
     if (!st.paused) {
+      st.t += dt;
+      narrStep(dt);
+      const ch = chapters()[st.i];
       if (st.phase === 'card') {
-        const nv = Narrator.state();
-        if (nv.active && nv.started && !nv.ended) st.t = Math.max(st.t, nv.t);
-        // rösten laddas: vänta högst 3 s på den, sedan fortsätter kortet utan ljud
-        else if (nv.active && !nv.started) { st.load = (st.load || 0) + dt; if (st.load > 3000) stopAudio(); }
-        else st.t += dt;
-        if (st.t >= st.dur) scene();
+        // kortet står kvar en stund efter berättaren (titeln lite längre)
+        if (st.narr.done && st.t >= st.narr.delay + st.narr.dur + (ch.card === 'title' ? 1400 : 900)) next();
         else App.emit();
+      } else if (st.phase === 'dip') {
+        // mitt i toningen, när bilden är mörk: steget görs
+        if (!st.went && st.t >= DIP * .45) { st.went = true; Tour.go(ch.step); }
+        if (st.t >= DIP) Object.assign(st, { phase: 'scene', t: 0, cue: 0, cueAt: 0, waitFrom: null });
+        App.emit();
       } else if (st.phase === 'scene') {
-        st.t += dt;
         stepScene();
+      } else if (st.phase === 'closing') {
+        // berättaren och den som pratar i demon får prata klart, sedan en kort paus
+        if (st.narr.done && !Voice.busy()) {
+          if (st.closeAt == null) st.closeAt = st.t;
+          if (st.t - st.closeAt >= BREATH) next();
+        } else {
+          st.closeAt = null;
+          if (st.t - st.closeStart > CLOSE_MAX) next();
+        }
       }
     }
     raf = requestAnimationFrame(frame);
@@ -7514,18 +7630,22 @@ const AutoTour = (() => {
     state: () => st,
     chapters,
     paused: () => !!(st && st.paused),
-    // demons klocka står still under korten, i slutet och när man har pausat
+    // demons klocka står still under korten, övergångarna, avslutningen och pausen
     hold: () => !!st && (st.paused || st.phase !== 'scene'),
+    // ingen ny replik börjar under ett kort, avslutningen av ett steg, pausen och slutet (under toningen och scenen
+    // väntar den i stället på berättaren)
+    mute: () => !!st && (st.paused || st.phase === 'card' || st.phase === 'closing' || st.phase === 'end'),
+    // pratar berättaren över scenen? Då ett löfte som blir true när han är klar (false om kapitlet lämnas först)
+    narrating: () => (st && st.narr && !st.narr.done ? st.narr.promise : null),
     start(i = 0) {
       Sound.unlock();
       Narrator.unlock();   // (inne i trycket: då får ljudet starta)
-      Voice.preload(['tour_intro', 'tour_morgon']);
       mut(s => { s.started = true; s.senior.idle = false; });
       card(i);
     },
     stop() {
       leave();
-      stopAudio();
+      Narrator.stop();
       cancelAnimationFrame(raf);
       st = null;
       Tour.stop();
@@ -7539,7 +7659,7 @@ const AutoTour = (() => {
       App.emit();
     },
     next: () => { if (st) next(); },
-    prev: () => { if (st) card(st.phase === 'scene' || st.t > 2500 ? st.i : st.i - 1); },
+    prev: () => { if (st) card(st.t > 2500 || st.phase === 'scene' || st.phase === 'closing' ? st.i : st.i - 1); },
     go: i => card(i),
     key(k) {
       if (!st) return false;
@@ -8057,7 +8177,7 @@ function GuidePanel({ onClose }) {
           <button type="button" class="g-btn g-next" onClick=${Tour.next} disabled=${i === TOUR.length - 1}>Nästa steg<${Icon} n="right" size=${18} /></button></div>
       </div>`
       : html`<div class="g-step"><p>Visningen följer Ingrid, 84 år i Anderslöv, genom en dag med Träffpunkt Hemma. Varje steg ställer klockan och visar rätt skärm.</p>
-        <button type="button" class="g-btn g-next" onClick=${() => AutoTour.start()}><${Icon} n="play" size=${18} />Spela upp visningen (8 min)</button>
+        <button type="button" class="g-btn g-next" onClick=${() => AutoTour.start()}><${Icon} n="play" size=${18} />Spela upp visningen (5 min)</button>
         <button type="button" class="g-btn" onClick=${() => Tour.go(0)}><${Icon} n="steps" size=${18} />Visa själv, steg för steg</button>
         <p class="g-small">Du kan också trycka runt fritt på plattan och hoppa i tiden med knapparna uppe till höger.</p></div>`}
     <p class="g-small g-keys">Piltangenterna eller en presentationsklicker byter steg.</p>
@@ -8083,7 +8203,7 @@ function StartCard() {
       <h1>Träffpunkt Hemma</h1>
       <p class="start-lead">En digital träffpunkt för äldre i Trelleborgs kommun. Följ Ingrid, 84 år i Anderslöv, genom en dag: fika, Spelstunden, bingo från träffpunkten och ett samtal från en vän.</p>
       <div class="start-btns">
-        <button type="button" class="start-go" onClick=${() => start('film')}><${Icon} n="play" size=${22} />Se visningen<small>Knappt 8 minuter, med berättarröst</small></button>
+        <button type="button" class="start-go" onClick=${() => start('film')}><${Icon} n="play" size=${22} />Se visningen<small>Drygt 5 minuter, med berättarröst</small></button>
         <button type="button" class="start-steg" onClick=${() => start('steg')}><${Icon} n="steps" size=${20} />Visa själv, steg för steg</button>
         <button type="button" class="start-free" onClick=${() => start('fritt')}>Utforska fritt</button>
       </div>
@@ -8131,7 +8251,7 @@ function DemoPanel({ onClose }) {
     <div class="dp-sec"><small>Guidad visning${s.tour.on ? ` · steg ${i + 1} av ${TOUR.length}` : ''}</small>
       ${s.tour.on && html`<p class="dp-title">${tourTitle(st, s)}</p><p class="dp-text">${tourText(st, s)[0]}</p>`}
       <div class="dp-row"><button type="button" onClick=${Tour.prev} disabled=${!s.tour.on || i === 0}>Föregående</button><button type="button" class="on" onClick=${() => s.tour.on ? Tour.next() : Tour.go(0)}>${s.tour.on ? 'Nästa steg' : 'Steg för steg'}</button></div>
-      <div class="dp-row"><button type="button" class="on dp-film" onClick=${() => { onClose(); AutoTour.start(); }}>Spela upp visningen (8 min)</button></div></div>
+      <div class="dp-row"><button type="button" class="on dp-film" onClick=${() => { onClose(); AutoTour.start(); }}>Spela upp visningen (5 min)</button></div></div>
     <div class="dp-sec"><small>Klockan: ${clockStr(s.t)}</small><div class="dp-row wrap">${JUMPS.map(([l, t]) => html`<button type="button" onClick=${() => Act.jump(t)}>${l}</button>`)}</div></div>
     <div class="dp-sec"><small>Visa</small><div class="dp-row wrap">${views.map(([v, l]) => html`<button type="button" class=${s.view === v ? 'on' : ''} onClick=${() => Act.view(v)}>${l}</button>`)}</div></div>
     <div class="dp-sec"><div class="dp-row"><button type="button" onClick=${() => { Act.restart(); }}>Börja om dagen</button>${s.yatzy && !s.yatzy.over ? html`<button type="button" onClick=${Act.yFast}>Spola Yatzy</button>` : ''}</div></div>
@@ -8235,22 +8355,29 @@ function UpdateBar() {
 }
 
 /* ---- 24d-autotour-ui.js ---- */
-/* ================= Visningen som film: kapitelkorten, strålkastaren och listen ================= */
+/* ================= Visningen som film: korten, raden längst ned, strålkastaren och listen ================= */
 // Allt här ligger ovanpå demon (både presentationen med ramarna och helskärmen på en platta). Logiken finns i
-// 22c-autotour.js. Strålkastaren tonar ned allt utom det som berättas och följer elementet om det flyttar sig.
+// 22c-autotour.js. Öppningen, titeln, förslaget och slutet är kort över hela bilden; under stegen pratar berättaren
+// över demon, med tiden, stegets namn och det han säger i en rad längst ned. Strålkastaren tonar ned allt utom det som
+// berättas och följer elementet om det flyttar sig.
 
 function AutoLayer() {
-  useApp();
+  const s = useApp();
   const st = AutoTour.state();
   if (!st) return null;
-  return html`${(st.phase !== 'scene' || st.fade) && html`<${AutoCard} st=${st} />`}
-    ${st.phase === 'scene' && st.spot && !st.paused && html`<${AutoSpot} spot=${st.spot} />`}
-    ${st.phase === 'scene' && !st.paused && html`<div class="ar-rotate" aria-hidden="true"><${Icon} n="phone" size=${22} />Vänd telefonen på bredden för större bild</div>`}
-    ${st.paused && st.phase === 'scene' && html`<div class="ap-paused" onClick=${AutoTour.toggle}><${Icon} n="play" size=${42} /><span>Pausat. Tryck för att fortsätta.</span></div>`}
+  const ch = AutoTour.chapters()[st.i], step = ch.step != null;
+  return html`${!step && html`<${AutoCard} st=${st} ch=${ch} />`}
+    ${step && st.phase === 'dip' && html`<div class=${cx('adip', st.fromCard && 'from-card')} key=${'dip' + st.i} aria-hidden="true"></div>`}
+    ${step && st.phase !== 'dip' && st.spot && !st.paused && html`<${AutoSpot} spot=${st.spot} />`}
+    ${step && !s.device && html`<${AutoLower} st=${st} ch=${ch} />`}
+    ${step && !st.paused && html`<div class="ar-rotate" aria-hidden="true"><${Icon} n="phone" size=${22} />Vänd telefonen på bredden för större bild</div>`}
+    ${st.paused && step && html`<div class="ap-paused" onClick=${AutoTour.toggle}><${Icon} n="play" size=${42} /><span>Pausat. Tryck för att fortsätta.</span></div>`}
     <${AutoBar} st=${st} />`;
 }
 
-// Den mening som berättaren säger just nu (efter hur långt rösten har kommit, räknat i tecken)
+// Berättarens text i meningar, och den mening han säger just nu (efter hur långt rösten har kommit, räknat i tecken)
+// (utan lookbehind i reguljära uttryck: äldre Safari kan inte läsa sådana, och då startar inte demon alls)
+const sentencesOf = text => (text ? (text.match(/[^.!?]+[.!?]*/g) || []).map(x => x.trim()).filter(Boolean) : []);
 function subtitleIndex(sentences, t, dur) {
   const total = sentences.reduce((a, s) => a + s.length, 0) || 1;
   let acc = 0;
@@ -8260,20 +8387,72 @@ function subtitleIndex(sentences, t, dur) {
   }
   return sentences.length - 1;
 }
+// när (ms) mening k börjar
+const sentenceAt = (sentences, k, dur) => dur * sentences.slice(0, k).reduce((a, s) => a + s.length, 0) / (sentences.reduce((a, s) => a + s.length, 0) || 1);
 
-function AutoCard({ st }) {
-  const list = AutoTour.chapters(), ch = list[st.i];
-  const step = ch.step != null ? TOUR[ch.step] : null;
-  // (utan lookbehind i reguljära uttryck: äldre Safari kan inte läsa sådana, och då startar inte demon alls)
-  const sentences = st.text ? (st.text.match(/[^.!?]+[.!?]*/g) || []).map(x => x.trim()).filter(Boolean) : [];
-  const k = subtitleIndex(sentences, st.t, Math.max(1, st.dur - 900));
+// Öppningen: ensamheten i Trelleborg i siffror (samma som i förslaget på en sida, med källorna)
+const OPEN_STATS = [
+  { to: 4600, fmt: n => Math.round(n).toLocaleString('sv-SE'), text: 'personer som är 65 år eller äldre bor ensamma i Trelleborgs kommun' },
+  { to: 49.5, fmt: n => n.toFixed(1).replace('.', ',') + ' %', text: 'av dem med hemtjänst i Trelleborg är besvärade av ensamhet, ibland eller ofta' }
+];
+
+function AutoCard({ st, ch }) {
+  const n = st.narr, sentences = sentencesOf(n.text), k = subtitleIndex(sentences, n.nt, n.dur);
   const top = html`<div class="ac-top"><${Logo} size=${38} dark /><span>Träffpunkt Hemma</span><em>En dag med Ingrid</em></div>`;
-  if (st.phase === 'end') return html`<div class="ac ac-end" role="dialog" aria-label="Visningen är slut">
-    ${top}
+  const sub = html`<p class=${cx('ac-sub', n.done && 'ac-sub-done')} key=${st.i + ':' + k}>${sentences[k] || ''}</p>`;
+  const prog = html`<div class="ac-prog" aria-hidden="true"><i style=${{ width: Math.min(100, n.nt / Math.max(1, n.dur) * 100) + '%' }}></i></div>`;
+  if (ch.card === 'open') {
+    return html`<div class="ac ac-open" role="status" aria-live="polite">${top}
+      <div class="ac-main" key=${st.i}>
+        <p class="ac-eyebrow">Trelleborgs kommun</p>
+        <div class="ao-stats">${OPEN_STATS.map((x, j) => {
+          const from = sentenceAt(sentences, j, n.dur), on = j === 0 || n.nt >= from;
+          const p = clamp((n.nt - (j === 0 ? 0 : from)) / 1400, 0, 1), e = 1 - Math.pow(1 - p, 3);
+          return html`<div class=${cx('ao-stat', on && 'on')} key=${j}><strong>${x.fmt(on ? x.to * e : 0)}</strong><span>${x.text}</span></div>`;
+        })}</div>
+        ${sub}
+        <p class="ao-src">Källor: Kolada 2025 och Socialstyrelsen 2025</p>
+      </div>${prog}</div>`;
+  }
+  if (ch.card === 'title') {
+    return html`<div class="ac ac-titlecard" role="status" aria-live="polite">
+      <div class="ac-main" key=${st.i}>
+        <div class="ac-mark"><${Logo} size=${132} dark /></div>
+        <h1 class="ac-title">Träffpunkt Hemma</h1>
+        <p class="ac-tag">När du inte kan komma till träffpunkten, kommer träffpunkten till dig.</p>
+        ${sub}
+      </div></div>`;
+  }
+  if (ch.card === 'offer') {
+    return html`<div class="ac ac-offer" role="status" aria-live="polite">${top}
+      <div class="ac-main" key=${st.i}>
+        <p class="ac-eyebrow">Förslaget till Trelleborgs kommun</p>
+        <h1 class="ac-title">En pilot våren 2027</h1>
+        <div class="ao-tiles">
+          <div><strong>25</strong><span>deltagare från båda träffpunkterna</span></div>
+          <div><strong>6</strong><span>månader</span></div>
+          <div><strong>Före och efter</strong><span>mäts ensamhet och välbefinnande</span></div>
+        </div>
+        <p class="ac-lead">Allt ingår, till ett fast pris per deltagare och månad: plattan, uppkopplingen, supporten och utvecklingen.</p>
+        ${sub}
+      </div>${prog}</div>`;
+  }
+  // slutet: demons adress med QR-kod, och knapparna (i den inspelade filmen syns inte knapparna)
+  return html`<div class="ac ac-end" role="dialog" aria-label="Visningen är slut">${top}
     <div class="ac-main">
-      <p class="ac-eyebrow">Träffpunkt Hemma</p>
-      <h1 class="ac-title">Tack för att ni tittade</h1>
-      <p class="ac-lead">En träffpunkt som finns hemma hos var och en, varje dag. Som ett komplement till de fysiska träffpunkterna, inte i stället för dem.</p>
+      <div class="ae-row">
+        <div class="ae-text">
+          <p class="ac-eyebrow">Träffpunkt Hemma</p>
+          <h1 class="ac-title">En träffpunkt hemma hos var och en, varje dag</h1>
+          <p class="ac-lead">Som ett komplement till de fysiska träffpunkterna, inte i stället för dem.</p>
+          <p class="ae-contact">${OFFER.from}${OFFER.contact ? ' · ' + OFFER.contact : ''}</p>
+        </div>
+        ${DEMO_LINK && html`<div class="ae-qr">
+          <svg viewBox=${`0 0 ${DEMO_LINK.n} ${DEMO_LINK.n}`} role="img" aria-label=${'QR-kod till demon: ' + DEMO_LINK.short} shape-rendering="crispEdges"><rect width=${DEMO_LINK.n} height=${DEMO_LINK.n} fill="#fff" /><path d=${DEMO_LINK.d} fill="#0D1829" /></svg>
+          <p><strong>Prova demon själv</strong>${DEMO_LINK.short}</p>
+        </div>`}
+      </div>
+      ${sub}
       <div class="ac-btns">
         <button type="button" class="ac-btn ac-primary" onClick=${() => { AutoTour.stop(); Act.view('om'); }}><${Icon} n="book" size=${22} />Läs förslaget</button>
         <button type="button" class="ac-btn" onClick=${() => AutoTour.go(0)}><${Icon} n="restart" size=${22} />Se visningen igen</button>
@@ -8281,26 +8460,29 @@ function AutoCard({ st }) {
       </div>
     </div>
   </div>`;
-  return html`<div class=${cx('ac', ch.id === 'intro' && 'ac-intro', st.phase === 'scene' && 'ac-out')} role="status" aria-live="polite">
-    ${top}
-    <div class="ac-main" key=${st.i}>
-      ${ch.id === 'intro'
-        ? html`<div class="ac-mark"><${Logo} size=${112} dark /></div><p class="ac-eyebrow">Träffpunkt Hemma</p><h1 class="ac-title">En dag med Ingrid</h1>
-          <p class="ac-rot"><${Icon} n="phone" size=${20} />Vänd gärna telefonen på bredden</p>`
-        : html`<p class="ac-eyebrow">Kapitel ${st.i} av ${list.length - 2}</p>
-          ${step.t != null && html`<p class="ac-time">kl. ${clockStr(step.t)}</p>`}
-          <h1 class="ac-title">${tourTitle(step)}</h1>`}
-      <p class="ac-sub" key=${st.i + ':' + k}>${sentences[k] || ''}</p>
-    </div>
-    <div class="ac-prog" aria-hidden="true"><i style=${{ width: Math.min(100, st.t / Math.max(1, st.dur) * 100) + '%' }}></i></div>
-  </div>`;
 }
 
-// Kapitlets namn i hörnet medan det spelas upp
-function AutoTag({ st }) {
-  const ch = AutoTour.chapters()[st.i], step = ch.step != null ? TOUR[ch.step] : null;
-  if (!step) return null;
-  return html`<div class="at-tag" key=${st.i}>${step.t != null && html`<b>${clockStr(step.t)}</b>`}<span>${tourTitle(step)}</span></div>`;
+// Raden längst ned under ett steg: tiden och stegets namn, och det berättaren säger just nu. Egen uppdatering varje
+// bildruta (bara raden ritas om, inte hela demon).
+function AutoLower({ st, ch }) {
+  const step = TOUR[ch.step], n = st.narr;
+  const sentences = useMemo(() => sentencesOf(n.text), [n]);
+  const [k, setK] = useState(-1);
+  useEffect(() => {
+    let raf = 0;
+    const loop = () => {
+      const now = AutoTour.state();
+      if (!now || now.narr !== n) return;
+      setK(n.done ? -1 : subtitleIndex(sentences, n.nt, n.dur));
+      raf = requestAnimationFrame(loop);
+    };
+    loop();
+    return () => cancelAnimationFrame(raf);
+  }, [n]);
+  return html`<div class=${cx('alow', k < 0 && 'quiet')} key=${'alow' + st.i}>
+    <p class="alow-ey">${step.t != null && html`<b>kl. ${clockStr(step.t)}</b>`}<span>${tourTitle(step)}</span></p>
+    ${k >= 0 && html`<p class="alow-sub" key=${k}>${sentences[k]}</p>`}
+  </div>`;
 }
 
 function AutoSpot({ spot }) {
@@ -8326,7 +8508,9 @@ function AutoSpot({ spot }) {
   const box = { x: r.x - pad, y: r.y - pad, w: r.w + 2 * pad, h: r.h + 2 * pad };
   // stort element (som hela spelet): ingen nedtoning, bara texten nere i mitten
   const big = box.w * box.h > vw * vh * .55;
-  const below = box.y + box.h + 80 < vh - 90, above = box.y - 80 > 8;
+  // (under filmen ligger listen och raden med berättarens text längst ned: lika mycket plats som scenen lämnar där)
+  const sb = document.querySelector('.shell-body'), band = sb ? Math.max(90, parseFloat(getComputedStyle(sb).paddingBottom) || 0) : 90;
+  const below = box.y + box.h + 80 < vh - band, above = box.y - 80 > 8;
   const float = big || (!below && !above);   // får texten inte plats vid elementet: nere i mitten, ovanför listen
   const noteX = clamp(box.x + box.w / 2, 190, vw - 190);
   return html`${!big && html`<div class="as-hole" style=${{ left: box.x + 'px', top: box.y + 'px', width: box.w + 'px', height: box.h + 'px' }}></div>`}
@@ -8336,7 +8520,7 @@ function AutoSpot({ spot }) {
 function AutoBar({ st }) {
   const list = AutoTour.chapters();
   const ch = list[st.i], step = ch.step != null ? TOUR[ch.step] : null;
-  const name = step ? tourTitle(step) : ch.id === 'intro' ? 'En dag med Ingrid' : 'Slut';
+  const name = step ? tourTitle(step) : { intro: 'Ensamheten i Trelleborg', titel: 'Träffpunkt Hemma', forslag: 'Förslaget', slut: 'Slut' }[ch.id] || '';
   return html`<div class="ab" role="toolbar" aria-label="Visningen">
     <button type="button" class="ab-b" onClick=${AutoTour.prev} aria-label="Föregående kapitel" title="Föregående kapitel"><${Icon} n="left" size=${22} /></button>
     <button type="button" class="ab-b ab-play" onClick=${AutoTour.toggle} disabled=${st.phase === 'end'} aria-label=${st.paused ? 'Fortsätt' : 'Pausa'} title=${st.paused ? 'Fortsätt (mellanslag)' : 'Pausa (mellanslag)'}><${Icon} n=${st.paused ? 'play' : 'pause'} size=${24} /></button>
