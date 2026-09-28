@@ -433,6 +433,8 @@ a.g-act { text-decoration: none; }
 .photo-m { width: min(1120px, 100%); flex-direction: row; gap: 26px; align-items: center; }
 .photo-frame { flex: 1.35; background: #FFFFFF; padding: 12px 12px 40px; border-radius: 6px; box-shadow: 0 12px 30px rgba(0, 0, 0, .22); transform: rotate(-1.5deg); }
 .photo-svg { width: 100%; aspect-ratio: 4 / 3; display: block; }
+/* Elsas teckning: papperet självt är bilden (appen har beskurit det), inte ett foto med vit kant */
+.photo-drawing .photo-frame { padding: 0; border-radius: 3px; transform: rotate(1.2deg); }
 .photo-side { flex: 1; display: flex; flex-direction: column; gap: 14px; }
 .photo-side h2 { font-family: var(--f-display); font-size: calc(28px * var(--fs)); }
 .photo-text { font-size: calc(22px * var(--fs)); line-height: 1.45; }
@@ -771,6 +773,20 @@ a.g-act { text-decoration: none; }
 .flowers small { display: block; color: var(--ink2); font-size: calc(15px * var(--fs)); }
 .fl-ic { width: 46px; height: 46px; border-radius: 50%; background: #FCE3EA; color: #B13A5A; display: grid; place-items: center; flex: none; }
 .invite-who { display: flex; gap: 14px; align-items: center; }
+/* Grannar, fliken Familjen: de som är med, QR-koden, vad familjen ser och det de har skickat */
+.famtab { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.famtab-list { display: flex; flex-direction: column; gap: 14px; }
+.famtab-list li { display: flex; gap: 14px; align-items: center; }
+.famtab-list strong { display: block; font-size: calc(21px * var(--fs)); }
+.famtab-list small { display: block; color: var(--ink2); font-size: calc(17px * var(--fs)); }
+.famtab-qr-row { display: flex; gap: 18px; align-items: center; }
+.famtab-qr-row p { font-size: calc(19px * var(--fs)); }
+.famtab-code { flex: none; width: 176px; height: 176px; padding: 8px; box-sizing: border-box; border-radius: 14px; border: 2px solid var(--line); background: #fff; }
+.famtab-nocode { display: grid; place-items: center; color: var(--ink2); }
+.famtab-pics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.famtab-pic { position: relative; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: none; box-shadow: 0 4px 12px rgba(0, 0, 0, .14); }
+.famtab-pic .photo-svg { aspect-ratio: 4 / 3; }
+.famtab-heart { position: absolute; right: 8px; bottom: 8px; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: #C23A45; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0, 0, 0, .2); }
 
 /* Hjälp och Mitt konto */
 .help-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -808,6 +824,9 @@ a.g-act { text-decoration: none; }
   .home-grid, .near, .ring-tab, .set-grid, .help-tiles, .help-guide, .info-row, .cats, .recs, .games, .av-list { grid-template-columns: 1fr; }
   .week { grid-template-columns: repeat(2, 1fr); }
   .friend-grid { grid-template-columns: repeat(2, 1fr); }
+  .famtab { grid-template-columns: 1fr; }
+  .famtab-pics { grid-template-columns: repeat(2, 1fr); }
+  .famtab-qr-row { flex-direction: column; align-items: flex-start; }
   .fika-card, .live-now, .other-game, .game { grid-template-columns: 1fr; flex-direction: column; }
   .ln-art { width: 100%; }
   .yz, .lw { grid-template-columns: 1fr; overflow-y: auto; }
@@ -1031,9 +1050,52 @@ a.g-act { text-decoration: none; }
 .fam-voice span { flex: 1; font-weight: 700; }
 .fam-voice small { color: #5B6878; }
 .fam-send { width: 100%; }
-.fam-sent { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; color: #2B7A4B; font-weight: 700; font-size: 14px; }
+.fam-sent { display: flex; gap: 6px; align-items: flex-start; color: #2B7A4B; font-weight: 700; font-size: 14px; }
 .fam-sent .heart { display: inline-flex; gap: 4px; align-items: center; color: #B13A5A; }
+/* Spela med mormor: Yatzy i kväll och dagens kryss, en knapp per rad */
+.fam-play-btns { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
 .fam-note { display: flex; gap: 8px; color: #5B6878; font-size: 13px; }
+/* Senaste: notiserna (lampan, hjärtan) med tiden */
+.fam-notes { border-top: 1px solid #E3E8EC; padding-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.fam-notes > small { font-size: 12px; font-weight: 700; color: #5B6878; text-transform: uppercase; letter-spacing: .06em; }
+.fam-notes li { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+.fam-notes li span { flex: 1; }
+.fam-notes time { color: #5B6878; font-size: 13px; font-variant-numeric: tabular-nums; }
+.fam-notes .ic { color: #B07A10; }
+/* Notisen överst, som telefonens egna */
+.fam-push { position: absolute; top: 10px; left: 10px; right: 10px; z-index: 5; display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px;
+  background: rgba(255, 255, 255, .97); border-radius: 18px; box-shadow: 0 10px 30px rgba(15, 30, 50, .28); animation: fam-push-in .45s cubic-bezier(.2, .9, .3, 1.2); }
+.fam-push-ic { flex: none; width: 34px; height: 34px; border-radius: 10px; background: #16304A; color: #FFD27A; display: grid; place-items: center; }
+.fam-push-t { flex: 1; display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.fam-push-t small { font-size: 11px; color: #5B6878; text-transform: uppercase; letter-spacing: .05em; }
+.fam-push-t strong { font-size: 15px; }
+.fam-push-t span { font-size: 14px; color: #33414F; }
+.fam-push em { font-style: normal; font-size: 12px; color: #5B6878; }
+@keyframes fam-push-in { from { transform: translateY(-120%); opacity: 0; } }
+/* Skicka en bild eller teckning */
+.fam-draw-btn { width: 100%; }
+.fam-or { text-align: center; font-size: 13px; color: #5B6878; }
+/* Kameran: Elsas teckning på köksbordet */
+.fam-cam { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #0E1116; color: #fff; }
+.fam-cam-top { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+.fam-cam-top strong { flex: 1; text-align: center; margin-right: 76px; font-size: 16px; }
+.fam-cam-x { display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; color: #fff; font-size: 15px; padding: 6px 4px; }
+.fam-cam-view { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+.fam-cam-view .cam-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.fam-cam-view .cam-corners { animation: fam-found 1s ease-out both; }
+.fam-cam-found { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); display: inline-flex; gap: 6px; align-items: center; padding: 6px 12px; border-radius: 999px;
+  background: rgba(20, 24, 30, .78); color: #FFD447; font-weight: 700; font-size: 14px; white-space: nowrap; animation: fam-found 1s ease-out both; }
+@keyframes fam-found { 0%, 45% { opacity: 0; } 100% { opacity: 1; } }
+.fam-flash { position: absolute; inset: 0; background: #fff; animation: fam-flash .5s ease-out both; }
+@keyframes fam-flash { from { opacity: 1; } to { opacity: 0; } }
+.fam-cam-tip { text-align: center; font-size: 14px; color: #D6DCE3; padding: 10px 16px 0; }
+.fam-cam-bar { display: flex; justify-content: center; padding: 14px 0 22px; }
+.fam-shutter { width: 72px; height: 72px; border-radius: 50%; border: 4px solid #fff; background: none; padding: 5px; }
+.fam-shutter span { display: block; width: 100%; height: 100%; border-radius: 50%; background: #fff; }
+/* Teckningen innan den skickas */
+.fam-draw { border-radius: 4px; overflow: hidden; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
+.fam-auto { display: flex; gap: 6px; align-items: center; color: #2B7A4B; font-weight: 700; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .fam-push, .fam-cam-view .cam-corners, .fam-cam-found, .fam-flash { animation: none; } }
 
 /* Personalen: meddelanden till alla plattor */
 .st-templates { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -1390,6 +1452,23 @@ a.g-act { text-decoration: none; }
 .gframe-note img { border-radius: 22px; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
 .gframe-note p { margin: 0; }
 
+/* Dagens kryss tillsammans (13g-kryss-tillsammans.js): knappen i rubrikraden, de som löser och vem man bjuder in */
+.kt-seats { display: flex; align-items: center; gap: 10px; flex: none; }
+.kt-seats .btn { min-height: 54px; }
+.kt-wait .av { opacity: .55; animation: kt-wait 1.4s ease-in-out infinite; }
+@keyframes kt-wait { 50% { opacity: .95; } }
+.kt-cap { min-height: 56px; }
+.kt-modal { width: min(640px, 100%); }
+.kt-modal .modal-h h2 { flex: 1; }
+.kt-row { gap: 16px; padding: 10px 16px; min-height: 76px; }
+.kt-row .av { flex: none; display: inline-grid; }
+.kt-row-t { flex: 1; min-width: 0; }
+.kt-row:not(.kt-here) { color: var(--ink2); }
+.kt-row:not(.kt-here) .av { opacity: .7; }
+.kt-go { flex: none; display: inline-flex; align-items: center; gap: 6px; font-style: normal; font-weight: 800; color: var(--primary); }
+.kt-invite .lead { max-width: 30em; }
+@media (prefers-reduced-motion: reduce) { .kt-wait .av { animation: none; } }
+
 /* ================= Visningen som film (22c-autotour.js, 24d-autotour-ui.js) ================= */
 /* Kvällsblått och lampsken, samma som plattans rubrikrad och presentationen. Kapitelkortet täcker allt med en
    mjuk oskärpa; strålkastaren tonar ned resten och följer det som berättas; listen längst ned styr filmen. */
@@ -1646,11 +1725,11 @@ a.g-act { text-decoration: none; }
 <script>
 (() => {
 'use strict';
-const VOICE_INFO = {"lines":{"app_morgon":{"file":"voice/app_morgon.mp3","who":"app","text":"God morgon, Ingrid! Hur mår du i dag?","dur":2.52},"app_mood_bra":{"file":"voice/app_mood_bra.mp3","who":"app","text":"Vad skönt att höra! Ha en riktigt fin dag.","dur":3.42},"app_mood_okej":{"file":"voice/app_mood_okej.mp3","who":"app","text":"Tack för att du berättar. Titta gärna in i Fikarummet, där finns sällskap hela förmiddagen.","dur":6.76},"app_mood_ring":{"file":"voice/app_mood_ring.mp3","who":"app","text":"Tack för att du berättar. Vill du att någon från träffpunkten ringer dig en stund i dag?","dur":5.63},"app_ring_ja":{"file":"voice/app_ring_ja.mp3","who":"app","text":"Då ringer Lena dig före lunch. Ta hand om dig så länge.","dur":3.84},"app_lampa":{"file":"voice/app_lampa.mp3","who":"app","text":"Nu lyser din lampa. Dina vänner ser att du gärna vill prata.","dur":4.84},"app_anmalan":{"file":"voice/app_anmalan.mp3","who":"app","text":"Om en halvtimme börjar Spelstunden. Vill du vara med och spela? Välj ett spel, så hittar vi sällskap åt dig.","dur":7.94},"app_anmald":{"file":"voice/app_anmald.mp3","who":"app","text":"Nu är du anmäld. Vi säger till när det börjar.","dur":2.79},"app_start":{"file":"voice/app_start.mp3","who":"app","text":"Nu börjar Spelstunden! Dina bordsgrannar väntar på dig.","dur":4.25},"app_bingo":{"file":"voice/app_bingo.mp3","who":"app","text":"Nu börjar bingon från träffpunkten. Vill du vara med och spela?","dur":4.69},"app_halsning":{"file":"voice/app_halsning.mp3","who":"app","text":"Du har fått en bildhälsning från Anna.","dur":2.15},"app_karin_ringer":{"file":"voice/app_karin_ringer.mp3","who":"app","text":"Karin ringer dig.","dur":1.2},"app_anna_ringer":{"file":"voice/app_anna_ringer.mp3","who":"app","text":"Anna ringer dig.","dur":1.11},"app_lena_ringer":{"file":"voice/app_lena_ringer.mp3","who":"app","text":"Lena från träffpunkten ringer dig.","dur":2.36},"app_fodelsedag":{"file":"voice/app_fodelsedag.mp3","who":"app","text":"I dag fyller Margareta nittio år! Vill du skicka en hälsning?","dur":4.73},"lena_fika1":{"file":"voice/lena_fika1.mp3","who":"lena","text":"Hej och välkommen in i Fikarummet! Hej Ingrid, vad roligt att du tittade in.","dur":7.05},"lena_fika2":{"file":"voice/lena_fika2.mp3","who":"lena","text":"Klockan två är det Spelstund. Då blir det Yatzy, canasta och fia.","dur":8.76},"lena_fika3":{"file":"voice/lena_fika3.mp3","who":"lena","text":"Vad fint! Ingrid, vilken cykel hade du? Du kan svara på Dagens fråga på startsidan.","dur":6.51},"lena_fika4":{"file":"voice/lena_fika4.mp3","who":"lena","text":"Glöm inte att bingon börjar klockan tre. Då kan ni vara med hemifrån!","dur":4.71},"lena_ring1":{"file":"voice/lena_ring1.mp3","who":"lena","text":"Hej Ingrid, det är Lena från träffpunkten. Du ville att någon skulle ringa. Hur har du det i dag?","dur":8.24},"lena_ring2":{"file":"voice/lena_ring2.mp3","who":"lena","text":"Vad bra att du säger det. Vill du att jag anmäler dig till Spelstunden i eftermiddag? Karin ska också vara med.","dur":7.7},"lena_ring3":{"file":"voice/lena_ring3.mp3","who":"lena","text":"Då gör vi så. Ring mig när du vill. Ha det så gott så länge!","dur":6.96},"lena_vinka":{"file":"voice/lena_vinka.mp3","who":"lena","text":"Hej Ingrid, vad roligt att du vinkar! Säg till när du vill säga något.","dur":5},"karin_fika1":{"file":"voice/karin_fika1.mp3","who":"karin","text":"Hej Ingrid! Har du fått i dig ditt kaffe?","dur":3.24},"karin_fika2":{"file":"voice/karin_fika2.mp3","who":"karin","text":"Jag är med på Yatzy! Ingrid, du är väl också med?","dur":4.59},"karin_fika3":{"file":"voice/karin_fika3.mp3","who":"karin","text":"Nu måste jag ta in tvätten, men vi hörs i eftermiddag!","dur":3.59},"karin_ring1":{"file":"voice/karin_ring1.mp3","who":"karin","text":"Hej Ingrid! Jag såg att din lampa lyste, så jag tänkte ringa. Hur har du det i dag?","dur":7.65},"karin_ring2":{"file":"voice/karin_ring2.mp3","who":"karin","text":"Vad skönt. Du, ska vi åka till träffpunkten tillsammans på onsdag? Min son kan skjutsa oss båda.","dur":7.75},"karin_ring3":{"file":"voice/karin_ring3.mp3","who":"karin","text":"Härligt! Då säger vi så. Vi hörs på Spelstunden!","dur":4.48},"karin_y_hej":{"file":"voice/karin_y_hej.mp3","who":"karin","text":"Hej allihop! Lycka till nu!","dur":2.92},"karin_y_bra":{"file":"voice/karin_y_bra.mp3","who":"karin","text":"Kåk! Den tar jag.","dur":1.69},"karin_y_yatzy":{"file":"voice/karin_y_yatzy.mp3","who":"karin","text":"Yatzy! Nej men titta, fem lika!","dur":3.65},"karin_y_stryk":{"file":"voice/karin_y_stryk.mp3","who":"karin","text":"Äsch, det blev ingenting. Jag får stryka.","dur":3.04},"karin_y_berom":{"file":"voice/karin_y_berom.mp3","who":"karin","text":"Snyggt, Ingrid! Vilken tur du har.","dur":2.75},"karin_y_prat":{"file":"voice/karin_y_prat.mp3","who":"karin","text":"Ingrid, kommer du på bingon sen? Då kan vi heja på varandra.","dur":4.69},"karin_y_slut":{"file":"voice/karin_y_slut.mp3","who":"karin","text":"Tack för spelet allihop! Det var så roligt.","dur":4.05},"bengt_fika1":{"file":"voice/bengt_fika1.mp3","who":"bengt","text":"God morgon allihop. Här i Skegrie blåser det rejält i dag.","dur":4.9},"bengt_fika2":{"file":"voice/bengt_fika2.mp3","who":"bengt","text":"Dagens fråga var om första cykeln. Min var en blå Crescent, som jag fick när jag fyllde tolv.","dur":8.55},"bengt_y_hej":{"file":"voice/bengt_y_hej.mp3","who":"bengt","text":"Hej hej! Nu kör vi. Jag känner mig i form i dag.","dur":3.57},"bengt_y_bra":{"file":"voice/bengt_y_bra.mp3","who":"bengt","text":"Stor stege! Där satt den.","dur":3.3},"bengt_y_yatzy":{"file":"voice/bengt_y_yatzy.mp3","who":"bengt","text":"Yatzy! Det har inte hänt sedan jul.","dur":3.24},"bengt_y_stryk":{"file":"voice/bengt_y_stryk.mp3","who":"bengt","text":"Nej, nu blev det pannkaka. Jag stryker.","dur":3.84},"bengt_y_berom":{"file":"voice/bengt_y_berom.mp3","who":"bengt","text":"Bra kastat, Ingrid!","dur":1.97},"bengt_y_prat":{"file":"voice/bengt_y_prat.mp3","who":"bengt","text":"Det här påminner mig om när vi spelade på rasterna på Gummifabriken.","dur":4.54},"bengt_y_slut":{"file":"voice/bengt_y_slut.mp3","who":"bengt","text":"Tack för i dag. Samma tid i morgon?","dur":2.77},"sonja_fika1":{"file":"voice/sonja_fika1.mp3","who":"sonja","text":"Ja, det är riktigt höstväder. Jag tänkte gå till affären, men jag stannar nog inne i dag.","dur":8.24},"sonja_fika2":{"file":"voice/sonja_fika2.mp3","who":"sonja","text":"Åh, jag hade en röd Monark. Den fick jag ärva av min storebror.","dur":6.12},"sonja_y_hej":{"file":"voice/sonja_y_hej.mp3","who":"sonja","text":"Hej Ingrid! Vad roligt att vi hamnade vid samma bord.","dur":4.35},"sonja_y_bra":{"file":"voice/sonja_y_bra.mp3","who":"sonja","text":"Oj, vad fint det blev! Det skriver jag.","dur":2.82},"sonja_y_yatzy":{"file":"voice/sonja_y_yatzy.mp3","who":"sonja","text":"Yatzy! Jag kan inte tro det!","dur":3.51},"sonja_y_stryk":{"file":"voice/sonja_y_stryk.mp3","who":"sonja","text":"Aj då. Det får bli en nolla den här gången.","dur":4.37},"sonja_y_berom":{"file":"voice/sonja_y_berom.mp3","who":"sonja","text":"Åh, grattis Ingrid! Det var snyggt.","dur":3.81},"sonja_y_prat":{"file":"voice/sonja_y_prat.mp3","who":"sonja","text":"Har ni märkt att det har blivit så mörkt på kvällarna nu?","dur":4.37},"sonja_y_slut":{"file":"voice/sonja_y_slut.mp3","who":"sonja","text":"Tack för spelet! Vi ses på bingon.","dur":3.33},"mats_intro":{"file":"voice/mats_intro.mp3","who":"mats","text":"Hej och välkomna till bingo här på träffpunkten! Och extra välkomna, ni som är med hemifrån. Vi ser er på tv:n här i salen!","dur":9.07},"mats_forsta":{"file":"voice/mats_forsta.mp3","who":"mats","text":"Då drar vi första numret.","dur":1.08},"mats_kolla":{"file":"voice/mats_kolla.mp3","who":"mats","text":"Ett ögonblick, jag kontrollerar brickan.","dur":1.89},"mats_bingo_ingrid":{"file":"voice/mats_bingo_ingrid.mp3","who":"mats","text":"Vi har en bingo! Och det är Ingrid, som är med hemifrån i Anderslöv. Grattis, Ingrid!","dur":5.36},"mats_bingo_gunvor":{"file":"voice/mats_bingo_gunvor.mp3","who":"mats","text":"Bingo! Grattis till Gunvor, som är med hemifrån i Smygehamn!","dur":2.91},"mats_ny_runda":{"file":"voice/mats_ny_runda.mp3","who":"mats","text":"Då kör vi en ny runda. Rensa brickorna!","dur":1.83},"mats_hej_0":{"file":"voice/mats_hej_0.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Hej allihop!","dur":1.78},"mats_hej_1":{"file":"voice/mats_hej_1.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Spara en bulle åt mig!","dur":2.23},"mats_hej_2":{"file":"voice/mats_hej_2.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Vad roligt att vara med!","dur":2.75},"mats_hej_3":{"file":"voice/mats_hej_3.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Tack för i dag!","dur":1.9},"anna_ring1":{"file":"voice/anna_ring1.mp3","who":"anna","text":"Hej mormor! Vad roligt att du svarade. Elsa sitter här bredvid mig och vill säga hej.","dur":4.78},"anna_ring2":{"file":"voice/anna_ring2.mp3","who":"anna","text":"Hon undrar om du vill spela Yatzy med henne på söndag, när vi kommer och hälsar på.","dur":3.75},"anna_ring3":{"file":"voice/anna_ring3.mp3","who":"anna","text":"Vad bra! Då tar vi med kanelbullar. Kram mormor, vi ses på söndag!","dur":3.82},"support_1":{"file":"voice/support_1.mp3","who":"support","text":"Hej Ingrid, det är Johan på supporten. Hur kan jag hjälpa dig?","dur":3.35},"support_2":{"file":"voice/support_2.mp3","who":"support","text":"Om du säger ja kan jag se din skärm en liten stund, så visar jag hur man gör.","dur":4.62},"support_3":{"file":"voice/support_3.mp3","who":"support","text":"Så där, nu är det klart. Ring när du vill, vi finns här vardagar mellan åtta och fem.","dur":5.32},"anna_fotboll":{"file":"voice/anna_fotboll.mp3","who":"anna","text":"Hej mormor! Här är Elsa på fotbollsmatchen i dag. Hon gjorde två mål! Vi kommer och hälsar på på söndag. Kram!","dur":5.87},"anna_bullar":{"file":"voice/anna_bullar.mp3","who":"anna","text":"Hej mormor! Vi bakade kanelbullar efter ditt recept. Nästan lika goda som dina!","dur":4.69},"anna_strand":{"file":"voice/anna_strand.mp3","who":"anna","text":"Hej mormor! Vi tog en promenad vid havet i kväll och tänkte på dig. Kram!","dur":3.68},"tour_intro":{"file":"voice/tour_intro.mp3","who":"guide","text":"4 600 personer i Trelleborgs kommun som är 65 eller äldre bor ensamma. Varannan med hemtjänst är besvärad av ensamhet. Och när knäna värker eller vädret är dåligt blir träffpunkten för långt bort.","dur":17.2},"tour_titel":{"file":"voice/tour_titel.mp3","who":"guide","text":"Träffpunkt Hemma tar träffpunkten hem till köksbordet. Följ med Ingrid, 84 år, genom en helt vanlig måndag i Anderslöv.","dur":8.03},"tour_morgon":{"file":"voice/tour_morgon.mp3","who":"guide","text":"Plattan står på Ingrids köksbord. När ingen rör den visar den dagen: tiden, vädret och vad som händer.","dur":7.83},"tour_halsning":{"file":"voice/tour_halsning.mp3","who":"guide","text":"Klockan nio säger plattan god morgon och frågar hur hon mår. Ett tryck räcker, och vill hon kan någon från träffpunkten ringa upp.","dur":8.12},"tour_idag":{"file":"voice/tour_idag.mp3","who":"guide","text":"Startsidan visar bara det viktigaste: vad som händer nu, dagens program och vänner som gärna vill prata. Stora knappar, med både bild och ord.","dur":11.01},"tour_tillganglig":{"file":"voice/tour_tillganglig.mp3","who":"guide","text":"Allt går att anpassa: större text, mörk skärm och uppläsning, med ett enda tryck. Textstorleken följer med in i spelen.","dur":10.64},"tour_lampa":{"file":"voice/tour_lampa.mp3","who":"guide","text":"Ingrid tänder sin lampa. Det betyder: jag är hemma och vill gärna prata. Väninnan Karin ser det och ringer upp.","dur":7.35},"tour_fika":{"file":"voice/tour_fika.mp3","who":"guide","text":"Förmiddagsfika i Fikarummet, med en värd från träffpunkten. Allt som sägs textas, och mikrofonen styrs med en stor knapp.","dur":8.98},"tour_gympa":{"file":"voice/tour_gympa.mp3","who":"guide","text":"Sittgympa direkt från Träffpunkt Trelleborg. Ingrid gör rörelserna vid köksbordet, samtidigt som gruppen i salen.","dur":6.63},"tour_anslag":{"file":"voice/tour_anslag.mp3","who":"guide","text":"På anslagstavlan delar deltagarna minnen från Trelleborg förr. Allt kan läsas upp, och den som vill svarar med rösten.","dur":7.74},"tour_grannar":{"file":"voice/tour_grannar.mp3","who":"guide","text":"Plattan visar vilka som bor i närheten, bara orten och aldrig adressen. Ingrid föreslår en fika, och Karin tackar ja.","dur":8.38},"tour_canasta":{"file":"voice/tour_canasta.mp3","who":"guide","text":"Canasta, Yatzy, fia, patiens och dagens kryss finns alltid i plattan, med stor text och lugnt tempo.","dur":10.71},"tour_familj":{"file":"voice/tour_familj.mp3","who":"guide","text":"Barnbarnet Anna skickar en bild från fotbollen. Den kommer direkt till mormors platta, och ett hjärta går tillbaka.","dur":7.34},"tour_anmalan":{"file":"voice/tour_anmalan.mp3","who":"guide","text":"Halv två frågar plattan om Ingrid vill vara med på Spelstunden. Hon väljer Yatzy och vill gärna sitta med Karin.","dur":7.13},"tour_bord":{"file":"voice/tour_bord.mp3","who":"guide","text":"Klockan två delas alla in i bord. Vänner hamnar tillsammans, och ingen blir sittande ensam.","dur":5.63},"tour_spel":{"file":"voice/tour_spel.mp3","who":"guide","text":"Vid bordet spelar Ingrid Yatzy med Karin, Bengt och Sonja, med röster och textning.","dur":5.4},"tour_bingo":{"file":"voice/tour_bingo.mp3","who":"guide","text":"Klockan tre sänds bingo från träffpunkten. Den som är hemma spelar med och syns på tv:n i salen. Och i dag blir det bingo för Ingrid!","dur":9.65},"tour_personal":{"file":"voice/tour_personal.mp3","who":"guide","text":"Personalen ser vad som händer, vem som vill bli uppringd och hur många som är med, utan att övervaka någon.","dur":6.21},"tour_meddelande":{"file":"voice/tour_meddelande.mp3","who":"guide","text":"Vid storm eller halka når personalen alla plattor på en gång, och meddelandet läses upp.","dur":5.65},"tour_forslag":{"file":"voice/tour_forslag.mp3","who":"guide","text":"Förslaget är en pilot med 25 deltagare i sex månader, där ensamheten mäts före och efter. Allt ingår, till ett fast pris per deltagare.","dur":11.29},"tour_slut":{"file":"voice/tour_slut.mp3","who":"guide","text":"Träffpunkt Hemma ersätter inte träffpunkterna. Den gör dem större. Prova demon själv, eller hör av er, så visar vi den.","dur":7.36},"nr_1":{"file":"voice/nr_1.mp3","who":"mats","text":"B 1","dur":0.79},"nr_2":{"file":"voice/nr_2.mp3","who":"mats","text":"B 2","dur":0.63},"nr_3":{"file":"voice/nr_3.mp3","who":"mats","text":"B 3","dur":0.79},"nr_4":{"file":"voice/nr_4.mp3","who":"mats","text":"B 4","dur":0.79},"nr_5":{"file":"voice/nr_5.mp3","who":"mats","text":"B 5","dur":0.69},"nr_6":{"file":"voice/nr_6.mp3","who":"mats","text":"B 6","dur":0.69},"nr_7":{"file":"voice/nr_7.mp3","who":"mats","text":"B 7","dur":0.79},"nr_8":{"file":"voice/nr_8.mp3","who":"mats","text":"B 8","dur":0.64},"nr_9":{"file":"voice/nr_9.mp3","who":"mats","text":"B 9","dur":0.77},"nr_10":{"file":"voice/nr_10.mp3","who":"mats","text":"B 10","dur":0.69},"nr_11":{"file":"voice/nr_11.mp3","who":"mats","text":"B 11","dur":0.58},"nr_12":{"file":"voice/nr_12.mp3","who":"mats","text":"B 12","dur":0.42},"nr_13":{"file":"voice/nr_13.mp3","who":"mats","text":"B 13","dur":0.54},"nr_14":{"file":"voice/nr_14.mp3","who":"mats","text":"B 14","dur":0.66},"nr_15":{"file":"voice/nr_15.mp3","who":"mats","text":"B 15","dur":0.59},"nr_16":{"file":"voice/nr_16.mp3","who":"mats","text":"I 16","dur":0.63},"nr_17":{"file":"voice/nr_17.mp3","who":"mats","text":"I 17","dur":0.54},"nr_18":{"file":"voice/nr_18.mp3","who":"mats","text":"I 18","dur":0.56},"nr_19":{"file":"voice/nr_19.mp3","who":"mats","text":"I 19","dur":0.68},"nr_20":{"file":"voice/nr_20.mp3","who":"mats","text":"I 20","dur":0.77},"nr_21":{"file":"voice/nr_21.mp3","who":"mats","text":"I 21","dur":0.61},"nr_22":{"file":"voice/nr_22.mp3","who":"mats","text":"I 22","dur":0.67},"nr_23":{"file":"voice/nr_23.mp3","who":"mats","text":"I 23","dur":0.88},"nr_24":{"file":"voice/nr_24.mp3","who":"mats","text":"I 24","dur":0.82},"nr_25":{"file":"voice/nr_25.mp3","who":"mats","text":"I 25","dur":0.83},"nr_26":{"file":"voice/nr_26.mp3","who":"mats","text":"I 26","dur":0.79},"nr_27":{"file":"voice/nr_27.mp3","who":"mats","text":"I 27","dur":0.7},"nr_28":{"file":"voice/nr_28.mp3","who":"mats","text":"I 28","dur":0.71},"nr_29":{"file":"voice/nr_29.mp3","who":"mats","text":"I 29","dur":0.59},"nr_30":{"file":"voice/nr_30.mp3","who":"mats","text":"I 30","dur":0.57},"nr_31":{"file":"voice/nr_31.mp3","who":"mats","text":"N 31","dur":0.72},"nr_32":{"file":"voice/nr_32.mp3","who":"mats","text":"N 32","dur":0.68},"nr_33":{"file":"voice/nr_33.mp3","who":"mats","text":"N 33","dur":0.65},"nr_34":{"file":"voice/nr_34.mp3","who":"mats","text":"N 34","dur":0.73},"nr_35":{"file":"voice/nr_35.mp3","who":"mats","text":"N 35","dur":0.81},"nr_36":{"file":"voice/nr_36.mp3","who":"mats","text":"N 36","dur":0.84},"nr_37":{"file":"voice/nr_37.mp3","who":"mats","text":"N 37","dur":0.73},"nr_38":{"file":"voice/nr_38.mp3","who":"mats","text":"N 38","dur":0.72},"nr_39":{"file":"voice/nr_39.mp3","who":"mats","text":"N 39","dur":1.05},"nr_40":{"file":"voice/nr_40.mp3","who":"mats","text":"N 40","dur":0.82},"nr_41":{"file":"voice/nr_41.mp3","who":"mats","text":"N 41","dur":0.66},"nr_42":{"file":"voice/nr_42.mp3","who":"mats","text":"N 42","dur":0.75},"nr_43":{"file":"voice/nr_43.mp3","who":"mats","text":"N 43","dur":0.69},"nr_44":{"file":"voice/nr_44.mp3","who":"mats","text":"N 44","dur":0.85},"nr_45":{"file":"voice/nr_45.mp3","who":"mats","text":"N 45","dur":0.75},"nr_46":{"file":"voice/nr_46.mp3","who":"mats","text":"G 46","dur":0.77},"nr_47":{"file":"voice/nr_47.mp3","who":"mats","text":"G 47","dur":0.74},"nr_48":{"file":"voice/nr_48.mp3","who":"mats","text":"G 48","dur":0.67},"nr_49":{"file":"voice/nr_49.mp3","who":"mats","text":"G 49","dur":1.12},"nr_50":{"file":"voice/nr_50.mp3","who":"mats","text":"G 50","dur":0.66},"nr_51":{"file":"voice/nr_51.mp3","who":"mats","text":"G 51","dur":0.66},"nr_52":{"file":"voice/nr_52.mp3","who":"mats","text":"G 52","dur":0.74},"nr_53":{"file":"voice/nr_53.mp3","who":"mats","text":"G 53","dur":0.72},"nr_54":{"file":"voice/nr_54.mp3","who":"mats","text":"G 54","dur":0.75},"nr_55":{"file":"voice/nr_55.mp3","who":"mats","text":"G 55","dur":0.68},"nr_56":{"file":"voice/nr_56.mp3","who":"mats","text":"G 56","dur":0.8},"nr_57":{"file":"voice/nr_57.mp3","who":"mats","text":"G 57","dur":0.77},"nr_58":{"file":"voice/nr_58.mp3","who":"mats","text":"G 58","dur":0.74},"nr_59":{"file":"voice/nr_59.mp3","who":"mats","text":"G 59","dur":0.75},"nr_60":{"file":"voice/nr_60.mp3","who":"mats","text":"G 60","dur":0.66},"nr_61":{"file":"voice/nr_61.mp3","who":"mats","text":"O 61","dur":0.67},"nr_62":{"file":"voice/nr_62.mp3","who":"mats","text":"O 62","dur":0.92},"nr_63":{"file":"voice/nr_63.mp3","who":"mats","text":"O 63","dur":0.78},"nr_64":{"file":"voice/nr_64.mp3","who":"mats","text":"O 64","dur":0.79},"nr_65":{"file":"voice/nr_65.mp3","who":"mats","text":"O 65","dur":0.98},"nr_66":{"file":"voice/nr_66.mp3","who":"mats","text":"O 66","dur":1.07},"nr_67":{"file":"voice/nr_67.mp3","who":"mats","text":"O 67","dur":0.91},"nr_68":{"file":"voice/nr_68.mp3","who":"mats","text":"O 68","dur":0.8},"nr_69":{"file":"voice/nr_69.mp3","who":"mats","text":"O 69","dur":1.16},"nr_70":{"file":"voice/nr_70.mp3","who":"mats","text":"O 70","dur":0.7},"nr_71":{"file":"voice/nr_71.mp3","who":"mats","text":"O 71","dur":0.64},"nr_72":{"file":"voice/nr_72.mp3","who":"mats","text":"O 72","dur":0.96},"nr_73":{"file":"voice/nr_73.mp3","who":"mats","text":"O 73","dur":0.84},"nr_74":{"file":"voice/nr_74.mp3","who":"mats","text":"O 74","dur":0.77},"nr_75":{"file":"voice/nr_75.mp3","who":"mats","text":"O 75","dur":0.72},"gympa_0":{"file":"voice/gympa_0.mp3","who":"eva","text":"Sitt en bit ut på stolen, med båda fötterna i golvet.","dur":3.36},"gympa_1":{"file":"voice/gympa_1.mp3","who":"eva","text":"Lyft höger knä långsamt… och sänk.","dur":2.55},"gympa_2":{"file":"voice/gympa_2.mp3","who":"eva","text":"Nu vänster knä… och sänk.","dur":1.46},"gympa_3":{"file":"voice/gympa_3.mp3","who":"eva","text":"Sträck ut höger ben rakt fram. Håll kvar en stund… och sänk.","dur":3.93},"gympa_4":{"file":"voice/gympa_4.mp3","who":"eva","text":"Samma sak med vänster ben.","dur":1.37},"gympa_5":{"file":"voice/gympa_5.mp3","who":"eva","text":"Rulla axlarna bakåt, fem gånger.","dur":2.32},"gympa_6":{"file":"voice/gympa_6.mp3","who":"eva","text":"Andas in djupt… och ut. Bra jobbat!","dur":2.91},"quiz_intro":{"file":"voice/quiz_intro.mp3","who":"lena","text":"Välkommen till veckans frågesport om Trelleborg förr och nu! Sex frågor. Ta den tid du behöver.","dur":8.11},"quiz_slut":{"file":"voice/quiz_slut.mp3","who":"lena","text":"Bra kämpat! Nästa vecka kommer nya frågor. Och på tisdag klockan två kör vi frågesporten live tillsammans.","dur":12.66},"quiz_q0":{"file":"voice/quiz_q0.mp3","who":"lena","text":"Hur många palmer ställs ut på gatorna i Trelleborg varje sommar?","dur":3.51},"quiz_f0":{"file":"voice/quiz_f0.mp3","who":"lena","text":"Kommunen har drygt hundra palmer. De har stått på gatorna varje sommar sedan 1984 och övervintrar i ett växthus.","dur":12.06},"quiz_q1":{"file":"voice/quiz_q1.mp3","who":"lena","text":"Vilket år började tågfärjan gå mellan Trelleborg och Sassnitz?","dur":5.25},"quiz_f1":{"file":"voice/quiz_f1.mp3","who":"lena","text":"Tågfärjan började gå 1909. Den sista färjelinjen till Sassnitz lades ned hösten 2024.","dur":9.63},"quiz_q2":{"file":"voice/quiz_q2.mp3","who":"lena","text":"Vilka grundade Trelleborgs Gummifabrik år 1905?","dur":3.97},"quiz_f2":{"file":"voice/quiz_f2.mp3","who":"lena","text":"Henry Dunker och Johan Kock grundade Gummifabriken 1905. I dag heter företaget Trelleborg AB.","dur":9.5},"quiz_q3":{"file":"voice/quiz_q3.mp3","who":"lena","text":"Hur hög är fyren på Smygehuk?","dur":2.45},"quiz_f3":{"file":"voice/quiz_f3.mp3","who":"lena","text":"Fyren är 17 meter hög. Den tändes 1883, släcktes 1975 och tändes igen 2001.","dur":13.08},"quiz_q4":{"file":"voice/quiz_q4.mp3","who":"lena","text":"När hittades vikingaborgen Trelleborgen?","dur":2.81},"quiz_f4":{"file":"voice/quiz_f4.mp3","who":"lena","text":"Borgen hittades 1988. En fjärdedel av den byggdes upp igen och öppnade 1995.","dur":7.67},"quiz_q5":{"file":"voice/quiz_q5.mp3","who":"lena","text":"Vilken kung steg i land vid Stavstensudde år 1715?","dur":4.22},"quiz_f5":{"file":"voice/quiz_f5.mp3","who":"lena","text":"Karl XII kom i land vid Stavstensudde 1715. Minnesstenarna där restes 1768 och 1912.","dur":13.13},"welcome_hej":{"file":"voice/welcome_hej.mp3","who":"app","text":"Välkommen, Ingrid! Det här är din platta. Den är redan klar att använda, och du behöver aldrig komma ihåg något lösenord.","dur":8.23},"welcome_meny":{"file":"voice/welcome_meny.mp3","who":"app","text":"Menyn till vänster Menyn finns alltid på samma ställe. Tryck på I dag, så ser du vad som händer i dag.","dur":9.31},"welcome_lampa":{"file":"voice/welcome_lampa.mp3","who":"app","text":"Din lampa Tänd lampan uppe till höger när du gärna vill prata. Dina vänner ser det och kan ringa dig.","dur":9.16},"welcome_fika":{"file":"voice/welcome_fika.mp3","who":"app","text":"Fikarummet Under Prata finns Fikarummet. Där finns en värd varje förmiddag. Du kan bara lyssna om du vill.","dur":8.5},"welcome_hjalp":{"file":"voice/welcome_hjalp.mp3","who":"app","text":"Hjälp Längst ned finns Hjälp. Där kan du ringa supporten på vardagar. Du kan inte göra fel.","dur":9.2},"survey_intro":{"file":"voice/survey_intro.mp3","who":"app","text":"Tre korta frågor om hur du har det. Svaren visar om Träffpunkt Hemma gör nytta. Personalen ser bara svaren från alla tillsammans.","dur":10.8},"survey_q0":{"file":"voice/survey_q0.mp3","who":"app","text":"Hur ofta känner du att du saknar sällskap?","dur":2.96},"survey_q1":{"file":"voice/survey_q1.mp3","who":"app","text":"Hur ofta känner du dig utanför?","dur":2.53},"survey_q2":{"file":"voice/survey_q2.mp3","who":"app","text":"Hur ofta känner du dig isolerad från andra?","dur":3.45},"survey_tack":{"file":"voice/survey_tack.mp3","who":"app","text":"Tack för dina svar! Nästa gång frågar vi om en månad.","dur":4.21},"notice_storm":{"file":"voice/notice_storm.mp3","who":"app","text":"Meddelande från träffpunkten. Träffpunkt Trelleborg och Träffpunkt Anderslöv är stängda i morgon på grund av stormen. Fikarummet och Spelstunden är öppna som vanligt här på plattan.","dur":13.25},"notice_halka":{"file":"voice/notice_halka.mp3","who":"app","text":"Meddelande från träffpunkten. Det blir halt ute i morgon bitti. Vänta gärna med promenaden till eftermiddagen. Fikarummet öppnar som vanligt klockan nio.","dur":9.74},"notice_lucia":{"file":"voice/notice_lucia.mp3","who":"app","text":"Meddelande från träffpunkten. Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder luciatåget här på plattan, så att alla kan vara med.","dur":10.75},"post_gummi_0":{"file":"voice/post_gummi_0.mp3","who":"app","text":"Bengt Hansson skriver: Jag började på Gummifabriken 1955, femton år gammal. Det luktade gummi över hela stan när vinden låg på. Var det fler här som jobbade där?","dur":13.77},"post_gummi_1":{"file":"voice/post_gummi_1.mp3","who":"app","text":"Ulla Carlsson skriver: Min pappa jobbade där i över trettio år. Vi barn fick följa med på julfesten varje år. Jag minns den stora granen i matsalen!","dur":11.41},"post_gummi_2":{"file":"voice/post_gummi_2.mp3","who":"app","text":"Sven-Erik Lind skriver: Jag var på verkstaden på sextiotalet. Tunga dagar, men bra kamrater. Vi spelade kort på rasterna.","dur":11.03},"post_gummi_3":{"file":"voice/post_gummi_3.mp3","who":"app","text":"Karin Olsson skriver: Min man tog bussen dit från Anderslöv varje morgon i tjugo år. Han sa alltid att det var de bästa arbetskamraterna han haft.","dur":11.85},"post_farjan_0":{"file":"voice/post_farjan_0.mp3","who":"app","text":"Gösta Persson skriver: Som pojke stod jag i hamnen och tittade på när tågvagnarna rullade ombord på färjan. Hela tåg på en båt! Det var något alldeles särskilt.","dur":14.11},"post_farjan_1":{"file":"voice/post_farjan_1.mp3","who":"app","text":"Kerstin Wallin skriver: Vi åkte över till Sassnitz en gång på sextiotalet. Jag minns hur annorlunda allt var på andra sidan.","dur":9.68},"post_pelargon_0":{"file":"voice/post_pelargon_0.mp3","who":"app","text":"Karin Olsson skriver: Nu börjar nätterna bli kalla. Jag tar in mina pelargoner i helgen. Klipper ni ner dem först?","dur":8.98},"post_pelargon_1":{"file":"voice/post_pelargon_1.mp3","who":"app","text":"Lennart Åkesson skriver: Jag klipper ner dem till en tredjedel och ställer dem svalt i källaren. De klarar sig fint till våren.","dur":9.45},"post_pelargon_2":{"file":"voice/post_pelargon_2.mp3","who":"app","text":"Anna-Lisa Håkansson skriver: Mina står i köksfönstret hela vintern. De blommar nästan jämt!","dur":6.93},"post_aggakaka_0":{"file":"voice/post_aggakaka_0.mp3","who":"app","text":"Barbro Persson skriver: Barnbarnen vill lära sig göra äggakaka. Serverar ni den med stekt fläsk och lingon, eller med äppelmos?","dur":9.42},"post_aggakaka_1":{"file":"voice/post_aggakaka_1.mp3","who":"app","text":"Elsa Lundgren skriver: Fläsk och lingon, självklart! Så gjorde min mor alltid.","dur":7.06},"post_aggakaka_2":{"file":"voice/post_aggakaka_2.mp3","who":"app","text":"Rolf Gustavsson skriver: Hos oss blev det äppelmos, och lite socker på.","dur":5.77},"post_melodikrysset_0":{"file":"voice/post_melodikrysset_0.mp3","who":"app","text":"Sonja Mårtensson skriver: Är det fler som löser Melodikrysset? Vi kanske kan lyssna tillsammans i Fikarummet på lördag förmiddag?","dur":9.47},"post_melodikrysset_1":{"file":"voice/post_melodikrysset_1.mp3","who":"app","text":"Rune Jeppsson skriver: Bra idé! Jag har löst det sedan sjuttiotalet.","dur":5.56},"post_melodikrysset_2":{"file":"voice/post_melodikrysset_2.mp3","who":"app","text":"Lena Berg skriver: Vilken fin idé! Jag öppnar Fikarummet klockan tio på lördag, så kan ni lyssna och lösa det tillsammans.","dur":10.65},"post_lucia_0":{"file":"voice/post_lucia_0.mp3","who":"app","text":"Margareta Ek skriver: Blir det luciatåg på träffpunkten i år? Det var så fint förra året.","dur":7.54},"post_lucia_1":{"file":"voice/post_lucia_1.mp3","who":"app","text":"Lena Berg skriver: Ja! Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder det här, så att alla som är hemma kan vara med.","dur":10.76},"post_textstorlek_0":{"file":"voice/post_textstorlek_0.mp3","who":"app","text":"Stig Larsson skriver: Jag ser dåligt på kvällarna. Går det att göra texten större?","dur":5.82},"post_textstorlek_1":{"file":"voice/post_textstorlek_1.mp3","who":"app","text":"Lena Berg skriver: Hej Stig! Tryck på Mitt konto uppe i hörnet och välj Extra stor text. Ring gärna supporten om det krånglar.","dur":12.17}},"levels":{"voice/app_morgon.mp3":0,"voice/app_mood_bra.mp3":0.1,"voice/app_mood_okej.mp3":0.1,"voice/app_mood_ring.mp3":0,"voice/app_ring_ja.mp3":0,"voice/app_lampa.mp3":0,"voice/app_anmalan.mp3":0,"voice/app_anmald.mp3":0,"voice/app_start.mp3":0,"voice/app_bingo.mp3":-0.2,"voice/app_halsning.mp3":0,"voice/app_karin_ringer.mp3":-0.1,"voice/app_anna_ringer.mp3":0,"voice/app_lena_ringer.mp3":0,"voice/app_fodelsedag.mp3":0,"voice/lena_fika1.mp3":-0.1,"voice/lena_fika2.mp3":0,"voice/lena_fika3.mp3":0.1,"voice/lena_fika4.mp3":0,"voice/lena_ring1.mp3":0.1,"voice/lena_ring2.mp3":0,"voice/lena_ring3.mp3":0,"voice/lena_vinka.mp3":-0.1,"voice/karin_fika1.mp3":0,"voice/karin_fika2.mp3":-0.1,"voice/karin_fika3.mp3":0,"voice/karin_ring1.mp3":0,"voice/karin_ring2.mp3":0,"voice/karin_ring3.mp3":0,"voice/karin_y_hej.mp3":0,"voice/karin_y_bra.mp3":-0.1,"voice/karin_y_yatzy.mp3":-0.1,"voice/karin_y_stryk.mp3":0.1,"voice/karin_y_berom.mp3":0,"voice/karin_y_prat.mp3":0,"voice/karin_y_slut.mp3":0,"voice/bengt_fika1.mp3":-0.1,"voice/bengt_fika2.mp3":0,"voice/bengt_y_hej.mp3":-0.1,"voice/bengt_y_bra.mp3":0,"voice/bengt_y_yatzy.mp3":0,"voice/bengt_y_stryk.mp3":0,"voice/bengt_y_berom.mp3":0,"voice/bengt_y_prat.mp3":0,"voice/bengt_y_slut.mp3":0,"voice/sonja_fika1.mp3":0,"voice/sonja_fika2.mp3":0,"voice/sonja_y_hej.mp3":0,"voice/sonja_y_bra.mp3":0.1,"voice/sonja_y_yatzy.mp3":0.1,"voice/sonja_y_stryk.mp3":0,"voice/sonja_y_berom.mp3":0,"voice/sonja_y_prat.mp3":0,"voice/sonja_y_slut.mp3":0,"voice/mats_intro.mp3":0.1,"voice/mats_forsta.mp3":0.1,"voice/mats_kolla.mp3":0.1,"voice/mats_bingo_ingrid.mp3":0.6,"voice/mats_bingo_gunvor.mp3":0,"voice/mats_ny_runda.mp3":0.1,"voice/mats_hej_0.mp3":0.1,"voice/mats_hej_1.mp3":0.1,"voice/mats_hej_2.mp3":0.1,"voice/mats_hej_3.mp3":0,"voice/anna_ring1.mp3":0,"voice/anna_ring2.mp3":0.1,"voice/anna_ring3.mp3":0,"voice/support_1.mp3":0,"voice/support_2.mp3":0,"voice/support_3.mp3":0,"voice/anna_fotboll.mp3":0,"voice/anna_bullar.mp3":0,"voice/anna_strand.mp3":0,"voice/tour_intro.mp3":0.1,"voice/tour_titel.mp3":0.1,"voice/tour_morgon.mp3":0,"voice/tour_halsning.mp3":0,"voice/tour_idag.mp3":0,"voice/tour_tillganglig.mp3":0.1,"voice/tour_lampa.mp3":0,"voice/tour_fika.mp3":0,"voice/tour_gympa.mp3":0,"voice/tour_anslag.mp3":0,"voice/tour_grannar.mp3":0.1,"voice/tour_canasta.mp3":0.1,"voice/tour_familj.mp3":0.1,"voice/tour_anmalan.mp3":0,"voice/tour_bord.mp3":0.1,"voice/tour_spel.mp3":-0.1,"voice/tour_bingo.mp3":0,"voice/tour_personal.mp3":0,"voice/tour_meddelande.mp3":0,"voice/tour_forslag.mp3":0,"voice/tour_slut.mp3":0,"voice/nr_1.mp3":0.1,"voice/nr_2.mp3":0,"voice/nr_3.mp3":0.1,"voice/nr_4.mp3":0.1,"voice/nr_5.mp3":0.1,"voice/nr_6.mp3":0,"voice/nr_7.mp3":0.1,"voice/nr_8.mp3":-0.1,"voice/nr_9.mp3":-0.1,"voice/nr_10.mp3":0,"voice/nr_11.mp3":0.2,"voice/nr_12.mp3":1,"voice/nr_13.mp3":0.7,"voice/nr_14.mp3":1,"voice/nr_15.mp3":0.8,"voice/nr_16.mp3":0.3,"voice/nr_17.mp3":0.3,"voice/nr_18.mp3":0.6,"voice/nr_19.mp3":0.4,"voice/nr_20.mp3":0.3,"voice/nr_21.mp3":0.2,"voice/nr_22.mp3":0,"voice/nr_23.mp3":0.9,"voice/nr_24.mp3":0,"voice/nr_25.mp3":0.9,"voice/nr_26.mp3":0,"voice/nr_27.mp3":0.1,"voice/nr_28.mp3":0.1,"voice/nr_29.mp3":0.1,"voice/nr_30.mp3":0.9,"voice/nr_31.mp3":0.1,"voice/nr_32.mp3":0.5,"voice/nr_33.mp3":0.8,"voice/nr_34.mp3":0.3,"voice/nr_35.mp3":0.2,"voice/nr_36.mp3":0.1,"voice/nr_37.mp3":0.4,"voice/nr_38.mp3":0.2,"voice/nr_39.mp3":0,"voice/nr_40.mp3":0,"voice/nr_41.mp3":0.1,"voice/nr_42.mp3":0.8,"voice/nr_43.mp3":0.4,"voice/nr_44.mp3":0,"voice/nr_45.mp3":0.1,"voice/nr_46.mp3":0.4,"voice/nr_47.mp3":0.1,"voice/nr_48.mp3":0.7,"voice/nr_49.mp3":0.9,"voice/nr_50.mp3":0.1,"voice/nr_51.mp3":0.1,"voice/nr_52.mp3":0.1,"voice/nr_53.mp3":0,"voice/nr_54.mp3":0.2,"voice/nr_55.mp3":0.1,"voice/nr_56.mp3":0,"voice/nr_57.mp3":0,"voice/nr_58.mp3":0,"voice/nr_59.mp3":0,"voice/nr_60.mp3":0.2,"voice/nr_61.mp3":-0.1,"voice/nr_62.mp3":0.7,"voice/nr_63.mp3":0.1,"voice/nr_64.mp3":0.1,"voice/nr_65.mp3":0.8,"voice/nr_66.mp3":-0.1,"voice/nr_67.mp3":0.2,"voice/nr_68.mp3":0,"voice/nr_69.mp3":0.1,"voice/nr_70.mp3":0.5,"voice/nr_71.mp3":0.2,"voice/nr_72.mp3":0.8,"voice/nr_73.mp3":0,"voice/nr_74.mp3":0,"voice/nr_75.mp3":0.1,"voice/gympa_0.mp3":0,"voice/gympa_1.mp3":0,"voice/gympa_2.mp3":0.1,"voice/gympa_3.mp3":0.1,"voice/gympa_4.mp3":0.2,"voice/gympa_5.mp3":0,"voice/gympa_6.mp3":0,"voice/quiz_intro.mp3":0,"voice/quiz_slut.mp3":0,"voice/quiz_q0.mp3":0,"voice/quiz_f0.mp3":0.1,"voice/quiz_q1.mp3":0,"voice/quiz_f1.mp3":0.1,"voice/quiz_q2.mp3":0,"voice/quiz_f2.mp3":0,"voice/quiz_q3.mp3":0.1,"voice/quiz_f3.mp3":0,"voice/quiz_q4.mp3":0.1,"voice/quiz_f4.mp3":0.1,"voice/quiz_q5.mp3":0,"voice/quiz_f5.mp3":0,"voice/welcome_hej.mp3":0,"voice/welcome_meny.mp3":0.1,"voice/welcome_lampa.mp3":0,"voice/welcome_fika.mp3":0,"voice/welcome_hjalp.mp3":0.1,"voice/survey_intro.mp3":0,"voice/survey_q0.mp3":-0.3,"voice/survey_q1.mp3":0.1,"voice/survey_q2.mp3":0,"voice/survey_tack.mp3":0.1,"voice/notice_storm.mp3":0.1,"voice/notice_halka.mp3":0,"voice/notice_lucia.mp3":0,"voice/post_gummi_0.mp3":0,"voice/post_gummi_1.mp3":0.1,"voice/post_gummi_2.mp3":0,"voice/post_gummi_3.mp3":0.1,"voice/post_farjan_0.mp3":0.1,"voice/post_farjan_1.mp3":0.1,"voice/post_pelargon_0.mp3":-0.1,"voice/post_pelargon_1.mp3":0.1,"voice/post_pelargon_2.mp3":0,"voice/post_aggakaka_0.mp3":0,"voice/post_aggakaka_1.mp3":0,"voice/post_aggakaka_2.mp3":0,"voice/post_melodikrysset_0.mp3":0,"voice/post_melodikrysset_1.mp3":0,"voice/post_melodikrysset_2.mp3":0,"voice/post_lucia_0.mp3":0,"voice/post_lucia_1.mp3":0,"voice/post_textstorlek_0.mp3":0,"voice/post_textstorlek_1.mp3":0}};
+const VOICE_INFO = {"lines":{"app_morgon":{"file":"voice/app_morgon.mp3","who":"app","text":"God morgon, Ingrid! Hur mår du i dag?","dur":2.52},"app_mood_bra":{"file":"voice/app_mood_bra.mp3","who":"app","text":"Vad skönt att höra! Ha en riktigt fin dag.","dur":3.42},"app_mood_okej":{"file":"voice/app_mood_okej.mp3","who":"app","text":"Tack för att du berättar. Titta gärna in i Fikarummet, där finns sällskap hela förmiddagen.","dur":6.76},"app_mood_ring":{"file":"voice/app_mood_ring.mp3","who":"app","text":"Tack för att du berättar. Vill du att någon från träffpunkten ringer dig en stund i dag?","dur":5.63},"app_ring_ja":{"file":"voice/app_ring_ja.mp3","who":"app","text":"Då ringer Lena dig före lunch. Ta hand om dig så länge.","dur":3.84},"app_lampa":{"file":"voice/app_lampa.mp3","who":"app","text":"Nu lyser din lampa. Dina vänner ser att du gärna vill prata.","dur":4.84},"app_anmalan":{"file":"voice/app_anmalan.mp3","who":"app","text":"Om en halvtimme börjar Spelstunden. Vill du vara med och spela? Välj ett spel, så hittar vi sällskap åt dig.","dur":7.94},"app_anmald":{"file":"voice/app_anmald.mp3","who":"app","text":"Nu är du anmäld. Vi säger till när det börjar.","dur":2.79},"app_start":{"file":"voice/app_start.mp3","who":"app","text":"Nu börjar Spelstunden! Dina bordsgrannar väntar på dig.","dur":4.25},"app_bingo":{"file":"voice/app_bingo.mp3","who":"app","text":"Nu börjar bingon från träffpunkten. Vill du vara med och spela?","dur":4.69},"app_halsning":{"file":"voice/app_halsning.mp3","who":"app","text":"Du har fått en bildhälsning från Anna.","dur":2.15},"app_karin_ringer":{"file":"voice/app_karin_ringer.mp3","who":"app","text":"Karin ringer dig.","dur":1.2},"app_anna_ringer":{"file":"voice/app_anna_ringer.mp3","who":"app","text":"Anna ringer dig.","dur":1.11},"app_lena_ringer":{"file":"voice/app_lena_ringer.mp3","who":"app","text":"Lena från träffpunkten ringer dig.","dur":2.36},"app_fodelsedag":{"file":"voice/app_fodelsedag.mp3","who":"app","text":"I dag fyller Margareta nittio år! Vill du skicka en hälsning?","dur":4.73},"app_kryss_anna":{"file":"voice/app_kryss_anna.mp3","who":"app","text":"Anna vill lösa dagens kryss med dig.","dur":2.48},"lena_fika1":{"file":"voice/lena_fika1.mp3","who":"lena","text":"Hej och välkommen in i Fikarummet! Hej Ingrid, vad roligt att du tittade in.","dur":7.05},"lena_fika2":{"file":"voice/lena_fika2.mp3","who":"lena","text":"Klockan två är det Spelstund. Då blir det Yatzy, canasta och fia.","dur":8.76},"lena_fika3":{"file":"voice/lena_fika3.mp3","who":"lena","text":"Vad fint! Ingrid, vilken cykel hade du? Du kan svara på Dagens fråga på startsidan.","dur":6.51},"lena_fika4":{"file":"voice/lena_fika4.mp3","who":"lena","text":"Glöm inte att bingon börjar klockan tre. Då kan ni vara med hemifrån!","dur":4.71},"lena_ring1":{"file":"voice/lena_ring1.mp3","who":"lena","text":"Hej Ingrid, det är Lena från träffpunkten. Du ville att någon skulle ringa. Hur har du det i dag?","dur":8.24},"lena_ring2":{"file":"voice/lena_ring2.mp3","who":"lena","text":"Vad bra att du säger det. Vill du att jag anmäler dig till Spelstunden i eftermiddag? Karin ska också vara med.","dur":7.7},"lena_ring3":{"file":"voice/lena_ring3.mp3","who":"lena","text":"Då gör vi så. Ring mig när du vill. Ha det så gott så länge!","dur":6.96},"lena_vinka":{"file":"voice/lena_vinka.mp3","who":"lena","text":"Hej Ingrid, vad roligt att du vinkar! Säg till när du vill säga något.","dur":5},"karin_fika1":{"file":"voice/karin_fika1.mp3","who":"karin","text":"Hej Ingrid! Har du fått i dig ditt kaffe?","dur":3.24},"karin_fika2":{"file":"voice/karin_fika2.mp3","who":"karin","text":"Jag är med på Yatzy! Ingrid, du är väl också med?","dur":4.59},"karin_fika3":{"file":"voice/karin_fika3.mp3","who":"karin","text":"Nu måste jag ta in tvätten, men vi hörs i eftermiddag!","dur":3.59},"karin_ring1":{"file":"voice/karin_ring1.mp3","who":"karin","text":"Hej Ingrid! Jag såg att din lampa lyste, så jag tänkte ringa. Hur har du det i dag?","dur":7.65},"karin_ring2":{"file":"voice/karin_ring2.mp3","who":"karin","text":"Vad skönt. Du, ska vi åka till träffpunkten tillsammans på onsdag? Min son kan skjutsa oss båda.","dur":7.75},"karin_ring3":{"file":"voice/karin_ring3.mp3","who":"karin","text":"Härligt! Då säger vi så. Vi hörs på Spelstunden!","dur":4.48},"karin_y_hej":{"file":"voice/karin_y_hej.mp3","who":"karin","text":"Hej allihop! Lycka till nu!","dur":2.92},"karin_y_bra":{"file":"voice/karin_y_bra.mp3","who":"karin","text":"Kåk! Den tar jag.","dur":1.69},"karin_y_yatzy":{"file":"voice/karin_y_yatzy.mp3","who":"karin","text":"Yatzy! Nej men titta, fem lika!","dur":3.65},"karin_y_stryk":{"file":"voice/karin_y_stryk.mp3","who":"karin","text":"Äsch, det blev ingenting. Jag får stryka.","dur":3.04},"karin_y_berom":{"file":"voice/karin_y_berom.mp3","who":"karin","text":"Snyggt, Ingrid! Vilken tur du har.","dur":2.75},"karin_y_prat":{"file":"voice/karin_y_prat.mp3","who":"karin","text":"Ingrid, kommer du på bingon sen? Då kan vi heja på varandra.","dur":4.69},"karin_y_slut":{"file":"voice/karin_y_slut.mp3","who":"karin","text":"Tack för spelet allihop! Det var så roligt.","dur":4.05},"kryss_karin_hej":{"file":"voice/kryss_karin_hej.mp3","who":"karin","text":"Hej Ingrid! Vad roligt att du frågade. Jag har precis satt på kaffe.","dur":6.19},"kryss_karin_ord":{"file":"voice/kryss_karin_ord.mp3","who":"karin","text":"Där! Det ordet kunde jag.","dur":2.58},"kryss_karin_bra":{"file":"voice/kryss_karin_bra.mp3","who":"karin","text":"Snyggt, Ingrid! Du är bra på det här.","dur":3.13},"kryss_karin_hejda":{"file":"voice/kryss_karin_hejda.mp3","who":"karin","text":"Tack för i dag, Ingrid! Vi tar Stora krysset i morgon.","dur":4.11},"bengt_fika1":{"file":"voice/bengt_fika1.mp3","who":"bengt","text":"God morgon allihop. Här i Skegrie blåser det rejält i dag.","dur":4.9},"bengt_fika2":{"file":"voice/bengt_fika2.mp3","who":"bengt","text":"Dagens fråga var om första cykeln. Min var en blå Crescent, som jag fick när jag fyllde tolv.","dur":8.55},"bengt_y_hej":{"file":"voice/bengt_y_hej.mp3","who":"bengt","text":"Hej hej! Nu kör vi. Jag känner mig i form i dag.","dur":3.57},"bengt_y_bra":{"file":"voice/bengt_y_bra.mp3","who":"bengt","text":"Stor stege! Där satt den.","dur":3.3},"bengt_y_yatzy":{"file":"voice/bengt_y_yatzy.mp3","who":"bengt","text":"Yatzy! Det har inte hänt sedan jul.","dur":3.24},"bengt_y_stryk":{"file":"voice/bengt_y_stryk.mp3","who":"bengt","text":"Nej, nu blev det pannkaka. Jag stryker.","dur":3.84},"bengt_y_berom":{"file":"voice/bengt_y_berom.mp3","who":"bengt","text":"Bra kastat, Ingrid!","dur":1.97},"bengt_y_prat":{"file":"voice/bengt_y_prat.mp3","who":"bengt","text":"Det här påminner mig om när vi spelade på rasterna på Gummifabriken.","dur":4.54},"bengt_y_slut":{"file":"voice/bengt_y_slut.mp3","who":"bengt","text":"Tack för i dag. Samma tid i morgon?","dur":2.77},"sonja_fika1":{"file":"voice/sonja_fika1.mp3","who":"sonja","text":"Ja, det är riktigt höstväder. Jag tänkte gå till affären, men jag stannar nog inne i dag.","dur":8.24},"sonja_fika2":{"file":"voice/sonja_fika2.mp3","who":"sonja","text":"Åh, jag hade en röd Monark. Den fick jag ärva av min storebror.","dur":6.12},"sonja_y_hej":{"file":"voice/sonja_y_hej.mp3","who":"sonja","text":"Hej Ingrid! Vad roligt att vi hamnade vid samma bord.","dur":4.35},"sonja_y_bra":{"file":"voice/sonja_y_bra.mp3","who":"sonja","text":"Oj, vad fint det blev! Det skriver jag.","dur":2.82},"sonja_y_yatzy":{"file":"voice/sonja_y_yatzy.mp3","who":"sonja","text":"Yatzy! Jag kan inte tro det!","dur":3.51},"sonja_y_stryk":{"file":"voice/sonja_y_stryk.mp3","who":"sonja","text":"Aj då. Det får bli en nolla den här gången.","dur":4.37},"sonja_y_berom":{"file":"voice/sonja_y_berom.mp3","who":"sonja","text":"Åh, grattis Ingrid! Det var snyggt.","dur":3.81},"sonja_y_prat":{"file":"voice/sonja_y_prat.mp3","who":"sonja","text":"Har ni märkt att det har blivit så mörkt på kvällarna nu?","dur":4.37},"sonja_y_slut":{"file":"voice/sonja_y_slut.mp3","who":"sonja","text":"Tack för spelet! Vi ses på bingon.","dur":3.33},"mats_intro":{"file":"voice/mats_intro.mp3","who":"mats","text":"Hej och välkomna till bingo här på träffpunkten! Och extra välkomna, ni som är med hemifrån. Vi ser er på tv:n här i salen!","dur":7.56},"mats_forsta":{"file":"voice/mats_forsta.mp3","who":"mats","text":"Då drar vi första numret.","dur":1.08},"mats_kolla":{"file":"voice/mats_kolla.mp3","who":"mats","text":"Ett ögonblick, jag kontrollerar brickan.","dur":1.89},"mats_bingo_ingrid":{"file":"voice/mats_bingo_ingrid.mp3","who":"mats","text":"Vi har en bingo! Och det är Ingrid, som är med hemifrån i Anderslöv. Grattis, Ingrid!","dur":5.36},"mats_bingo_gunvor":{"file":"voice/mats_bingo_gunvor.mp3","who":"mats","text":"Bingo! Grattis till Gunvor, som är med hemifrån i Smygehamn!","dur":2.91},"mats_ny_runda":{"file":"voice/mats_ny_runda.mp3","who":"mats","text":"Då kör vi en ny runda. Rensa brickorna!","dur":1.83},"mats_hej_0":{"file":"voice/mats_hej_0.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Hej allihop!","dur":1.78},"mats_hej_1":{"file":"voice/mats_hej_1.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Spara en bulle åt mig!","dur":2.23},"mats_hej_2":{"file":"voice/mats_hej_2.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Vad roligt att vara med!","dur":2.75},"mats_hej_3":{"file":"voice/mats_hej_3.mp3","who":"mats","text":"Ingrid i Anderslöv hälsar: Tack för i dag!","dur":1.9},"anna_ring1":{"file":"voice/anna_ring1.mp3","who":"anna","text":"Hej mormor! Vad roligt att du svarade. Elsa sitter här bredvid mig och vill säga hej.","dur":4.78},"anna_ring2":{"file":"voice/anna_ring2.mp3","who":"anna","text":"Hon undrar om du vill spela Yatzy med henne på söndag, när vi kommer och hälsar på.","dur":3.75},"anna_ring3":{"file":"voice/anna_ring3.mp3","who":"anna","text":"Vad bra! Då tar vi med kanelbullar. Kram mormor, vi ses på söndag!","dur":3.82},"support_1":{"file":"voice/support_1.mp3","who":"support","text":"Hej Ingrid, det är Johan på supporten. Hur kan jag hjälpa dig?","dur":3.35},"support_2":{"file":"voice/support_2.mp3","who":"support","text":"Om du säger ja kan jag se din skärm en liten stund, så visar jag hur man gör.","dur":4.62},"support_3":{"file":"voice/support_3.mp3","who":"support","text":"Så där, nu är det klart. Ring när du vill, vi finns här vardagar mellan åtta och fem.","dur":5.32},"anna_fotboll":{"file":"voice/anna_fotboll.mp3","who":"anna","text":"Hej mormor! Här är Elsa på fotbollsmatchen i dag. Hon gjorde två mål! Vi kommer och hälsar på på söndag. Kram!","dur":5.87},"anna_bullar":{"file":"voice/anna_bullar.mp3","who":"anna","text":"Hej mormor! Vi bakade kanelbullar efter ditt recept. Nästan lika goda som dina!","dur":4.69},"anna_strand":{"file":"voice/anna_strand.mp3","who":"anna","text":"Hej mormor! Vi tog en promenad vid havet i kväll och tänkte på dig. Kram!","dur":3.68},"anna_teckning":{"file":"voice/anna_teckning.mp3","who":"anna","text":"Hej mormor! Elsa har ritat en teckning till dig. Det är ni två i trädgården, bland blommorna. Kram från oss båda!","dur":5.7},"kryss_anna_hej":{"file":"voice/kryss_anna_hej.mp3","who":"anna","text":"Hej mormor! Jag sitter på bussen, så jag hjälper dig gärna med krysset en stund.","dur":3.6},"kryss_anna_ord":{"file":"voice/kryss_anna_ord.mp3","who":"anna","text":"Titta, där fick jag ett ord!","dur":1.35},"kryss_anna_bra":{"file":"voice/kryss_anna_bra.mp3","who":"anna","text":"Snyggt, mormor! Du är så bra på korsord.","dur":1.98},"kryss_anna_hejda":{"file":"voice/kryss_anna_hejda.mp3","who":"anna","text":"Nu är jag framme. Tack för krysset, mormor! Puss!","dur":2.36},"tour_intro":{"file":"voice/tour_intro.mp3","who":"guide","text":"4 600 personer i Trelleborgs kommun som är 65 eller äldre bor ensamma. Varannan med hemtjänst är besvärad av ensamhet. Och när knäna värker eller vädret är dåligt blir träffpunkten för långt bort.","dur":17.2},"tour_titel":{"file":"voice/tour_titel.mp3","who":"guide","text":"Träffpunkt Hemma tar träffpunkten hem till köksbordet. Följ med Ingrid, 84 år, genom en helt vanlig måndag i Anderslöv.","dur":8.03},"tour_morgon":{"file":"voice/tour_morgon.mp3","who":"guide","text":"Plattan står på Ingrids köksbord. När ingen rör den visar den dagen: tiden, vädret och vad som händer.","dur":7.83},"tour_halsning":{"file":"voice/tour_halsning.mp3","who":"guide","text":"Klockan nio säger plattan god morgon och frågar hur hon mår. Ett tryck räcker, och vill hon kan någon från träffpunkten ringa upp.","dur":8.12},"tour_idag":{"file":"voice/tour_idag.mp3","who":"guide","text":"Startsidan visar bara det viktigaste: vad som händer nu, dagens program och vänner som gärna vill prata. Stora knappar, med både bild och ord.","dur":11.01},"tour_tillganglig":{"file":"voice/tour_tillganglig.mp3","who":"guide","text":"Allt går att anpassa: större text, mörk skärm och uppläsning, med ett enda tryck. Textstorleken följer med in i spelen.","dur":10.64},"tour_lampa":{"file":"voice/tour_lampa.mp3","who":"guide","text":"Ingrid tänder sin lampa. Det betyder: jag är hemma och vill gärna prata. Familjen får en notis i mobilen, och väninnan Karin ringer upp.","dur":9.42},"tour_fika":{"file":"voice/tour_fika.mp3","who":"guide","text":"Förmiddagsfika i Fikarummet, med en värd från träffpunkten. Allt som sägs textas, och mikrofonen styrs med en stor knapp.","dur":8.98},"tour_gympa":{"file":"voice/tour_gympa.mp3","who":"guide","text":"Sittgympa direkt från Träffpunkt Trelleborg. Ingrid gör rörelserna vid köksbordet, samtidigt som gruppen i salen.","dur":6.63},"tour_anslag":{"file":"voice/tour_anslag.mp3","who":"guide","text":"På anslagstavlan delar deltagarna minnen från Trelleborg förr. Allt kan läsas upp, och den som vill svarar med rösten.","dur":7.74},"tour_grannar":{"file":"voice/tour_grannar.mp3","who":"guide","text":"Plattan visar vilka som bor i närheten, bara orten och aldrig adressen. Ingrid föreslår en fika, och Karin tackar ja.","dur":8.38},"tour_canasta":{"file":"voice/tour_canasta.mp3","who":"guide","text":"Canasta, Yatzy, fia, patiens och dart finns alltid i plattan, med stor text och lugnt tempo.","dur":9.35},"tour_kryss":{"file":"voice/tour_kryss.mp3","who":"guide","text":"Två nya korsord varje dag, och korsord löser man gärna ihop. Ingrid bjuder in Karin, när som helst på dagen. De skriver i samma kryss och pratar med varandra medan de löser.","dur":12.46},"tour_familj":{"file":"voice/tour_familj.mp3","who":"guide","text":"Familjen bjuds in med en QR-kod på Ingrids platta, och Ingrid bestämmer själv vad de ser. Barnbarnet Anna fick en notis i mobilen när mormor tände lampan, och kan ringa med ett tryck.","dur":13.18},"tour_teckning":{"file":"voice/tour_teckning.mp3","who":"guide","text":"Annas dotter Elsa har ritat en teckning till gammelmormor. Anna fotar den och skickar den direkt till plattan, och ett hjärta kommer tillbaka. Små saker, som gör att barn och äldre hörs oftare.","dur":12.66},"tour_anmalan":{"file":"voice/tour_anmalan.mp3","who":"guide","text":"Halv två frågar plattan om Ingrid vill vara med på Spelstunden. Hon väljer Yatzy och vill gärna sitta med Karin.","dur":7.13},"tour_bord":{"file":"voice/tour_bord.mp3","who":"guide","text":"Klockan två delas alla in i bord. Vänner hamnar tillsammans, och ingen blir sittande ensam.","dur":5.63},"tour_spel":{"file":"voice/tour_spel.mp3","who":"guide","text":"Vid bordet spelar Ingrid Yatzy med Karin, Bengt och Sonja, med röster och textning.","dur":5.4},"tour_bingo":{"file":"voice/tour_bingo.mp3","who":"guide","text":"Klockan tre sänds bingo från träffpunkten. Den som är hemma spelar med och syns på tv:n i salen. Och i dag blir det bingo för Ingrid!","dur":9.96},"tour_personal":{"file":"voice/tour_personal.mp3","who":"guide","text":"Personalen på träffpunkten har en egen vy i datorn. De ser vilka som är inne, planerar programmet och startar sändningar. Under Omtanke syns vem som vill bli uppringd, och rapporten visar om ensamheten minskar, utan att någon övervakas.","dur":18},"tour_meddelande":{"file":"voice/tour_meddelande.mp3","who":"guide","text":"Vid storm eller halka når personalen alla plattor på en gång, och meddelandet läses upp.","dur":5.61},"tour_forslag":{"file":"voice/tour_forslag.mp3","who":"guide","text":"Förslaget är en pilot med 25 deltagare i sex månader, där ensamheten mäts före och efter. Allt ingår, till ett fast pris per deltagare.","dur":11.29},"tour_slut":{"file":"voice/tour_slut.mp3","who":"guide","text":"Träffpunkt Hemma ersätter inte träffpunkterna. Den gör dem större. Prova demon själv, eller hör av er, så visar vi den.","dur":7.36},"nr_1":{"file":"voice/nr_1.mp3","who":"mats","text":"B 1","dur":0.79},"nr_2":{"file":"voice/nr_2.mp3","who":"mats","text":"B 2","dur":0.63},"nr_3":{"file":"voice/nr_3.mp3","who":"mats","text":"B 3","dur":0.79},"nr_4":{"file":"voice/nr_4.mp3","who":"mats","text":"B 4","dur":0.79},"nr_5":{"file":"voice/nr_5.mp3","who":"mats","text":"B 5","dur":0.69},"nr_6":{"file":"voice/nr_6.mp3","who":"mats","text":"B 6","dur":0.69},"nr_7":{"file":"voice/nr_7.mp3","who":"mats","text":"B 7","dur":0.79},"nr_8":{"file":"voice/nr_8.mp3","who":"mats","text":"B 8","dur":0.64},"nr_9":{"file":"voice/nr_9.mp3","who":"mats","text":"B 9","dur":0.77},"nr_10":{"file":"voice/nr_10.mp3","who":"mats","text":"B 10","dur":0.69},"nr_11":{"file":"voice/nr_11.mp3","who":"mats","text":"B 11","dur":0.58},"nr_12":{"file":"voice/nr_12.mp3","who":"mats","text":"B 12","dur":0.42},"nr_13":{"file":"voice/nr_13.mp3","who":"mats","text":"B 13","dur":0.54},"nr_14":{"file":"voice/nr_14.mp3","who":"mats","text":"B 14","dur":0.66},"nr_15":{"file":"voice/nr_15.mp3","who":"mats","text":"B 15","dur":0.59},"nr_16":{"file":"voice/nr_16.mp3","who":"mats","text":"I 16","dur":0.63},"nr_17":{"file":"voice/nr_17.mp3","who":"mats","text":"I 17","dur":0.54},"nr_18":{"file":"voice/nr_18.mp3","who":"mats","text":"I 18","dur":0.56},"nr_19":{"file":"voice/nr_19.mp3","who":"mats","text":"I 19","dur":0.68},"nr_20":{"file":"voice/nr_20.mp3","who":"mats","text":"I 20","dur":0.77},"nr_21":{"file":"voice/nr_21.mp3","who":"mats","text":"I 21","dur":0.61},"nr_22":{"file":"voice/nr_22.mp3","who":"mats","text":"I 22","dur":0.67},"nr_23":{"file":"voice/nr_23.mp3","who":"mats","text":"I 23","dur":0.88},"nr_24":{"file":"voice/nr_24.mp3","who":"mats","text":"I 24","dur":0.82},"nr_25":{"file":"voice/nr_25.mp3","who":"mats","text":"I 25","dur":0.83},"nr_26":{"file":"voice/nr_26.mp3","who":"mats","text":"I 26","dur":0.79},"nr_27":{"file":"voice/nr_27.mp3","who":"mats","text":"I 27","dur":0.7},"nr_28":{"file":"voice/nr_28.mp3","who":"mats","text":"I 28","dur":0.71},"nr_29":{"file":"voice/nr_29.mp3","who":"mats","text":"I 29","dur":0.59},"nr_30":{"file":"voice/nr_30.mp3","who":"mats","text":"I 30","dur":0.57},"nr_31":{"file":"voice/nr_31.mp3","who":"mats","text":"N 31","dur":0.72},"nr_32":{"file":"voice/nr_32.mp3","who":"mats","text":"N 32","dur":0.68},"nr_33":{"file":"voice/nr_33.mp3","who":"mats","text":"N 33","dur":0.65},"nr_34":{"file":"voice/nr_34.mp3","who":"mats","text":"N 34","dur":0.73},"nr_35":{"file":"voice/nr_35.mp3","who":"mats","text":"N 35","dur":0.81},"nr_36":{"file":"voice/nr_36.mp3","who":"mats","text":"N 36","dur":0.84},"nr_37":{"file":"voice/nr_37.mp3","who":"mats","text":"N 37","dur":0.73},"nr_38":{"file":"voice/nr_38.mp3","who":"mats","text":"N 38","dur":0.72},"nr_39":{"file":"voice/nr_39.mp3","who":"mats","text":"N 39","dur":1.05},"nr_40":{"file":"voice/nr_40.mp3","who":"mats","text":"N 40","dur":0.82},"nr_41":{"file":"voice/nr_41.mp3","who":"mats","text":"N 41","dur":0.66},"nr_42":{"file":"voice/nr_42.mp3","who":"mats","text":"N 42","dur":0.75},"nr_43":{"file":"voice/nr_43.mp3","who":"mats","text":"N 43","dur":0.69},"nr_44":{"file":"voice/nr_44.mp3","who":"mats","text":"N 44","dur":0.85},"nr_45":{"file":"voice/nr_45.mp3","who":"mats","text":"N 45","dur":0.75},"nr_46":{"file":"voice/nr_46.mp3","who":"mats","text":"G 46","dur":0.77},"nr_47":{"file":"voice/nr_47.mp3","who":"mats","text":"G 47","dur":0.74},"nr_48":{"file":"voice/nr_48.mp3","who":"mats","text":"G 48","dur":0.67},"nr_49":{"file":"voice/nr_49.mp3","who":"mats","text":"G 49","dur":1.12},"nr_50":{"file":"voice/nr_50.mp3","who":"mats","text":"G 50","dur":0.66},"nr_51":{"file":"voice/nr_51.mp3","who":"mats","text":"G 51","dur":0.66},"nr_52":{"file":"voice/nr_52.mp3","who":"mats","text":"G 52","dur":0.74},"nr_53":{"file":"voice/nr_53.mp3","who":"mats","text":"G 53","dur":0.72},"nr_54":{"file":"voice/nr_54.mp3","who":"mats","text":"G 54","dur":0.75},"nr_55":{"file":"voice/nr_55.mp3","who":"mats","text":"G 55","dur":0.68},"nr_56":{"file":"voice/nr_56.mp3","who":"mats","text":"G 56","dur":0.8},"nr_57":{"file":"voice/nr_57.mp3","who":"mats","text":"G 57","dur":0.77},"nr_58":{"file":"voice/nr_58.mp3","who":"mats","text":"G 58","dur":0.74},"nr_59":{"file":"voice/nr_59.mp3","who":"mats","text":"G 59","dur":0.75},"nr_60":{"file":"voice/nr_60.mp3","who":"mats","text":"G 60","dur":0.66},"nr_61":{"file":"voice/nr_61.mp3","who":"mats","text":"O 61","dur":0.67},"nr_62":{"file":"voice/nr_62.mp3","who":"mats","text":"O 62","dur":0.92},"nr_63":{"file":"voice/nr_63.mp3","who":"mats","text":"O 63","dur":0.78},"nr_64":{"file":"voice/nr_64.mp3","who":"mats","text":"O 64","dur":0.79},"nr_65":{"file":"voice/nr_65.mp3","who":"mats","text":"O 65","dur":0.98},"nr_66":{"file":"voice/nr_66.mp3","who":"mats","text":"O 66","dur":1.07},"nr_67":{"file":"voice/nr_67.mp3","who":"mats","text":"O 67","dur":0.91},"nr_68":{"file":"voice/nr_68.mp3","who":"mats","text":"O 68","dur":0.8},"nr_69":{"file":"voice/nr_69.mp3","who":"mats","text":"O 69","dur":1.16},"nr_70":{"file":"voice/nr_70.mp3","who":"mats","text":"O 70","dur":0.7},"nr_71":{"file":"voice/nr_71.mp3","who":"mats","text":"O 71","dur":0.64},"nr_72":{"file":"voice/nr_72.mp3","who":"mats","text":"O 72","dur":0.96},"nr_73":{"file":"voice/nr_73.mp3","who":"mats","text":"O 73","dur":0.84},"nr_74":{"file":"voice/nr_74.mp3","who":"mats","text":"O 74","dur":0.77},"nr_75":{"file":"voice/nr_75.mp3","who":"mats","text":"O 75","dur":0.72},"gympa_0":{"file":"voice/gympa_0.mp3","who":"eva","text":"Sitt en bit ut på stolen, med båda fötterna i golvet.","dur":3.36},"gympa_1":{"file":"voice/gympa_1.mp3","who":"eva","text":"Lyft höger knä långsamt… och sänk.","dur":2.55},"gympa_2":{"file":"voice/gympa_2.mp3","who":"eva","text":"Nu vänster knä… och sänk.","dur":1.46},"gympa_3":{"file":"voice/gympa_3.mp3","who":"eva","text":"Sträck ut höger ben rakt fram. Håll kvar en stund… och sänk.","dur":3.93},"gympa_4":{"file":"voice/gympa_4.mp3","who":"eva","text":"Samma sak med vänster ben.","dur":1.37},"gympa_5":{"file":"voice/gympa_5.mp3","who":"eva","text":"Rulla axlarna bakåt, fem gånger.","dur":2.32},"gympa_6":{"file":"voice/gympa_6.mp3","who":"eva","text":"Andas in djupt… och ut. Bra jobbat!","dur":2.91},"quiz_intro":{"file":"voice/quiz_intro.mp3","who":"lena","text":"Välkommen till veckans frågesport om Trelleborg förr och nu! Sex frågor. Ta den tid du behöver.","dur":8.11},"quiz_slut":{"file":"voice/quiz_slut.mp3","who":"lena","text":"Bra kämpat! Nästa vecka kommer nya frågor. Och på tisdag klockan två kör vi frågesporten live tillsammans.","dur":12.66},"quiz_q0":{"file":"voice/quiz_q0.mp3","who":"lena","text":"Hur många palmer ställs ut på gatorna i Trelleborg varje sommar?","dur":3.51},"quiz_f0":{"file":"voice/quiz_f0.mp3","who":"lena","text":"Kommunen har drygt hundra palmer. De har stått på gatorna varje sommar sedan 1984 och övervintrar i ett växthus.","dur":12.06},"quiz_q1":{"file":"voice/quiz_q1.mp3","who":"lena","text":"Vilket år började tågfärjan gå mellan Trelleborg och Sassnitz?","dur":5.25},"quiz_f1":{"file":"voice/quiz_f1.mp3","who":"lena","text":"Tågfärjan började gå 1909. Den sista färjelinjen till Sassnitz lades ned hösten 2024.","dur":9.63},"quiz_q2":{"file":"voice/quiz_q2.mp3","who":"lena","text":"Vilka grundade Trelleborgs Gummifabrik år 1905?","dur":3.97},"quiz_f2":{"file":"voice/quiz_f2.mp3","who":"lena","text":"Henry Dunker och Johan Kock grundade Gummifabriken 1905. I dag heter företaget Trelleborg AB.","dur":9.5},"quiz_q3":{"file":"voice/quiz_q3.mp3","who":"lena","text":"Hur hög är fyren på Smygehuk?","dur":2.45},"quiz_f3":{"file":"voice/quiz_f3.mp3","who":"lena","text":"Fyren är 17 meter hög. Den tändes 1883, släcktes 1975 och tändes igen 2001.","dur":13.08},"quiz_q4":{"file":"voice/quiz_q4.mp3","who":"lena","text":"När hittades vikingaborgen Trelleborgen?","dur":2.81},"quiz_f4":{"file":"voice/quiz_f4.mp3","who":"lena","text":"Borgen hittades 1988. En fjärdedel av den byggdes upp igen och öppnade 1995.","dur":7.67},"quiz_q5":{"file":"voice/quiz_q5.mp3","who":"lena","text":"Vilken kung steg i land vid Stavstensudde år 1715?","dur":4.22},"quiz_f5":{"file":"voice/quiz_f5.mp3","who":"lena","text":"Karl XII kom i land vid Stavstensudde 1715. Minnesstenarna där restes 1768 och 1912.","dur":13.13},"welcome_hej":{"file":"voice/welcome_hej.mp3","who":"app","text":"Välkommen, Ingrid! Det här är din platta. Den är redan klar att använda, och du behöver aldrig komma ihåg något lösenord.","dur":8.23},"welcome_meny":{"file":"voice/welcome_meny.mp3","who":"app","text":"Menyn till vänster Menyn finns alltid på samma ställe. Tryck på I dag, så ser du vad som händer i dag.","dur":9.31},"welcome_lampa":{"file":"voice/welcome_lampa.mp3","who":"app","text":"Din lampa Tänd lampan uppe till höger när du gärna vill prata. Dina vänner ser det och kan ringa dig.","dur":9.16},"welcome_fika":{"file":"voice/welcome_fika.mp3","who":"app","text":"Fikarummet Under Prata finns Fikarummet. Där finns en värd varje förmiddag. Du kan bara lyssna om du vill.","dur":8.5},"welcome_hjalp":{"file":"voice/welcome_hjalp.mp3","who":"app","text":"Hjälp Längst ned finns Hjälp. Där kan du ringa supporten på vardagar. Du kan inte göra fel.","dur":9.2},"survey_intro":{"file":"voice/survey_intro.mp3","who":"app","text":"Tre korta frågor om hur du har det. Svaren visar om Träffpunkt Hemma gör nytta. Personalen ser bara svaren från alla tillsammans.","dur":10.8},"survey_q0":{"file":"voice/survey_q0.mp3","who":"app","text":"Hur ofta känner du att du saknar sällskap?","dur":2.96},"survey_q1":{"file":"voice/survey_q1.mp3","who":"app","text":"Hur ofta känner du dig utanför?","dur":2.53},"survey_q2":{"file":"voice/survey_q2.mp3","who":"app","text":"Hur ofta känner du dig isolerad från andra?","dur":3.45},"survey_tack":{"file":"voice/survey_tack.mp3","who":"app","text":"Tack för dina svar! Nästa gång frågar vi om en månad.","dur":4.21},"notice_storm":{"file":"voice/notice_storm.mp3","who":"app","text":"Meddelande från träffpunkten. Träffpunkt Trelleborg och Träffpunkt Anderslöv är stängda i morgon på grund av stormen. Fikarummet och Spelstunden är öppna som vanligt här på plattan.","dur":13.25},"notice_halka":{"file":"voice/notice_halka.mp3","who":"app","text":"Meddelande från träffpunkten. Det blir halt ute i morgon bitti. Vänta gärna med promenaden till eftermiddagen. Fikarummet öppnar som vanligt klockan nio.","dur":9.74},"notice_lucia":{"file":"voice/notice_lucia.mp3","who":"app","text":"Meddelande från träffpunkten. Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder luciatåget här på plattan, så att alla kan vara med.","dur":10.75},"post_gummi_0":{"file":"voice/post_gummi_0.mp3","who":"app","text":"Bengt Hansson skriver: Jag började på Gummifabriken 1955, femton år gammal. Det luktade gummi över hela stan när vinden låg på. Var det fler här som jobbade där?","dur":13.77},"post_gummi_1":{"file":"voice/post_gummi_1.mp3","who":"app","text":"Ulla Carlsson skriver: Min pappa jobbade där i över trettio år. Vi barn fick följa med på julfesten varje år. Jag minns den stora granen i matsalen!","dur":11.41},"post_gummi_2":{"file":"voice/post_gummi_2.mp3","who":"app","text":"Sven-Erik Lind skriver: Jag var på verkstaden på sextiotalet. Tunga dagar, men bra kamrater. Vi spelade kort på rasterna.","dur":11.03},"post_gummi_3":{"file":"voice/post_gummi_3.mp3","who":"app","text":"Karin Olsson skriver: Min man tog bussen dit från Anderslöv varje morgon i tjugo år. Han sa alltid att det var de bästa arbetskamraterna han haft.","dur":11.85},"post_farjan_0":{"file":"voice/post_farjan_0.mp3","who":"app","text":"Gösta Persson skriver: Som pojke stod jag i hamnen och tittade på när tågvagnarna rullade ombord på färjan. Hela tåg på en båt! Det var något alldeles särskilt.","dur":14.11},"post_farjan_1":{"file":"voice/post_farjan_1.mp3","who":"app","text":"Kerstin Wallin skriver: Vi åkte över till Sassnitz en gång på sextiotalet. Jag minns hur annorlunda allt var på andra sidan.","dur":9.68},"post_pelargon_0":{"file":"voice/post_pelargon_0.mp3","who":"app","text":"Karin Olsson skriver: Nu börjar nätterna bli kalla. Jag tar in mina pelargoner i helgen. Klipper ni ner dem först?","dur":8.98},"post_pelargon_1":{"file":"voice/post_pelargon_1.mp3","who":"app","text":"Lennart Åkesson skriver: Jag klipper ner dem till en tredjedel och ställer dem svalt i källaren. De klarar sig fint till våren.","dur":9.45},"post_pelargon_2":{"file":"voice/post_pelargon_2.mp3","who":"app","text":"Anna-Lisa Håkansson skriver: Mina står i köksfönstret hela vintern. De blommar nästan jämt!","dur":6.93},"post_aggakaka_0":{"file":"voice/post_aggakaka_0.mp3","who":"app","text":"Barbro Persson skriver: Barnbarnen vill lära sig göra äggakaka. Serverar ni den med stekt fläsk och lingon, eller med äppelmos?","dur":9.42},"post_aggakaka_1":{"file":"voice/post_aggakaka_1.mp3","who":"app","text":"Elsa Lundgren skriver: Fläsk och lingon, självklart! Så gjorde min mor alltid.","dur":7.06},"post_aggakaka_2":{"file":"voice/post_aggakaka_2.mp3","who":"app","text":"Rolf Gustavsson skriver: Hos oss blev det äppelmos, och lite socker på.","dur":5.77},"post_melodikrysset_0":{"file":"voice/post_melodikrysset_0.mp3","who":"app","text":"Sonja Mårtensson skriver: Är det fler som löser Melodikrysset? Vi kanske kan lyssna tillsammans i Fikarummet på lördag förmiddag?","dur":9.47},"post_melodikrysset_1":{"file":"voice/post_melodikrysset_1.mp3","who":"app","text":"Rune Jeppsson skriver: Bra idé! Jag har löst det sedan sjuttiotalet.","dur":5.56},"post_melodikrysset_2":{"file":"voice/post_melodikrysset_2.mp3","who":"app","text":"Lena Berg skriver: Vilken fin idé! Jag öppnar Fikarummet klockan tio på lördag, så kan ni lyssna och lösa det tillsammans.","dur":10.65},"post_lucia_0":{"file":"voice/post_lucia_0.mp3","who":"app","text":"Margareta Ek skriver: Blir det luciatåg på träffpunkten i år? Det var så fint förra året.","dur":7.54},"post_lucia_1":{"file":"voice/post_lucia_1.mp3","who":"app","text":"Lena Berg skriver: Ja! Den 13 december kommer lucia till Träffpunkt Trelleborg. Vi sänder det här, så att alla som är hemma kan vara med.","dur":10.76},"post_textstorlek_0":{"file":"voice/post_textstorlek_0.mp3","who":"app","text":"Stig Larsson skriver: Jag ser dåligt på kvällarna. Går det att göra texten större?","dur":5.82},"post_textstorlek_1":{"file":"voice/post_textstorlek_1.mp3","who":"app","text":"Lena Berg skriver: Hej Stig! Tryck på Mitt konto uppe i hörnet och välj Extra stor text. Ring gärna supporten om det krånglar.","dur":12.17}},"levels":{"voice/app_morgon.mp3":0,"voice/app_mood_bra.mp3":0.1,"voice/app_mood_okej.mp3":0.1,"voice/app_mood_ring.mp3":0,"voice/app_ring_ja.mp3":0,"voice/app_lampa.mp3":0,"voice/app_anmalan.mp3":0,"voice/app_anmald.mp3":0,"voice/app_start.mp3":0,"voice/app_bingo.mp3":-0.2,"voice/app_halsning.mp3":0,"voice/app_karin_ringer.mp3":-0.1,"voice/app_anna_ringer.mp3":0,"voice/app_lena_ringer.mp3":0,"voice/app_fodelsedag.mp3":0,"voice/app_kryss_anna.mp3":0,"voice/lena_fika1.mp3":-0.1,"voice/lena_fika2.mp3":0,"voice/lena_fika3.mp3":0.1,"voice/lena_fika4.mp3":0,"voice/lena_ring1.mp3":0.1,"voice/lena_ring2.mp3":0,"voice/lena_ring3.mp3":0,"voice/lena_vinka.mp3":-0.1,"voice/karin_fika1.mp3":0,"voice/karin_fika2.mp3":-0.1,"voice/karin_fika3.mp3":0,"voice/karin_ring1.mp3":0,"voice/karin_ring2.mp3":0,"voice/karin_ring3.mp3":0,"voice/karin_y_hej.mp3":0,"voice/karin_y_bra.mp3":-0.1,"voice/karin_y_yatzy.mp3":-0.1,"voice/karin_y_stryk.mp3":0.1,"voice/karin_y_berom.mp3":0,"voice/karin_y_prat.mp3":0,"voice/karin_y_slut.mp3":0,"voice/kryss_karin_hej.mp3":-0.1,"voice/kryss_karin_ord.mp3":0.1,"voice/kryss_karin_bra.mp3":-0.1,"voice/kryss_karin_hejda.mp3":0,"voice/bengt_fika1.mp3":-0.1,"voice/bengt_fika2.mp3":0,"voice/bengt_y_hej.mp3":-0.1,"voice/bengt_y_bra.mp3":0,"voice/bengt_y_yatzy.mp3":0,"voice/bengt_y_stryk.mp3":0,"voice/bengt_y_berom.mp3":0,"voice/bengt_y_prat.mp3":0,"voice/bengt_y_slut.mp3":0,"voice/sonja_fika1.mp3":0,"voice/sonja_fika2.mp3":0,"voice/sonja_y_hej.mp3":0,"voice/sonja_y_bra.mp3":0.1,"voice/sonja_y_yatzy.mp3":0.1,"voice/sonja_y_stryk.mp3":0,"voice/sonja_y_berom.mp3":0,"voice/sonja_y_prat.mp3":0,"voice/sonja_y_slut.mp3":0,"voice/mats_intro.mp3":0,"voice/mats_forsta.mp3":0.1,"voice/mats_kolla.mp3":0.1,"voice/mats_bingo_ingrid.mp3":0.6,"voice/mats_bingo_gunvor.mp3":0,"voice/mats_ny_runda.mp3":0.1,"voice/mats_hej_0.mp3":0.1,"voice/mats_hej_1.mp3":0.1,"voice/mats_hej_2.mp3":0.1,"voice/mats_hej_3.mp3":0,"voice/anna_ring1.mp3":0,"voice/anna_ring2.mp3":0.1,"voice/anna_ring3.mp3":0,"voice/support_1.mp3":0,"voice/support_2.mp3":0,"voice/support_3.mp3":0,"voice/anna_fotboll.mp3":0,"voice/anna_bullar.mp3":0,"voice/anna_strand.mp3":0,"voice/anna_teckning.mp3":0,"voice/kryss_anna_hej.mp3":0.1,"voice/kryss_anna_ord.mp3":0.1,"voice/kryss_anna_bra.mp3":0.1,"voice/kryss_anna_hejda.mp3":0,"voice/tour_intro.mp3":0.1,"voice/tour_titel.mp3":0.1,"voice/tour_morgon.mp3":0,"voice/tour_halsning.mp3":0,"voice/tour_idag.mp3":0,"voice/tour_tillganglig.mp3":0.1,"voice/tour_lampa.mp3":0,"voice/tour_fika.mp3":0,"voice/tour_gympa.mp3":0,"voice/tour_anslag.mp3":0,"voice/tour_grannar.mp3":0.1,"voice/tour_canasta.mp3":0,"voice/tour_kryss.mp3":0,"voice/tour_familj.mp3":0,"voice/tour_teckning.mp3":0.1,"voice/tour_anmalan.mp3":0,"voice/tour_bord.mp3":0.1,"voice/tour_spel.mp3":-0.1,"voice/tour_bingo.mp3":0,"voice/tour_personal.mp3":0,"voice/tour_meddelande.mp3":0,"voice/tour_forslag.mp3":0,"voice/tour_slut.mp3":0,"voice/nr_1.mp3":0.1,"voice/nr_2.mp3":0,"voice/nr_3.mp3":0.1,"voice/nr_4.mp3":0.1,"voice/nr_5.mp3":0.1,"voice/nr_6.mp3":0,"voice/nr_7.mp3":0.1,"voice/nr_8.mp3":-0.1,"voice/nr_9.mp3":-0.1,"voice/nr_10.mp3":0,"voice/nr_11.mp3":0.2,"voice/nr_12.mp3":1,"voice/nr_13.mp3":0.7,"voice/nr_14.mp3":1,"voice/nr_15.mp3":0.8,"voice/nr_16.mp3":0.3,"voice/nr_17.mp3":0.3,"voice/nr_18.mp3":0.6,"voice/nr_19.mp3":0.4,"voice/nr_20.mp3":0.3,"voice/nr_21.mp3":0.2,"voice/nr_22.mp3":0,"voice/nr_23.mp3":0.9,"voice/nr_24.mp3":0,"voice/nr_25.mp3":0.9,"voice/nr_26.mp3":0,"voice/nr_27.mp3":0.1,"voice/nr_28.mp3":0.1,"voice/nr_29.mp3":0.1,"voice/nr_30.mp3":0.9,"voice/nr_31.mp3":0.1,"voice/nr_32.mp3":0.5,"voice/nr_33.mp3":0.8,"voice/nr_34.mp3":0.3,"voice/nr_35.mp3":0.2,"voice/nr_36.mp3":0.1,"voice/nr_37.mp3":0.4,"voice/nr_38.mp3":0.2,"voice/nr_39.mp3":0,"voice/nr_40.mp3":0,"voice/nr_41.mp3":0.1,"voice/nr_42.mp3":0.8,"voice/nr_43.mp3":0.4,"voice/nr_44.mp3":0,"voice/nr_45.mp3":0.1,"voice/nr_46.mp3":0.4,"voice/nr_47.mp3":0.1,"voice/nr_48.mp3":0.7,"voice/nr_49.mp3":0.9,"voice/nr_50.mp3":0.1,"voice/nr_51.mp3":0.1,"voice/nr_52.mp3":0.1,"voice/nr_53.mp3":0,"voice/nr_54.mp3":0.2,"voice/nr_55.mp3":0.1,"voice/nr_56.mp3":0,"voice/nr_57.mp3":0,"voice/nr_58.mp3":0,"voice/nr_59.mp3":0,"voice/nr_60.mp3":0.2,"voice/nr_61.mp3":-0.1,"voice/nr_62.mp3":0.7,"voice/nr_63.mp3":0.1,"voice/nr_64.mp3":0.1,"voice/nr_65.mp3":0.8,"voice/nr_66.mp3":-0.1,"voice/nr_67.mp3":0.2,"voice/nr_68.mp3":0,"voice/nr_69.mp3":0.1,"voice/nr_70.mp3":0.5,"voice/nr_71.mp3":0.2,"voice/nr_72.mp3":0.8,"voice/nr_73.mp3":0,"voice/nr_74.mp3":0,"voice/nr_75.mp3":0.1,"voice/gympa_0.mp3":0,"voice/gympa_1.mp3":0,"voice/gympa_2.mp3":0.1,"voice/gympa_3.mp3":0.1,"voice/gympa_4.mp3":0.2,"voice/gympa_5.mp3":0,"voice/gympa_6.mp3":0,"voice/quiz_intro.mp3":0,"voice/quiz_slut.mp3":0,"voice/quiz_q0.mp3":0,"voice/quiz_f0.mp3":0.1,"voice/quiz_q1.mp3":0,"voice/quiz_f1.mp3":0.1,"voice/quiz_q2.mp3":0,"voice/quiz_f2.mp3":0,"voice/quiz_q3.mp3":0.1,"voice/quiz_f3.mp3":0,"voice/quiz_q4.mp3":0.1,"voice/quiz_f4.mp3":0.1,"voice/quiz_q5.mp3":0,"voice/quiz_f5.mp3":0,"voice/welcome_hej.mp3":0,"voice/welcome_meny.mp3":0.1,"voice/welcome_lampa.mp3":0,"voice/welcome_fika.mp3":0,"voice/welcome_hjalp.mp3":0.1,"voice/survey_intro.mp3":0,"voice/survey_q0.mp3":-0.3,"voice/survey_q1.mp3":0.1,"voice/survey_q2.mp3":0,"voice/survey_tack.mp3":0.1,"voice/notice_storm.mp3":0.1,"voice/notice_halka.mp3":0,"voice/notice_lucia.mp3":0,"voice/post_gummi_0.mp3":0,"voice/post_gummi_1.mp3":0.1,"voice/post_gummi_2.mp3":0,"voice/post_gummi_3.mp3":0.1,"voice/post_farjan_0.mp3":0.1,"voice/post_farjan_1.mp3":0.1,"voice/post_pelargon_0.mp3":-0.1,"voice/post_pelargon_1.mp3":0.1,"voice/post_pelargon_2.mp3":0,"voice/post_aggakaka_0.mp3":0,"voice/post_aggakaka_1.mp3":0,"voice/post_aggakaka_2.mp3":0,"voice/post_melodikrysset_0.mp3":0,"voice/post_melodikrysset_1.mp3":0,"voice/post_melodikrysset_2.mp3":0,"voice/post_lucia_0.mp3":0,"voice/post_lucia_1.mp3":0,"voice/post_textstorlek_0.mp3":0,"voice/post_textstorlek_1.mp3":0}};
 const PUBLIC_BUILD = true;
 const INLINE_GAMES = false;
-const BUILD_ID = "d17ec83f5c";
-const DEMO_LINK = {"url":"https://danielnilssonit.github.io/hemma-demo/","short":"danielnilssonit.github.io/hemma-demo","d":"M4 4h7v1h-7zM13 4h1v1h-1zM20 4h1v1h-1zM22 4h3v1h-3zM27 4h1v1h-1zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM16 5h1v1h-1zM19 5h2v1h-2zM22 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h3v1h-3zM16 6h1v1h-1zM18 6h3v1h-3zM23 6h4v1h-4zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h3v1h-3zM16 7h1v1h-1zM19 7h1v1h-1zM22 7h2v1h-2zM25 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h4v1h-4zM24 8h1v1h-1zM27 8h2v1h-2zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h3v1h-3zM17 9h1v1h-1zM22 9h2v1h-2zM25 9h2v1h-2zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h4v1h-4zM20 11h1v1h-1zM23 11h3v1h-3zM27 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h5v1h-5zM20 12h2v1h-2zM23 12h1v1h-1zM26 12h3v1h-3zM30 12h5v1h-5zM4 13h1v1h-1zM6 13h3v1h-3zM13 13h2v1h-2zM16 13h2v1h-2zM20 13h2v1h-2zM23 13h2v1h-2zM27 13h1v1h-1zM30 13h2v1h-2zM33 13h2v1h-2zM36 13h1v1h-1zM6 14h2v1h-2zM10 14h1v1h-1zM12 14h2v1h-2zM16 14h4v1h-4zM21 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM5 15h1v1h-1zM8 15h1v1h-1zM13 15h5v1h-5zM19 15h1v1h-1zM21 15h4v1h-4zM28 15h2v1h-2zM32 15h5v1h-5zM4 16h1v1h-1zM6 16h3v1h-3zM10 16h1v1h-1zM13 16h2v1h-2zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h6v1h-6zM31 16h3v1h-3zM35 16h2v1h-2zM4 17h2v1h-2zM7 17h1v1h-1zM11 17h3v1h-3zM17 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM27 17h1v1h-1zM30 17h1v1h-1zM33 17h1v1h-1zM35 17h2v1h-2zM5 18h3v1h-3zM9 18h3v1h-3zM14 18h2v1h-2zM18 18h3v1h-3zM24 18h1v1h-1zM26 18h1v1h-1zM29 18h2v1h-2zM33 18h1v1h-1zM35 18h1v1h-1zM9 19h1v1h-1zM14 19h1v1h-1zM18 19h2v1h-2zM22 19h1v1h-1zM25 19h1v1h-1zM29 19h2v1h-2zM32 19h3v1h-3zM4 20h1v1h-1zM9 20h3v1h-3zM18 20h2v1h-2zM21 20h2v1h-2zM26 20h4v1h-4zM31 20h2v1h-2zM36 20h1v1h-1zM6 21h2v1h-2zM11 21h1v1h-1zM13 21h2v1h-2zM16 21h1v1h-1zM18 21h1v1h-1zM20 21h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM30 21h2v1h-2zM33 21h2v1h-2zM36 21h1v1h-1zM4 22h5v1h-5zM10 22h4v1h-4zM16 22h4v1h-4zM22 22h1v1h-1zM24 22h2v1h-2zM28 22h5v1h-5zM34 22h2v1h-2zM4 23h1v1h-1zM6 23h2v1h-2zM12 23h2v1h-2zM15 23h1v1h-1zM18 23h3v1h-3zM23 23h1v1h-1zM25 23h3v1h-3zM29 23h1v1h-1zM31 23h5v1h-5zM5 24h1v1h-1zM7 24h2v1h-2zM10 24h1v1h-1zM13 24h3v1h-3zM18 24h2v1h-2zM22 24h1v1h-1zM25 24h1v1h-1zM27 24h3v1h-3zM31 24h3v1h-3zM36 24h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h2v1h-2zM11 25h1v1h-1zM13 25h1v1h-1zM16 25h2v1h-2zM19 25h3v1h-3zM24 25h1v1h-1zM26 25h2v1h-2zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h5v1h-5zM12 26h2v1h-2zM21 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM29 26h1v1h-1zM34 26h2v1h-2zM4 27h1v1h-1zM9 27h1v1h-1zM11 27h2v1h-2zM20 27h1v1h-1zM22 27h5v1h-5zM32 27h4v1h-4zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h2v1h-2zM13 28h1v1h-1zM15 28h1v1h-1zM18 28h1v1h-1zM20 28h2v1h-2zM23 28h2v1h-2zM26 28h1v1h-1zM28 28h5v1h-5zM35 28h2v1h-2zM12 29h2v1h-2zM16 29h2v1h-2zM20 29h5v1h-5zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h7v1h-7zM14 30h1v1h-1zM16 30h6v1h-6zM24 30h1v1h-1zM26 30h3v1h-3zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h2v1h-2zM17 31h3v1h-3zM21 31h3v1h-3zM27 31h2v1h-2zM32 31h3v1h-3zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h4v1h-4zM18 32h1v1h-1zM20 32h1v1h-1zM24 32h3v1h-3zM28 32h6v1h-6zM35 32h2v1h-2zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM16 33h2v1h-2zM19 33h1v1h-1zM22 33h1v1h-1zM27 33h3v1h-3zM32 33h3v1h-3zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h1v1h-1zM15 34h7v1h-7zM24 34h3v1h-3zM28 34h1v1h-1zM30 34h2v1h-2zM33 34h2v1h-2zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM15 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM29 35h1v1h-1zM32 35h3v1h-3zM4 36h7v1h-7zM12 36h2v1h-2zM17 36h3v1h-3zM21 36h1v1h-1zM24 36h1v1h-1zM26 36h3v1h-3zM31 36h1v1h-1zM35 36h1v1h-1z","n":41};
+const BUILD_ID = "705239b2ed";
+const DEMO_LINK = {"url":"https://danielnilssonit.github.io/hemma-demo/","short":"danielnilssonit.github.io/hemma-demo","d":"M4 4h7v1h-7zM13 4h1v1h-1zM20 4h1v1h-1zM22 4h3v1h-3zM27 4h1v1h-1zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM16 5h1v1h-1zM19 5h2v1h-2zM22 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h3v1h-3zM16 6h1v1h-1zM18 6h3v1h-3zM23 6h4v1h-4zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h3v1h-3zM16 7h1v1h-1zM19 7h1v1h-1zM22 7h2v1h-2zM25 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h4v1h-4zM24 8h1v1h-1zM27 8h2v1h-2zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h3v1h-3zM17 9h1v1h-1zM22 9h2v1h-2zM25 9h2v1h-2zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h4v1h-4zM20 11h1v1h-1zM23 11h3v1h-3zM27 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h5v1h-5zM20 12h2v1h-2zM23 12h1v1h-1zM26 12h3v1h-3zM30 12h5v1h-5zM4 13h1v1h-1zM6 13h3v1h-3zM13 13h2v1h-2zM16 13h2v1h-2zM20 13h2v1h-2zM23 13h2v1h-2zM27 13h1v1h-1zM30 13h2v1h-2zM33 13h2v1h-2zM36 13h1v1h-1zM6 14h2v1h-2zM10 14h1v1h-1zM12 14h2v1h-2zM16 14h4v1h-4zM21 14h1v1h-1zM24 14h1v1h-1zM26 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM5 15h1v1h-1zM8 15h1v1h-1zM13 15h5v1h-5zM19 15h1v1h-1zM21 15h4v1h-4zM28 15h2v1h-2zM32 15h5v1h-5zM4 16h1v1h-1zM6 16h3v1h-3zM10 16h1v1h-1zM13 16h2v1h-2zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h6v1h-6zM31 16h3v1h-3zM35 16h2v1h-2zM4 17h2v1h-2zM7 17h1v1h-1zM11 17h3v1h-3zM17 17h1v1h-1zM19 17h1v1h-1zM22 17h1v1h-1zM27 17h1v1h-1zM30 17h1v1h-1zM33 17h1v1h-1zM35 17h2v1h-2zM5 18h3v1h-3zM9 18h3v1h-3zM14 18h2v1h-2zM18 18h3v1h-3zM24 18h1v1h-1zM26 18h1v1h-1zM29 18h2v1h-2zM33 18h1v1h-1zM35 18h1v1h-1zM9 19h1v1h-1zM14 19h1v1h-1zM18 19h2v1h-2zM22 19h1v1h-1zM25 19h1v1h-1zM29 19h2v1h-2zM32 19h3v1h-3zM4 20h1v1h-1zM9 20h3v1h-3zM18 20h2v1h-2zM21 20h2v1h-2zM26 20h4v1h-4zM31 20h2v1h-2zM36 20h1v1h-1zM6 21h2v1h-2zM11 21h1v1h-1zM13 21h2v1h-2zM16 21h1v1h-1zM18 21h1v1h-1zM20 21h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM30 21h2v1h-2zM33 21h2v1h-2zM36 21h1v1h-1zM4 22h5v1h-5zM10 22h4v1h-4zM16 22h4v1h-4zM22 22h1v1h-1zM24 22h2v1h-2zM28 22h5v1h-5zM34 22h2v1h-2zM4 23h1v1h-1zM6 23h2v1h-2zM12 23h2v1h-2zM15 23h1v1h-1zM18 23h3v1h-3zM23 23h1v1h-1zM25 23h3v1h-3zM29 23h1v1h-1zM31 23h5v1h-5zM5 24h1v1h-1zM7 24h2v1h-2zM10 24h1v1h-1zM13 24h3v1h-3zM18 24h2v1h-2zM22 24h1v1h-1zM25 24h1v1h-1zM27 24h3v1h-3zM31 24h3v1h-3zM36 24h1v1h-1zM4 25h1v1h-1zM6 25h1v1h-1zM8 25h2v1h-2zM11 25h1v1h-1zM13 25h1v1h-1zM16 25h2v1h-2zM19 25h3v1h-3zM24 25h1v1h-1zM26 25h2v1h-2zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h5v1h-5zM12 26h2v1h-2zM21 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM29 26h1v1h-1zM34 26h2v1h-2zM4 27h1v1h-1zM9 27h1v1h-1zM11 27h2v1h-2zM20 27h1v1h-1zM22 27h5v1h-5zM32 27h4v1h-4zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM10 28h2v1h-2zM13 28h1v1h-1zM15 28h1v1h-1zM18 28h1v1h-1zM20 28h2v1h-2zM23 28h2v1h-2zM26 28h1v1h-1zM28 28h5v1h-5zM35 28h2v1h-2zM12 29h2v1h-2zM16 29h2v1h-2zM20 29h5v1h-5zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h7v1h-7zM14 30h1v1h-1zM16 30h6v1h-6zM24 30h1v1h-1zM26 30h3v1h-3zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM14 31h2v1h-2zM17 31h3v1h-3zM21 31h3v1h-3zM27 31h2v1h-2zM32 31h3v1h-3zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h4v1h-4zM18 32h1v1h-1zM20 32h1v1h-1zM24 32h3v1h-3zM28 32h6v1h-6zM35 32h2v1h-2zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM16 33h2v1h-2zM19 33h1v1h-1zM22 33h1v1h-1zM27 33h3v1h-3zM32 33h3v1h-3zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h1v1h-1zM15 34h7v1h-7zM24 34h3v1h-3zM28 34h1v1h-1zM30 34h2v1h-2zM33 34h2v1h-2zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM15 35h1v1h-1zM19 35h1v1h-1zM25 35h1v1h-1zM29 35h1v1h-1zM32 35h3v1h-3zM4 36h7v1h-7zM12 36h2v1h-2zM17 36h3v1h-3zM21 36h1v1h-1zM24 36h1v1h-1zM26 36h3v1h-3zM31 36h1v1h-1zM35 36h1v1h-1z","n":41,"family":{"d":"M4 4h7v1h-7zM16 4h1v1h-1zM20 4h1v1h-1zM22 4h3v1h-3zM27 4h1v1h-1zM30 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h2v1h-2zM16 5h1v1h-1zM19 5h3v1h-3zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM18 6h3v1h-3zM23 6h4v1h-4zM30 6h1v1h-1zM32 6h3v1h-3zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM19 7h1v1h-1zM22 7h2v1h-2zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h3v1h-3zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h7v1h-7zM27 8h2v1h-2zM30 8h1v1h-1zM32 8h3v1h-3zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM16 9h2v1h-2zM22 9h1v1h-1zM24 9h3v1h-3zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h7v1h-7zM12 11h1v1h-1zM15 11h2v1h-2zM20 11h1v1h-1zM25 11h1v1h-1zM27 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM17 12h1v1h-1zM20 12h2v1h-2zM23 12h1v1h-1zM26 12h3v1h-3zM30 12h5v1h-5zM4 13h3v1h-3zM8 13h1v1h-1zM11 13h3v1h-3zM15 13h1v1h-1zM17 13h1v1h-1zM20 13h2v1h-2zM23 13h3v1h-3zM27 13h1v1h-1zM30 13h2v1h-2zM33 13h2v1h-2zM36 13h1v1h-1zM4 14h1v1h-1zM7 14h7v1h-7zM15 14h1v1h-1zM17 14h3v1h-3zM21 14h1v1h-1zM24 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM4 15h1v1h-1zM7 15h3v1h-3zM11 15h1v1h-1zM13 15h5v1h-5zM19 15h1v1h-1zM21 15h6v1h-6zM28 15h2v1h-2zM32 15h5v1h-5zM4 16h3v1h-3zM9 16h3v1h-3zM13 16h4v1h-4zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM26 16h3v1h-3zM31 16h3v1h-3zM35 16h2v1h-2zM4 17h6v1h-6zM12 17h1v1h-1zM14 17h4v1h-4zM19 17h1v1h-1zM22 17h3v1h-3zM27 17h1v1h-1zM30 17h1v1h-1zM33 17h1v1h-1zM35 17h2v1h-2zM6 18h1v1h-1zM9 18h2v1h-2zM18 18h3v1h-3zM26 18h1v1h-1zM29 18h2v1h-2zM33 18h1v1h-1zM35 18h1v1h-1zM4 19h1v1h-1zM6 19h2v1h-2zM9 19h1v1h-1zM11 19h1v1h-1zM17 19h1v1h-1zM19 19h1v1h-1zM22 19h2v1h-2zM25 19h1v1h-1zM29 19h2v1h-2zM32 19h3v1h-3zM4 20h2v1h-2zM7 20h2v1h-2zM10 20h1v1h-1zM14 20h4v1h-4zM19 20h1v1h-1zM21 20h2v1h-2zM26 20h4v1h-4zM31 20h2v1h-2zM36 20h1v1h-1zM6 21h2v1h-2zM9 21h1v1h-1zM13 21h1v1h-1zM15 21h2v1h-2zM18 21h1v1h-1zM20 21h1v1h-1zM22 21h4v1h-4zM27 21h1v1h-1zM30 21h2v1h-2zM33 21h2v1h-2zM36 21h1v1h-1zM4 22h9v1h-9zM15 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM22 22h1v1h-1zM24 22h2v1h-2zM28 22h5v1h-5zM34 22h2v1h-2zM4 23h6v1h-6zM12 23h1v1h-1zM15 23h1v1h-1zM17 23h1v1h-1zM19 23h2v1h-2zM23 23h1v1h-1zM25 23h3v1h-3zM29 23h1v1h-1zM31 23h5v1h-5zM4 24h1v1h-1zM6 24h2v1h-2zM9 24h3v1h-3zM13 24h1v1h-1zM16 24h1v1h-1zM19 24h1v1h-1zM22 24h1v1h-1zM24 24h1v1h-1zM26 24h4v1h-4zM31 24h3v1h-3zM36 24h1v1h-1zM4 25h1v1h-1zM9 25h1v1h-1zM16 25h6v1h-6zM23 25h2v1h-2zM27 25h1v1h-1zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM6 26h3v1h-3zM10 26h2v1h-2zM13 26h4v1h-4zM21 26h1v1h-1zM24 26h2v1h-2zM29 26h1v1h-1zM34 26h2v1h-2zM4 27h1v1h-1zM8 27h1v1h-1zM12 27h1v1h-1zM14 27h1v1h-1zM16 27h1v1h-1zM20 27h1v1h-1zM22 27h5v1h-5zM32 27h4v1h-4zM4 28h1v1h-1zM6 28h2v1h-2zM9 28h2v1h-2zM12 28h3v1h-3zM17 28h1v1h-1zM20 28h2v1h-2zM23 28h2v1h-2zM26 28h1v1h-1zM28 28h5v1h-5zM35 28h1v1h-1zM12 29h2v1h-2zM18 29h1v1h-1zM20 29h5v1h-5zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM36 29h1v1h-1zM4 30h7v1h-7zM14 30h3v1h-3zM18 30h4v1h-4zM24 30h1v1h-1zM26 30h3v1h-3zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h2v1h-2zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h3v1h-3zM19 31h1v1h-1zM21 31h3v1h-3zM25 31h1v1h-1zM27 31h2v1h-2zM32 31h3v1h-3zM36 31h1v1h-1zM4 32h1v1h-1zM6 32h3v1h-3zM10 32h1v1h-1zM12 32h2v1h-2zM18 32h1v1h-1zM20 32h1v1h-1zM26 32h1v1h-1zM28 32h6v1h-6zM35 32h2v1h-2zM4 33h1v1h-1zM6 33h3v1h-3zM10 33h1v1h-1zM12 33h1v1h-1zM14 33h6v1h-6zM22 33h3v1h-3zM27 33h3v1h-3zM32 33h5v1h-5zM4 34h1v1h-1zM6 34h3v1h-3zM10 34h1v1h-1zM12 34h3v1h-3zM16 34h1v1h-1zM19 34h3v1h-3zM25 34h2v1h-2zM28 34h1v1h-1zM30 34h2v1h-2zM33 34h2v1h-2zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM15 35h1v1h-1zM17 35h3v1h-3zM25 35h1v1h-1zM29 35h1v1h-1zM32 35h3v1h-3zM4 36h7v1h-7zM12 36h2v1h-2zM15 36h2v1h-2zM19 36h1v1h-1zM21 36h1v1h-1zM23 36h2v1h-2zM26 36h3v1h-3zM31 36h1v1h-1zM35 36h1v1h-1z","n":41}};
 const OFFLINE_SW = true;
 const PRICES = null;
 /* ---- 00-core.js ---- */
@@ -1800,7 +1879,12 @@ const STAFF = {
   eva: { id: 'eva', first: 'Eva', last: 'Lindqvist', role: 'Fysioterapeut', staff: true, voice: true },
   support: { id: 'support', first: 'Johan', last: 'Ek', role: 'Supporten', staff: true }
 };
-const FAMILY = { anna: { id: 'anna', first: 'Anna', last: 'Jönsson', role: 'barnbarn', voice: true } };
+const FAMILY = {
+  anna: { id: 'anna', first: 'Anna', last: 'Jönsson', role: 'barnbarn', voice: true },
+  // Annas dotter: ritar teckningar till gammelmormor, som Anna fotar och skickar (hon har ingen egen mobil).
+  // (id elsaj: elsa är deltagaren Elsa Lundgren)
+  elsaj: { id: 'elsaj', first: 'Elsa', last: 'Jönsson', role: 'barnbarnsbarn', age: 8 }
+};
 const ALL_PEOPLE = Object.fromEntries([...PEOPLE, ...Object.values(STAFF), ...Object.values(FAMILY)].map((p, i) => [p.id, Object.assign({ color: AVATAR_COLORS[i % AVATAR_COLORS.length] }, p)]));
 const person = id => ALL_PEOPLE[id] || { id, first: id, last: '', color: '#667' };
 const fullName = id => { const p = person(id); return (p.first + ' ' + (p.last || '')).trim(); };
@@ -1832,7 +1916,8 @@ const GAMES = [
   { id: 'canasta', name: 'Canasta', club: 'Canastaklubben', url: 'https://danielnilssonit.github.io/canastaklubben/', icon: 'assets/games/canasta.png', min: 2, max: 4, text: 'Kortspelet för två, tre eller fyra. Fyra spelar två mot två.' },
   { id: 'fia', name: 'Fia med knuff', club: 'Fiaklubben', url: 'https://danielnilssonit.github.io/fiaklubben/', icon: 'assets/games/fia.png', min: 2, max: 4, text: 'Klassikern med knuffar, för två till fyra.' },
   { id: 'patiens', name: 'Patiens', club: 'Patiensklubben', url: 'https://danielnilssonit.github.io/patiensklubben/', icon: 'assets/games/patiens.png', min: 2, max: 4, text: 'Harpan, Spindel och fler. Tillsammans tävlar man om att bli klar först.' },
-  { id: 'korsord', name: 'Dagens kryss', club: 'Korsordsklubben', url: 'https://danielnilssonit.github.io/korsordsklubben/', icon: 'assets/games/korsord.png', min: 1, max: 4, table: false, text: 'Dagens kryss: två nya korsord varje dag, samma för alla, med ledtrådarna i rutorna som i tidningen.' }
+  { id: 'korsord', name: 'Dagens kryss', club: 'Korsordsklubben', url: 'https://danielnilssonit.github.io/korsordsklubben/', icon: 'assets/games/korsord.png', min: 1, max: 4, table: false, text: 'Dagens kryss: två nya korsord varje dag, samma för alla, med ledtrådarna i rutorna som i tidningen.' },
+  { id: 'dart', name: 'Dart', club: null, url: 'games/dart/index.html', icon: 'assets/games/dart.png', min: 1, max: 4, text: 'En riktig darttavla i 3D. Runt klockan, 301 eller poängjakt. Sikta med fingret och kasta med en knapp.' }
 ];
 const game = id => GAMES.find(g => g.id === id) || { id, name: id === 'any' ? 'Vad som helst' : id };
 // Borden får namn efter platser i kommunen
@@ -1848,6 +1933,7 @@ const SIGNUP_PLAN = [
   { id: 'majbritt', game: 'canasta' }, { id: 'ulla', game: 'canasta' }, { id: 'svenerik', game: 'canasta' }, { id: 'annalisa', game: 'canasta' },
   { id: 'barbro', game: 'fia' }, { id: 'kjell', game: 'fia' }, { id: 'kerstin', game: 'fia' }, { id: 'rune', game: 'fia' },
   { id: 'solveig', game: 'patiens' },
+  { id: 'gunvor', game: 'dart' }, { id: 'stig', game: 'dart' },
   { id: 'arne', game: 'any' }, { id: 'ingalill', game: 'any' }
 ];
 
@@ -1857,7 +1943,7 @@ const TODAY = [
   { id: 'morgonfika', t: T(9), end: T(11), kind: 'fika', title: 'Förmiddagsfika i Fikarummet', host: 'lena', text: 'Kom in och prata en stund. Lena är värd.' },
   { id: 'gympa', t: T(10, 30), end: T(10, 50), kind: 'live', title: 'Sittgympa', host: 'eva', venue: 'centrum', text: 'Rörelser för knän, höfter och axlar. Du sitter på en stol.' },
   { id: 'anmalan', t: T(13, 30), end: T(14), kind: 'signup', title: 'Anmälan till Spelstunden öppnar', text: 'Välj spel en halvtimme innan.' },
-  { id: 'spelstund', t: T(14), end: T(15), kind: 'spelstund', title: 'Spelstunden', text: 'Yatzy, canasta, fia och patiens i bord om två till fyra.' },
+  { id: 'spelstund', t: T(14), end: T(15), kind: 'spelstund', title: 'Spelstunden', text: 'Yatzy, canasta, fia, patiens och dart i bord om två till fyra.' },
   { id: 'bingo', t: T(15), end: T(16), kind: 'live', title: 'Bingo live från träffpunkten', host: 'mats', venue: 'centrum', text: 'Spela med hemifrån. Du syns på tv:n i salen.' },
   { id: 'eftermiddagsfika', t: T(16), end: T(17), kind: 'fika', title: 'Eftermiddagsfika i Fikarummet', host: 'bo', text: 'Volontären Bo är värd.' },
   { id: 'kvallsprat', t: T(19), end: T(20), kind: 'fika', title: 'Kvällsprat', host: 'kjell', text: 'Volontären Kjell håller i kvällens samtal.' }
@@ -2015,6 +2101,10 @@ const PHOTOS = [
   { id: 'bullar', title: 'Bullar vi bakade', text: 'Hej mormor! Vi bakade kanelbullar efter ditt recept. Nästan lika goda som dina!' },
   { id: 'strand', title: 'Kväll vid havet', text: 'Hej mormor! Vi tog en promenad vid havet i kväll. Vi tänkte på dig. Kram!' }
 ];
+// Elsas teckning: Anna fotar den med mobilen (kameran i familjens app) och skickar den med sitt röstmeddelande
+const DRAWING = { id: 'teckning', title: 'Teckning från Elsa', drawing: true, by: 'elsaj',
+  text: 'Hej mormor! Elsa har ritat en teckning till dig. Det är ni två i trädgården, bland blommorna. Kram från oss båda!' };
+const photoInfo = id => (id === DRAWING.id ? DRAWING : PHOTOS.find(p => p.id === id) || PHOTOS[0]);
 
 /* ---- 01b-extra.js ---- */
 /* ================= Mer innehåll: välkomstguiden och månadens frågor ================= */
@@ -2082,9 +2172,11 @@ function freshState(keep = {}) {
     // Ingrid: hennes lampa, humör och vad hon håller på med
     me: { id: 'ingrid', lamp: false, mood: null, callWish: false, muted: false, answered: null, greeted: [], flowers: [], sentLive: [] },
     // plattans skärm: route = sidan, modal = det som ligger överst, toasts = korta meddelanden
-    senior: { route: 'idag', sub: null, thread: null, cat: null, talk: 'fika', people: 'nara', modal: null, toasts: [], idle: false, micHint: 0, game: null },
+    senior: { route: 'idag', sub: null, thread: null, cat: null, talk: 'fika', people: 'nara', modal: null, toasts: [], idle: false, micHint: 0, game: null, ktPick: false },
     staff: { route: 'oversikt' },
-    family: { route: 'hem', photo: 'fotboll', sent: null },
+    // familjens app i Annas mobil: route hem | kamera | teckning, push = notisen som syns överst en stund, notes = Senaste
+    family: { route: 'hem', photo: 'fotboll', sent: null, kryss: null, flash: false, push: null,
+      notes: [{ id: 'fn0', kind: 'lamp', icon: 'lamp', title: 'Mormor tände sin lampa', t: T(18, 40), day: -1 }] },
     queue: [],                // modaler som väntar på plattan
     chat: CHAT_SEED.map((m, i) => Object.assign({ id: 'c' + i, react: {} }, m)),
     chatLive: 0,
@@ -2092,6 +2184,7 @@ function freshState(keep = {}) {
     forum: JSON.parse(JSON.stringify(FORUM)),
     birthday: { count: BIRTHDAY.count, sent: false },
     spel: { phase: 'closed', signups: {}, tables: [], mine: null, planned: 0, log: [] },
+    kt: null,                 // dagens kryss tillsammans med en vän (13g-kryss-tillsammans.js)
     room: null,               // rummet Ingrid är i: {kind: 'fika'|'table'|'call'|'live', id, members, captions}
     yatzy: null,              // partiet vid Ingrids bord
     live: { on: false, round: 0, called: [], order: [], cards: {}, marked: [], winners: [], claim: null, greetings: [], waves: {}, home: [], status: '' },
@@ -2249,14 +2342,19 @@ const Voice = (() => {
     });
   };
   V.say = say;
-  // Säger repliken när rummet är tyst (väntar högst max ms på den som redan pratar där)
-  V.sayWhenFree = async (space, id, max = 6000) => {
-    const t0 = performance.now();
-    while (spaces[space] && spaces[space].active.size && performance.now() - t0 < max) await sleep(150);
-    return V.say(space, id);   // (via V.say, så att inspelningen av filmen ser repliken)
+  // Säger repliken när rummet är tyst (väntar högst max ms på den som redan pratar där). Medan den väntar räknas det
+  // som att någon pratar (V.busy), så att till exempel Ingrid inte svarar innan plattan har sagt att Karin ringer.
+  let waiting = 0;
+  V.sayWhenFree = async (space, id, max = 6000, opts = {}) => {
+    waiting++;
+    try {
+      const t0 = performance.now();
+      while (spaces[space] && spaces[space].active.size && performance.now() - t0 < max) await sleep(150);
+    } finally { waiting--; }
+    return V.say(space, id, opts);   // (via V.say, så att inspelningen av filmen ser repliken)
   };
-  // Pratar någon just nu? (filmen låter repliken bli klar innan nästa kapitel börjar)
-  V.busy = () => Object.values(spaces).some(sp => sp.active.size > 0);
+  // Pratar någon just nu, eller väntar någon på sin tur? (filmen låter repliken bli klar innan nästa kapitel börjar)
+  V.busy = () => waiting > 0 || Object.values(spaces).some(sp => sp.active.size > 0);
   // Tystar ett rum (när Ingrid lämnar det)
   V.stop = space => {
     const sp = spaces[space];
@@ -2910,7 +3008,7 @@ const Sim = (() => {
   /* ---------- Vem som är inloggad och var ---------- */
   // Fasta tider för dem som syns i demon, slumpade (men likadana varje gång) för resten
   const FIXED = {
-    karin: [[8.5, 12], [13.3, 17.5]], bengt: [[8.6, 11.6], [13.4, 16.2]], sonja: [[8.9, 12.4], [13.45, 16.5]],
+    karin: [[8.5, 12.1], [13.3, 17.5]], bengt: [[8.6, 11.6], [13.4, 16.2]], sonja: [[8.9, 12.4], [13.45, 16.5]],
     gosta: [[8.65, 12.2], [14.7, 16.3]], margareta: [[9.4, 11.2], [13.4, 16]], barbro: [[9.1, 11.8], [13.45, 16]],
     solveig: [[9.9, 11.5], [13.5, 15.2]], gunvor: [[9.2, 10.4], [13.5, 16.4]], stig: [[8.8, 9.8], [14.7, 16]],
     lena: [[8.8, 16.6]], kjell: [[13.45, 15.5], [18.8, 20.2]], bo: [[8.3, 9.2], [15.8, 17.2]]
@@ -2932,7 +3030,7 @@ const Sim = (() => {
   // I Fikarummet under förmiddagsfikan (utöver Lena, som är värd)
   const FIKA_AM = { karin: [9.55, 10.9], bengt: [9.65, 10.75], sonja: [9.75, 11], margareta: [9.5, 10.4], gunvor: [9.3, 10.2], solveig: [10.1, 10.8], stig: [9.1, 9.7] };
   const FIKA_PM = { rolf: [16, 16.8], gosta: [16.05, 16.25], kerstin: [16.1, 16.9], lennart: [16.2, 17], karin: [16.3, 17] };
-  const LAMPS = { karin: [[9.2, 11.4]], gosta: [[10, 12.1]], barbro: [[9.5, 10.6]], stig: [[8.9, 9.7]], margareta: [[16.1, 17]], elsa: [[19, 20]] };
+  const LAMPS = { karin: [[9.2, 11.4], [11.75, 12.1]], gosta: [[10, 12.1]], barbro: [[9.5, 10.6]], stig: [[8.9, 9.7]], margareta: [[16.1, 17]], elsa: [[19, 20]] };
   const inWin = (w, t) => w && t >= H(w[0]) && t < H(w[1]);
 
   // Sätter allas status efter klockan (körs varje sekund)
@@ -2978,10 +3076,10 @@ const Sim = (() => {
     s.senior.idle = false;   // plattan vaknar när något händer
     // plattan säger bara till när den syns i presentationen (eller när demon körs på en riktig platta)
     const heard = s.started && tabletVisible(s);
-    const sound = { morning: 'notify', signup: 'notify', tablestart: 'notify', live: 'notify', photo: 'notify', call: 'ring', invite: 'soft', notice: 'notify' }[m.kind];
+    const sound = { morning: 'notify', signup: 'notify', tablestart: 'notify', live: 'notify', photo: 'notify', call: 'ring', invite: 'soft', notice: 'notify', kryss: 'notify' }[m.kind];
     if (sound && heard) Sound.play(sound);
     const line = m.kind === 'notice' ? 'notice_' + ((s.notices.find(n => n.id === m.id) || {}).nid || '')
-      : { morning: 'app_morgon', signup: 'app_anmalan', tablestart: 'app_start', live: 'app_bingo', photo: 'app_halsning' }[m.kind];
+      : { morning: 'app_morgon', signup: 'app_anmalan', tablestart: 'app_start', live: 'app_bingo', photo: 'app_halsning', kryss: 'app_kryss_' + m.from }[m.kind];
     if (line && heard) setTimeout(() => Voice.say('app', line), 350);
     Bus.emit('modal', m);
   }
@@ -2991,8 +3089,18 @@ const Sim = (() => {
     if (s.started) Sound.play('soft');
     setTimeout(() => mut(s2 => { s2.senior.toasts = s2.senior.toasts.filter(q => q.id !== id); }), x.ms || 6500);
   }
+  // Notis i familjens app (Annas mobil): överst i telefonen en stund, och sedan under Senaste.
+  // Lampan syns bara om Ingrid delar den med familjen (Mitt konto och Familjen på plattan).
+  function famPush(s, x) {
+    if (x.kind === 'lamp' && !s.settings.familySees) return;
+    const id = uid('fp'), item = Object.assign({ id, t: s.t }, x);
+    s.family.notes = [item].concat(s.family.notes || []).slice(0, 5);
+    s.family.push = item;
+    setTimeout(() => mut(s2 => { if (s2.family.push && s2.family.push.id === id) s2.family.push = null; }), x.ms || 6500);
+  }
   X.queue = queue;
   X.toast = toast;
+  X.famPush = famPush;
   const log = (s, text, icon = 'dot') => { s.spel.log.unshift({ t: s.t, text, icon }); s.spel.log = s.spel.log.slice(0, 40); };
   X.log = log;
 
@@ -3110,11 +3218,13 @@ const Sim = (() => {
   };
   X.endLive = s => { s.live.on = false; s.live.status = 'slut'; Voice.stop('live'); };
   // Tittar någon? (Ingrid i sändningen eller tv:n i salen i presentationen)
-  X.watching = s => (s.senior.route === 'live' && s.senior.sub === 'watch') || /tv/.test(s.view) || (s.view === 'personal' && s.staff.route === 'sandning');
+  // (i filmen visar personalens sida Sändning bara sändningen: bingon ropar inte vidare där, annars hörs värden
+  // när bilden redan har gått vidare till rapporten)
+  X.watching = s => (s.senior.route === 'live' && s.senior.sub === 'watch') || /tv/.test(s.view) || (s.view === 'personal' && s.staff.route === 'sandning' && !AutoTour.on());
 
   /* ---------- Bildhälsningar ---------- */
   X.receivePhoto = (s, photo, fresh = true, voice = true) => {
-    const ph = PHOTOS.find(p => p.id === photo) || PHOTOS[0];
+    const ph = photoInfo(photo);
     const item = { id: uid('p'), photo: ph.id, from: 'anna', text: ph.text, voice: voice ? 'anna_' + ph.id : null, t: s.t, seen: false, heart: false };
     s.photos.unshift(item);
     if (fresh) queue(s, { kind: 'photo', id: item.id });
@@ -3158,6 +3268,8 @@ const Act = (() => {
     Sim.log(s, s.me.lamp ? 'Ingrid Jönsson tände sin lampa' : 'Ingrid Jönsson släckte sin lampa', 'lamp');
     if (!s.me.lamp) return;
     if (!s.me.lampVoiced) { s.me.lampVoiced = true; Voice.say('app', 'app_lampa'); }
+    // familjen får en notis i mobilen
+    Sim.famPush(s, { kind: 'lamp', icon: 'lamp', title: 'Mormor har tänt sin lampa', note: 'Mormor tände sin lampa', text: 'Hon vill gärna prata. Ring när det passar!' });
     // Karin ser lampan och ringer (en gång)
     if (!s.me.karinCalled && isOnline('karin') && P('karin').where !== 'spel') {
       s.me.karinCalled = true;
@@ -3658,7 +3770,30 @@ const Act = (() => {
     Sim.log(s, 'Anna Jönsson skickade en bildhälsning till Ingrid', 'image');
   });
   A.photoSeen = id => mut(s => { const p = s.photos.find(x => x.id === id); if (p) p.seen = true; closeModal(s, 'photo'); });
-  A.photoHeart = id => mut(s => { const p = s.photos.find(x => x.id === id); if (p) { p.heart = true; p.seen = true; } Sound.play('flower'); });
+  A.photoHeart = id => mut(s => {
+    const p = s.photos.find(x => x.id === id);
+    if (!p) return;
+    const first = !p.heart;
+    p.heart = true; p.seen = true;
+    Sound.play('flower');
+    // Anna (och Elsa) ser hjärtat direkt i mobilen
+    if (first) Sim.famPush(s, { kind: 'heart', icon: 'heart', title: 'Mormor skickade ett hjärta', text: photoInfo(p.photo).drawing ? 'Hon tyckte om Elsas teckning!' : 'Hon tyckte om din bild.' });
+  });
+  // Elsas teckning: Anna fotar den med mobilens kamera, och appen rättar till och beskär papperet
+  A.familyCamera = () => mut(s => { s.family.route = 'kamera'; s.family.flash = false; });
+  A.familySnap = () => {
+    mut(s => { s.family.flash = true; });
+    Sound.play('pop');
+    later(520, s => { s.family.flash = false; s.family.route = 'teckning'; });
+  };
+  A.familyHome = () => mut(s => { s.family.route = 'hem'; s.family.flash = false; });
+  A.familySendDrawing = () => mut(s => {
+    Sim.receivePhoto(s, DRAWING.id, true, true);
+    Object.assign(s.family, { sent: DRAWING.id, sentAt: s.t, route: 'hem' });
+    Sim.log(s, 'Anna Jönsson skickade en teckning från Elsa till Ingrid', 'image');
+  });
+  // en bild eller teckning från familjen igen (plattans flik Familjen)
+  A.photoOpen = id => mut(s => { if (!s.queue.some(q => q.kind === 'photo' && q.id === id)) s.queue.push({ kind: 'photo', id }); s.senior.idle = false; });
   A.playPhotoVoice = id => { const p = App.s.photos.find(x => x.id === id); if (p && p.voice) { Voice.stop('photo'); Voice.say('photo', p.voice); } };
 
   /* ---------- Meddelanden från personalen till alla plattor ---------- */
@@ -3826,8 +3961,9 @@ function Logo({ size = 40, lit = true, dark = false }) {
   </svg>`;
 }
 
-// Bildhälsningarna från Anna
+// Bildhälsningarna från Anna (och Elsas teckning, som Anna fotade)
 function Photo({ id }) {
+  if (id === 'teckning') return html`<${Drawing} />`;
   if (id === 'bullar') return html`<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" class="photo-svg" role="img" aria-label="Kanelbullar på en plåt">
     <rect width="400" height="300" fill="#F1E3CE" />
     <rect x="24" y="18" width="120" height="96" rx="4" fill="#D6E8F0" stroke="#FFFFFF" stroke-width="6" />
@@ -3879,6 +4015,92 @@ function Photo({ id }) {
     </g>
     <circle cx="206" cy="258" r="12" fill="#FFFFFF" stroke="#333" stroke-width="1.5" /><path d="M202 253l6 0 2 5-4 4-5-3Z" fill="#333" />
     <path d="M224 250h18M226 258h22M224 266h16" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".8" />
+  </svg>`;
+}
+
+// Elsas teckning (8 år) till gammelmormor: hon och Ingrid i trädgården, ritat med kritor. table: som i mobilens
+// kamera, där papperet ligger snett på köksbordet bredvid kritorna och appen har hittat hörnen.
+const KRITA = "'Segoe Print', 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive";
+function Drawing({ table = false }) {
+  const [fid] = useState(() => uid('krita'));
+  const deg = a => a * Math.PI / 180;
+  const ray = a => `M${58 + 31 * Math.cos(deg(a))} ${66 + 31 * Math.sin(deg(a))}L${58 + 43 * Math.cos(deg(a))} ${66 + 43 * Math.sin(deg(a))}`;
+  let grass = 'M0 264';
+  for (let x = 9, up = true; x <= 405; x += 9, up = !up) grass += `L${x} ${up ? 251 + (x * 7) % 5 : 264}`;
+  const flower = (x, y, c) => html`<g>
+    <path d=${`M${x} 262V${y + 8}`} stroke="#4E9E48" stroke-width="3.5" stroke-linecap="round" />
+    <path d=${`M${x} ${y + 30}q10-10 14-2q-8 6-14 2Z`} fill="#5DB352" />
+    ${[0, 72, 144, 216, 288].map(a => html`<circle cx=${x + 8 * Math.cos(deg(a))} cy=${y + 8 * Math.sin(deg(a))} r="7" fill=${c} />`)}
+    <circle cx=${x} cy=${y} r="4.5" fill="#F6C33B" />
+  </g>`;
+  const art = html`<g filter=${`url(#${fid})`}>
+    <path d="M4 14Q60 6 112 15T214 13T312 15T398 11" stroke="#7FB2E5" stroke-width="13" fill="none" stroke-linecap="round" opacity=".75" />
+    <path d="M10 30Q72 22 134 30T254 28T394 25" stroke="#7FB2E5" stroke-width="8" fill="none" stroke-linecap="round" opacity=".45" />
+    <g stroke="#F3A81F" stroke-width="4" stroke-linecap="round">${[0, 36, 72, 108, 144, 180, 216, 252, 288, 324].map(a => html`<path d=${ray(a)} />`)}</g>
+    <circle cx="58" cy="66" r="24" fill="#FFD447" stroke="#F3A81F" stroke-width="4" />
+    <circle cx="50" cy="61" r="2.6" fill="#7A4A12" /><circle cx="66" cy="61" r="2.6" fill="#7A4A12" />
+    <path d="M48 72Q58 81 68 72" stroke="#7A4A12" stroke-width="3" fill="none" stroke-linecap="round" />
+    <path d="M292 104q6-7 12 0q6-7 12 0M326 90q5-6 10 0q5-6 10 0" stroke="#3E3E48" stroke-width="2.6" fill="none" stroke-linecap="round" />
+    <text x="148" y="66" font-family=${KRITA} font-size="20" font-weight="700" fill="#D2463E" textLength="232" lengthAdjust="spacingAndGlyphs" rotate="-4 3 -2 5 -3 0 2 -5 4 -2 3 -4 2 -3 4 -1 2">TILL GAMMELMORMOR</text>
+    <rect y="262" width="400" height="38" fill="#8ACB74" opacity=".5" />
+    <path d=${grass} stroke="#4E9E48" stroke-width="3.5" fill="none" stroke-linejoin="round" stroke-linecap="round" />
+    ${flower(36, 222, '#E4505A')}${flower(78, 232, '#9A6AD6')}${flower(332, 228, '#EF86B4')}${flower(370, 218, '#F39A3C')}
+    <path d="M141 222L138 252M159 222L162 252" stroke="#5B4636" stroke-width="4.5" stroke-linecap="round" />
+    <ellipse cx="133" cy="254" rx="9" ry="4.5" fill="#3B2A20" /><ellipse cx="167" cy="254" rx="9" ry="4.5" fill="#3B2A20" />
+    <path d="M140 156L110 186M160 156L206 176" stroke="#EDB896" stroke-width="5" stroke-linecap="round" />
+    <path d="M150 140L115 224Q150 233 185 224Z" fill="#9068CF" stroke="#6C4BB0" stroke-width="3" stroke-linejoin="round" />
+    <path d="M128 214L143 172M140 220L154 170M153 222L164 184M166 220L172 202" stroke="#B79BEA" stroke-width="3" stroke-linecap="round" opacity=".8" />
+    <circle cx="108" cy="188" r="5.5" fill="#F5CBAE" />
+    <g fill="#BFC3CA" stroke="#90959D" stroke-width="2"><circle cx="130" cy="106" r="8" /><circle cx="137" cy="96" r="8" /><circle cx="150" cy="92" r="9" /><circle cx="163" cy="96" r="8" /><circle cx="170" cy="106" r="8" /><circle cx="150" cy="80" r="9" /></g>
+    <circle cx="150" cy="116" r="23" fill="#F7D5BE" stroke="#D9A07F" stroke-width="3" />
+    <circle cx="141" cy="115" r="7" fill="none" stroke="#4A4A4A" stroke-width="2.5" /><circle cx="159" cy="115" r="7" fill="none" stroke="#4A4A4A" stroke-width="2.5" />
+    <path d="M148 115h4" stroke="#4A4A4A" stroke-width="2.5" />
+    <circle cx="141" cy="115" r="2" fill="#333" /><circle cx="159" cy="115" r="2" fill="#333" />
+    <circle cx="133" cy="126" r="4" fill="#F29C9C" opacity=".7" /><circle cx="167" cy="126" r="4" fill="#F29C9C" opacity=".7" />
+    <path d="M140 127Q150 136 160 127" stroke="#C2474B" stroke-width="3" fill="none" stroke-linecap="round" />
+    <path d="M206 142C190 130 186 116 198 112C204 110 206 116 206 118C206 116 208 110 214 112C226 116 222 130 206 142Z" fill="#E4505A" stroke="#C23A45" stroke-width="2.5" stroke-linejoin="round" />
+    <path d="M244 214L242 250M256 214L258 250" stroke="#5B4636" stroke-width="4.5" stroke-linecap="round" />
+    <ellipse cx="238" cy="252" rx="8" ry="4.5" fill="#E4505A" /><ellipse cx="262" cy="252" rx="8" ry="4.5" fill="#E4505A" />
+    <path d="M234 176L210 178M266 176L292 194" stroke="#EDB896" stroke-width="5" stroke-linecap="round" />
+    <circle cx="208" cy="177" r="6" fill="#F5CBAE" /><circle cx="294" cy="196" r="5" fill="#F5CBAE" />
+    <path d="M296 194L304 164" stroke="#4E9E48" stroke-width="3" stroke-linecap="round" />
+    ${[0, 90, 180, 270].map(a => html`<circle cx=${304 + 6 * Math.cos(deg(a))} cy=${160 + 6 * Math.sin(deg(a))} r="5" fill="#F6C33B" />`)}
+    <circle cx="304" cy="160" r="3.5" fill="#E07B2E" />
+    <path d="M232 170L268 170L272 214L228 214Z" fill="#3E9E4C" stroke="#2E7A3A" stroke-width="3" stroke-linejoin="round" />
+    <text x="250" y="203" text-anchor="middle" font-family=${KRITA} font-size="19" font-weight="700" fill="#FFFFFF">8</text>
+    <ellipse cx="228" cy="152" rx="6" ry="11" fill="#8B5A2B" transform="rotate(22 228 152)" /><ellipse cx="272" cy="152" rx="6" ry="11" fill="#8B5A2B" transform="rotate(-22 272 152)" />
+    <circle cx="250" cy="150" r="19" fill="#F7D5BE" stroke="#D9A07F" stroke-width="3" />
+    <path d="M231 147Q235 128 250 129Q265 128 269 147Q262 137 250 139Q238 137 231 147Z" fill="#8B5A2B" />
+    <circle cx="243" cy="150" r="2" fill="#333" /><circle cx="257" cy="150" r="2" fill="#333" />
+    <circle cx="237" cy="157" r="3.5" fill="#F29C9C" opacity=".7" /><circle cx="263" cy="157" r="3.5" fill="#F29C9C" opacity=".7" />
+    <path d="M242 157Q250 165 258 157" stroke="#C2474B" stroke-width="3" fill="none" stroke-linecap="round" />
+    <text x="312" y="291" font-family=${KRITA} font-size="15" font-weight="700" fill="#E07B2E" textLength="74" lengthAdjust="spacingAndGlyphs" rotate="-3 2 -2 3 0 -3 2 -2 3">ELSA 8 ÅR</text>
+  </g>`;
+  const defs = html`<defs><filter id=${fid} x="-4%" y="-4%" width="108%" height="108%">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n" />
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+  </filter></defs>`;
+  if (!table) return html`<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" class="photo-svg drawing-svg" role="img" aria-label="Elsas teckning: gammelmormor och Elsa håller varandra i handen i trädgården, med sol, blommor och ett hjärta">
+    ${defs}<rect width="400" height="300" fill="#FBF7EE" />${art}
+  </svg>`;
+  // i kameran: köksbordet, en kaffekopp och kritorna, och papperet snett med hörnen som appen har hittat
+  const corner = (x, y, dx, dy) => `M${x + dx * 34} ${y}H${x}V${y + dy * 34}`;
+  return html`<svg viewBox="0 0 300 420" preserveAspectRatio="xMidYMid slice" class="cam-svg" role="img" aria-label="Teckningen ligger på köksbordet">
+    ${defs}
+    <rect width="300" height="420" fill="#B98A5C" />
+    <path d="M0 78H300M0 168H300M0 258H300M0 348H300" stroke="#9E7248" stroke-width="2.5" />
+    <path d="M20 40c40 6 80-4 120 2M160 118c40 6 90-2 130 4M10 214c50 4 90-6 140 0M150 300c40 6 90-2 140 2M30 392c50 4 80-6 130-2" stroke="#A67A4E" stroke-width="2" fill="none" opacity=".6" />
+    <circle cx="262" cy="42" r="32" fill="#F4F1EA" stroke="#D8D2C6" stroke-width="4" /><circle cx="262" cy="42" r="23" fill="#6B4428" />
+    <g transform="translate(150 205) rotate(-7) scale(.66) translate(-200 -150)">
+      <rect x="9" y="12" width="400" height="300" fill="#000" opacity=".22" />
+      <rect width="400" height="300" fill="#FBF7EE" />${art}
+      <g class="cam-corners" stroke="#FFD447" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d=${corner(-10, -10, 1, 1)} /><path d=${corner(410, -10, -1, 1)} /><path d=${corner(-10, 310, 1, -1)} /><path d=${corner(410, 310, -1, -1)} />
+      </g>
+    </g>
+    <g transform="translate(46 372) rotate(-14)"><rect width="74" height="12" rx="3" fill="#E4505A" /><path d="M74 0l12 6-12 6Z" fill="#F2B8BC" /></g>
+    <g transform="translate(78 392) rotate(-4)"><rect width="70" height="12" rx="3" fill="#3E9E4C" /><path d="M70 0l12 6-12 6Z" fill="#A9DDB0" /></g>
+    <g transform="translate(206 368) rotate(16)"><rect width="66" height="12" rx="3" fill="#F3A81F" /><path d="M66 0l12 6-12 6Z" fill="#FBE0A8" /></g>
   </svg>`;
 }
 
@@ -4280,7 +4502,7 @@ function ModalHost() {
   const busy = !!s.room || !!s.senior.game || (s.senior.route === 'live' && s.senior.sub === 'watch');
   const m = s.queue.find(q => !(busy && q.kind === 'photo'));
   if (m) {
-    const C = { morning: MorningModal, signup: SignupModal, tablestart: TableStartModal, live: LiveModal, photo: PhotoModal, call: CallModal, notice: NoticeModal }[m.kind];
+    const C = { morning: MorningModal, signup: SignupModal, tablestart: TableStartModal, live: LiveModal, photo: PhotoModal, call: CallModal, notice: NoticeModal, kryss: KryssInviteModal }[m.kind];
     if (C) return html`<div class="scrim"><${C} m=${m} key=${m.kind + (m.id || '')} /></div>`;
   }
   const sh = s.senior.sheet;
@@ -4357,15 +4579,16 @@ function PhotoModal({ m }) {
   // Läs upp automatiskt (inställning): Annas röstmeddelande spelas när bilden öppnas
   useEffect(() => { if (p && p.voice && App.s.settings.readAloud) Act.playPhotoVoice(p.id); }, [m.id]);
   if (!p) return null;
-  const ph = PHOTOS.find(x => x.id === p.photo);
-  return html`<div class="modal photo-m" role="dialog" aria-modal="true" aria-label="Bildhälsning">
+  const ph = photoInfo(p.photo);
+  return html`<div class=${cx('modal', 'photo-m', ph.drawing && 'photo-drawing')} role="dialog" aria-modal="true" aria-label=${ph.drawing ? 'Teckning' : 'Bildhälsning'}>
     <div class="photo-frame"><${Photo} id=${p.photo} /></div>
     <div class="photo-side">
-      <p class="eyebrow"><${Avatar} id="anna" size=${40} /> Bildhälsning från Anna, ditt barnbarn</p>
+      ${ph.drawing ? html`<p class="eyebrow"><${Avatar} id="elsaj" size=${40} /> Från Elsa, 8 år, via Anna</p>`
+        : html`<p class="eyebrow"><${Avatar} id="anna" size=${40} /> Bildhälsning från Anna, ditt barnbarn</p>`}
       <h2>${ph.title}</h2>
       <p class="photo-text">${p.text}</p>
       ${p.voice && html`<${Btn} kind="primary" icon="speaker" onClick=${() => Act.playPhotoVoice(p.id)}>Lyssna på Anna</${Btn}>`}
-      ${p.heart ? html`<p class="done"><${Icon} n="heart" size=${24} />Du har skickat ett hjärta till Anna</p>`
+      ${p.heart ? html`<p class="done"><${Icon} n="heart" size=${24} />Du har skickat ett hjärta till ${ph.drawing ? 'Elsa och Anna' : 'Anna'}</p>`
         : html`<${Btn} kind="lamp" icon="heart" onClick=${() => Act.photoHeart(p.id)}>Skicka ett hjärta</${Btn}>`}
       <${Btn} icon="check" onClick=${() => Act.photoSeen(p.id)}>Stäng bilden</${Btn}>
     </div>
@@ -4598,7 +4821,7 @@ function SignedView() {
       <h2 class="card-h"><${Icon} n="people" size=${26} />De här vill också spela ${game(me.game).name} (${same.length})</h2>
       <ul class="av-list">${same.map(id => html`<li key=${id}><${Avatar} id=${id} size=${56} /><${Who} id=${id} /></li>`)}</ul>
     </section>
-    <p class="note"><${Icon} n="table" size=${22} />Alla anmälda: ${['yatzy', 'canasta', 'fia', 'patiens', 'any'].filter(k => counts[k]).map(k => `${game(k).name} ${counts[k]}`).join(' · ')}</p>
+    <p class="note"><${Icon} n="table" size=${22} />Alla anmälda: ${['yatzy', 'canasta', 'fia', 'patiens', 'dart', 'any'].filter(k => counts[k]).map(k => `${game(k).name} ${counts[k]}`).join(' · ')}</p>
     <div class="row"><${Btn} icon="pencil" onClick=${() => mut(x => Sim.queue(x, { kind: 'signup' }))}>Ändra spel</${Btn}><${Btn} kind="danger" icon="x" onClick=${() => { Act.unsign(); Act.go('spela'); }}>Avanmäl mig</${Btn}></div>
   </div>`;
 }
@@ -5921,16 +6144,20 @@ return {
 // Spel som är byggda direkt i plattan (till exempel korsordet) anmäler sig med Player.register och visas i samma ram.
 //   Player.register('korsord', { view: KryssView, card: KryssCard })   view fyller ramen, card är rutan på Spela
 //   Player.open('korsord')   öppnar spelet     Player.close()   tillbaka till plattan
+//   Player.addon('korsord', { bar, foot })   mer i spelramen: bar i rubrikraden före Tillbaka, foot under spelet
+//     (Lös tillsammans i krysset, 13g-kryss-tillsammans.js)
 // table: spelet används också vid Spelstundens bord (Yatzy vid bordet är plattans egen, 13-senior-play.js)
 const FORKS = {
   canasta: { src: 'games/canasta/index.html', table: true },
   yatzy: { src: 'games/yatzy/index.html', table: false },
   fia: { src: 'games/fia/index.html', table: true },
-  patiens: { src: 'games/patiens/index.html', table: true }
+  patiens: { src: 'games/patiens/index.html', table: true },
+  dart: { src: 'games/dart/index.html', table: true }
 };
-const PLAYERS = {};
+const PLAYERS = {}, ADDONS = {};
 const Player = {
   register(id, { view = null, card = null } = {}) { PLAYERS[id] = { view, card }; },
+  addon(id, { bar = null, foot = null } = {}) { ADDONS[id] = { bar, foot }; },
   has: id => !!(FORKS[id] || (PLAYERS[id] && PLAYERS[id].view)),
   card: id => (PLAYERS[id] && PLAYERS[id].card) || null,
   cards: () => Object.keys(PLAYERS).filter(id => PLAYERS[id].card).map(id => ({ id, Card: PLAYERS[id].card })),
@@ -5963,6 +6190,7 @@ function GamePlayer({ gp }) {
   const P = PLAYERS[gp.id];
   const title = tb ? `${g.name} vid bordet ${tb.name}` : g.name;
   const race = tb && gp.id === 'patiens';
+  const A = !tb && ADDONS[gp.id];
   useEffect(() => race ? raceWatch(tb) : undefined, [race, tb && tb.id]);
   return html`<div class=${cx('gplay', tb && 'gplay-table')} role="region" aria-label=${title}>
     <header class="gplay-bar">
@@ -5970,6 +6198,7 @@ function GamePlayer({ gp }) {
       <span class="gplay-game">${g.icon && html`<img src=${g.icon} alt="" width="44" height="44" />`}<strong>${title}</strong></span>
       ${tb && html`<span class="gplay-seats">${tb.seats.map(id => html`<span class="gplay-seat" key=${id}>
         <${Avatar} id=${id} size=${40} speaking=${s.room && s.room.speaking === id} muted=${id === 'ingrid' && s.me.muted} /><small>${id === 'ingrid' ? 'Du' : firstName(id)}</small>${race && html`<b class=${cx('gplay-pct', racePct(s, id) >= 100 && 'done')}>${racePct(s, id) >= 100 ? 'Klar!' : racePct(s, id) + ' %'}</b>`}</span>`)}</span>`}
+      ${A && A.bar && html`<${A.bar} gp=${gp} />`}
       <span class="gplay-actions">
         ${tb ? html`<${Btn} kind=${s.me.muted ? 'danger' : 'ok'} icon=${s.me.muted ? 'micOff' : 'mic'} onClick=${Act.toggleMute} cls="gplay-mic">${s.me.muted ? 'Sätt på mikrofonen' : 'Stäng av mikrofonen'}</${Btn}>
             <${Btn} kind="danger" icon="door" onClick=${Act.leaveRoom}>Lämna bordet</${Btn}>`
@@ -5981,6 +6210,7 @@ function GamePlayer({ gp }) {
         : html`<${GameFrame} key=${gp.id + ':' + (tb ? tb.id : 'solo')} gp=${gp} />`}
     </div>
     ${tb && s.settings.captions && html`<${TableCaption} />`}
+    ${A && A.foot && html`<${A.foot} gp=${gp} />`}
   </div>`;
 }
 
@@ -6048,7 +6278,7 @@ function GameFrame({ gp }) {
 function gameConfig(gp) {
   const s = App.s;
   // (rösterna i spelen finns bara på webben: artefakten får högst 255 filer)
-  const cfg = { t: 'init', mode: gp.mode, me: { name: firstName('ingrid'), av: initials('ingrid') }, size: s.settings.size, calm: true, sound: PREFS.sound, music: gp.mode !== 'table', voice: !INLINE_GAMES };
+  const cfg = { t: 'init', mode: gp.mode, me: { name: firstName('ingrid'), av: initials('ingrid') }, size: s.settings.size, calm: true, sound: PREFS.sound, music: gp.mode !== 'table', voice: !INLINE_GAMES || gp.id === 'dart' };
   if (gp.mode === 'table') {
     const tb = gp.tb;
     const others = tb.seats.filter(id => id !== 'ingrid');
@@ -6091,6 +6321,17 @@ function gameEvent(gp, d) {
   } else if (d.kind === 'goal') {
     if (d.mine) { who = any(); text = pick(['Snyggt, Ingrid, en till i mål!', 'Där gick den i mål. Bra, Ingrid!']); }
     else if (byName(d.who)) { who = byName(d.who); text = pick(['Så, en pjäs i mål.', 'Hem i mål, äntligen!']); }
+  } else if (d.kind === 'bull') {
+    if (d.mine) { who = any(); text = pick(['Mitt i prick, Ingrid!', 'Bull! Snyggt kastat, Ingrid.']); }
+    else if (byName(d.who)) { who = byName(d.who); text = pick(['Titta, mitt i prick!', 'Bull! Där satt den.']); }
+  } else if (d.kind === 'max') {
+    if (d.mine) { who = any(); text = pick(['Hundraåttio! Det har jag aldrig sett förut, Ingrid!', 'Tre i trippel tjugo! Vilken kastarm, Ingrid.']); }
+    else if (byName(d.who)) { who = byName(d.who); text = pick(['Hundraåttio! Nu blev jag allt lite stolt.', 'Tre i trippel tjugo. Vad sägs om det?']); }
+  } else if (d.kind === 'ton') {
+    if (d.mine) { who = any(); text = pick([`${d.pts} poäng! Bra kastat, Ingrid.`, 'Snyggt, Ingrid! Över hundra.']); }
+    else if (byName(d.who) && Math.random() < .5) { who = byName(d.who); text = pick(['Över hundra, inte illa!', 'Där satt de!']); }
+  } else if (d.kind === 'bust') {
+    if (d.mine && Math.random() < .6) { who = any(); text = pick(['Aj då, över. Nästa gång, Ingrid!', 'Över! Det händer den bästa.']); }
   } else if (d.kind === 'over' && gp.id === 'patiens') {
     const first = !others.some(id => racePct(s, id) >= 100);
     who = any(); text = first ? pick(['Grattis, Ingrid! Du blev klar först.', 'Oj, Ingrid var först! Snyggt.']) : pick(['Snyggt, Ingrid! Din gick också ut.', 'Bra, Ingrid! Nu är du också klar.']);
@@ -6274,6 +6515,307 @@ function KryssSolved({ p, onClose, onGo }) {
       <${Btn} big icon="left" onClick=${Player.close}>Tillbaka till Spela</${Btn}>
       <${Btn} big icon="eye" onClick=${onClose}>Titta på krysset</${Btn}>
     </footer>
+  </div>`;
+}
+
+/* ---- 13g-kryss-tillsammans.js ---- */
+/* ================= Dagens kryss tillsammans ================= */
+// Korsord löser man gärna ihop, och det går när som helst på dagen, inte bara på Spelstunden. I krysset finns knappen
+// Lös tillsammans: Ingrid bjuder in en vän, eller barnbarnet Anna i mobilen. Tackar hon ja löser de samma kryss
+// samtidigt: den andras bokstäver kommer direkt, en ram i hennes färg visar var hon skriver, och det de säger till
+// varandra textas längst ned. Anna kan också bjuda in mormor från sin mobil (21-family.js); då frågar plattan Ingrid.
+// I demon skriver datorn åt vännen: hon tar ett ord som ingen annan skriver i och fyller i det, en bokstav i taget.
+// Motorn (13c-kryss-motor.js, från Korsordsklubben) kan redan lösa tillsammans (board.remotePut och board.setPeers).
+// Spelplanen fångas här när krysset öppnas (Korsord.mount), så att varken motorn eller 13e-kryss.js behöver ändras.
+//   App.s.kt: null, eller { with, status: 'waiting' | 'on' | 'bye', captions, speaking, letters: { id: n }, words: { id: n } }
+//   App.s.senior.ktPick: rutan där Ingrid väljer vem hon bjuder in
+const KT_LINES = { karin: 'kryss_karin_', anna: 'kryss_anna_' };   // de som tackar ja i demon (har inspelade repliker)
+const KT_FRIENDS = ['karin', 'anna', 'bengt', 'sonja', 'gosta'];
+const KT_BUSY = {
+  bengt: 'Bengt kan inte just nu, han är ute med hunden. Han löser gärna ett kryss med dig i morgon!',
+  sonja: 'Sonja kan inte just nu, hon ska iväg till kören. Hon hälsar så gott!',
+  gosta: 'Gösta kan inte just nu, han ska ner till hamnen. Han hör av sig i kväll.'
+};
+
+const KryssTogether = (() => {
+  const K = {};
+  let board = null, sim = null, demo = null, praisedAt = -1e9, lastCell = null;
+  const now = () => performance.now();
+  const kt = () => App.s.kt;
+  const right = (b, c) => b.prog.get(c) === b.p.cells[c].answer;
+
+  // Spelplanen fångas när krysset öppnas och släpps när det stängs
+  const mount0 = Korsord.mount;
+  Korsord.mount = (el, id, opts = {}) => {
+    const own = opts.onEvent;
+    let b = null;
+    b = mount0(el, id, Object.assign({}, opts, { onEvent: ev => { if (own) own(ev); if (b) mine(b, ev); } }));
+    if (!b) return b;
+    if (demo) blank(b);
+    board = b;
+    const destroy = b.destroy.bind(b);
+    b.destroy = () => {
+      if (board === b) board = null;
+      destroy();
+      // krysset stängdes: vännen får veta det (byter Ingrid bara kryss fortsätter de tillsammans)
+      setTimeout(() => { if (!board && kt()) K.end({ left: true }); }, 400);
+    };
+    // ett annat kryss (Lilla, Stora): vännen följer med och börjar om på ett nytt ord
+    if (sim) Object.assign(sim.st, { phase: 'wait', wi: -1 });
+    lastCell = null;
+    const k = kt();
+    if (k && k.status === 'on') peer(b, k.with, nextCell(b));
+    return b;
+  };
+  // Filmen: krysset visas tomt och det som skrivs sparas inte (den som tittar har kanske redan börjat på dagens kryss)
+  function blank(b) {
+    const pr = b.prog;
+    pr.persist = false;
+    pr.letters.fill(''); pr.by.fill(''); pr.ts.fill(0); pr.shown.clear();
+    Object.assign(pr, { secs: 0, hints: 0, checks: 0, done: false, doneAt: null, started: null });
+    b.selectWord(b.p.order[0], { silent: true });
+  }
+  const firstOpen = b => { for (const wi of b.p.order) { const c = b.p.words[wi].cells.find(x => !b.prog.get(x)); if (c != null) return c; } return null; };
+  // där vännen börjar: första tomma rutan i ordet hon tänker ta (inte i Ingrids ord)
+  const nextCell = b => { const wi = pickWord(b); return wi >= 0 ? b.p.words[wi].cells.find(c => !right(b, c)) : firstOpen(b); };
+  function peer(b, who, cell) {
+    if (!b || cell == null) return;
+    lastCell = cell;
+    b.setPeers([{ cell, name: firstName(who), color: person(who).color }]);
+  }
+
+  // Det Ingrid skriver syns direkt hos vännen (i demon: vännen berömmer när ett ord blir rätt)
+  function mine(b, ev) {
+    const k = kt();
+    if (!k || k.status !== 'on' || ev.type !== 'put' || !ev.ch || ev.shown) return;
+    const c = b.p.cells[ev.cell];
+    const done = [c.words.A, c.words.D].filter(wi => wi >= 0 && b.prog.wordRight(wi)).length;
+    mut(s => { if (s.kt) { s.kt.letters.ingrid = (s.kt.letters.ingrid || 0) + 1; if (done) s.kt.words.ingrid = (s.kt.words.ingrid || 0) + 1; } });
+    if (done && now() - praisedAt > 15000) { praisedAt = now(); setTimeout(() => say(k.with, 'bra'), 900); }
+  }
+
+  // Vännen säger något (texten syns längst ned). En replik i taget.
+  function say(who, key) {
+    const k = kt(), id = (KT_LINES[who] || '') + key;
+    if (!k || k.with !== who || !Voice.has(id)) return Promise.resolve(false);
+    return Voice.sayWhenFree('kryss', id, 8000, {
+      onStart: x => mut(s => { if (s.kt && s.kt.with === who) { s.kt.speaking = who; s.kt.captions = s.kt.captions.concat([{ id: uid('k'), who, text: x.text }]).slice(-3); } }),
+      onEnd: () => mut(s => { if (s.kt && s.kt.speaking === who) s.kt.speaking = null; })
+    });
+  }
+
+  // Vännen i demon: tar ett ord som ingen skriver i och fyller i det, en bokstav i taget, med en paus mellan orden.
+  // Hon lämnar gott om ord åt Ingrid (högst åtta ord, och inte när krysset är mer än till hälften fyllt).
+  function simStart(who, wait) {
+    simStop();
+    const s0 = App.s, st = { who, phase: 'wait', at: now() + wait, wi: -1, last: now(), words: 0 };
+    sim = { st, iv: setInterval(() => { try { simTick(s0, st); } catch (e) { console.error(e); simStop(); } }, 100) };
+  }
+  function simStop() { if (sim) { clearInterval(sim.iv); sim = null; } }
+  function simTick(s0, st) {
+    const t = now(), dt = t - st.last;
+    st.last = t;
+    const k = kt();
+    if (App.s !== s0 || !k || k.status !== 'on' || k.with !== st.who) { simStop(); return; }
+    if (AutoTour.on() && AutoTour.hold()) { st.at += dt; return; }   // filmen står still (kort, övergång, paus)
+    const b = board;
+    if (!b || !b.root.isConnected || t < st.at) return;
+    const P = b.p;
+    if (st.phase === 'wait') {
+      if (b.prog.done || st.words >= (demo ? demo.words : 8) || b.prog.filled >= b.prog.total * .5) { st.at = t + 5000; return; }
+      const wi = pickWord(b);
+      if (wi < 0) { st.at = t + 3000; return; }
+      Object.assign(st, { wi, phase: 'type', at: t + 1100 });   // hon läser ledtråden först
+      peer(b, st.who, P.words[wi].cells.find(c => !right(b, c)));
+      return;
+    }
+    // Ingrid har börjat skriva i samma ord: vännen tar ett annat
+    if (b.word === st.wi) { Object.assign(st, { phase: 'wait', at: t + 1500 }); return; }
+    const w = P.words[st.wi];
+    const cell = w.cells.find(c => !right(b, c));
+    if (cell == null) {
+      st.phase = 'wait';
+      st.words++;
+      mut(s => { if (s.kt) s.kt.words[st.who] = (s.kt.words[st.who] || 0) + 1; });
+      if (st.words === 1) say(st.who, 'ord');
+      st.at = t + (demo ? 2600 + Math.random() * 1200 : 9000 + Math.random() * 5000);
+      return;
+    }
+    b.remotePut(cell, P.cells[cell].answer, { ts: Date.now(), by: firstName(st.who) });
+    mut(s => { if (s.kt) s.kt.letters[st.who] = (s.kt.letters[st.who] || 0) + 1; });
+    const nxt = w.cells.find(c => !right(b, c));
+    peer(b, st.who, nxt != null ? nxt : cell);
+    st.at = t + 520 + Math.random() * 280;
+  }
+  // Ett ord som ingen skriver i, som inte är klart och där inget fel står (korta ord först, i ledtrådarnas ordning)
+  function pickWord(b) {
+    const P = b.p;
+    const ok = P.order.filter(wi => wi !== b.word && !P.words[wi].cells.includes(b.cur)
+      && P.words[wi].cells.some(c => !right(b, c)) && P.words[wi].cells.every(c => !b.prog.get(c) || right(b, c)));
+    const short = ok.filter(wi => P.words[wi].len <= 5);
+    return (short.length ? short : ok).length ? (short.length ? short : ok)[0] : -1;
+  }
+
+  /* ---------- Det man kan göra ---------- */
+  K.pick = (on = true) => mut(s => { s.senior.ktPick = !!on; });
+  K.invite = who => {
+    mut(s => {
+      s.senior.ktPick = false;
+      s.kt = { with: who, status: 'waiting', captions: [], speaking: null, letters: {}, words: {}, t: s.t };
+      Sim.log(s, `Ingrid Jönsson bjöd in ${fullName(who)} att lösa dagens kryss`, 'pencil');
+    });
+    Sound.play('soft');
+    const s0 = App.s;
+    setTimeout(() => {
+      const k = kt();
+      if (App.s !== s0 || !k || k.with !== who || k.status !== 'waiting') return;
+      if (KT_LINES[who]) { K.join(who); return; }
+      const text = P(who).online ? KT_BUSY[who] || `${firstName(who)} kan inte just nu.` : `${firstName(who)} är inte inne just nu. Inbjudan väntar på plattan tills ${firstName(who)} kommer in.`;
+      mut(s => { s.kt = null; Sim.toast(s, { who, text, ms: 8000 }); });
+    }, KT_LINES[who] ? 2800 : 3400);
+  };
+  // Vännen är med (hon tackade ja, eller Ingrid tackade ja till Annas inbjudan)
+  K.join = who => {
+    const s0 = App.s;
+    simStop();
+    mut(s => {
+      s.kt = Object.assign({ captions: [], letters: {}, words: {}, t: s.t }, s.kt, { with: who, status: 'on', speaking: null });
+      Sim.toast(s, { who, text: `${firstName(who)} är med! Ni löser krysset tillsammans.` });
+      Sim.log(s, `Ingrid Jönsson och ${fullName(who)} löser dagens kryss tillsammans`, 'pencil');
+      if (who === 'anna' && s.family.kryss) {
+        s.family.kryss.status = 'on';
+        Sim.famPush(s, { kind: 'kryss', icon: 'pencil', title: 'Mormor tackade ja', text: 'Nu löser ni dagens kryss tillsammans.' });
+      }
+    });
+    if (board) peer(board, who, nextCell(board));
+    say(who, 'hej').then(() => { const k = kt(); if (App.s === s0 && k && k.with === who && k.status === 'on') simStart(who, demo ? 900 : 2500); });
+  };
+  // Sluta lösa tillsammans. left: Ingrid stängde krysset. quiet: utan hejdå (filmen, en annan del av demon)
+  K.end = ({ left = false, quiet = false } = {}) => {
+    const k = kt();
+    if (!k) return;
+    simStop();
+    if (board) board.setPeers([]);
+    const who = k.with;
+    const fam = s => { if (who === 'anna' && s.family.kryss) s.family.kryss.status = 'done'; };
+    if (quiet || k.status !== 'on') { mut(s => { s.kt = null; fam(s); }); return; }
+    if (left) { mut(s => { s.kt = null; fam(s); Sim.toast(s, { who, text: `Du lämnade krysset. ${firstName(who)} har fått veta det, och det ni skrev finns kvar.` }); }); return; }
+    mut(s => { if (s.kt) s.kt.status = 'bye'; });
+    say(who, 'hejda').then(() => mut(s => {
+      if (!s.kt || s.kt.with !== who) return;
+      s.kt = null;
+      fam(s);
+      Sim.toast(s, { who, text: `${firstName(who)} har gått. Det ni skrev finns kvar i krysset.` });
+    }));
+  };
+  // Anna bjuder in mormor från mobilen: plattan frågar Ingrid
+  K.fromFamily = () => {
+    mut(s => { s.family.kryss = { t: s.t, status: 'sent' }; });
+    Sound.play('soft');
+    const s0 = App.s;
+    setTimeout(() => { if (App.s === s0) mut(s => { Sim.queue(s, { kind: 'kryss', from: 'anna' }); if (s.family.kryss) s.family.kryss.status = 'seen'; }); }, 2600);
+  };
+  K.accept = yes => {
+    const m = App.s.queue.find(q => q.kind === 'kryss');
+    mut(s => { s.queue = s.queue.filter(q => q.kind !== 'kryss'); if (!yes && s.family.kryss) s.family.kryss.status = 'no'; });
+    if (!m || !yes) return;
+    if (!board) openKryss(App.s.senior.kryss || 'L');
+    K.join(m.from);
+  };
+  // Filmen (22c-autotour.js): krysset tomt och utan att sparas, ingen uppläsning av ledtrådarna och ingen förklaring
+  // första gången. Allt återställs när kapitlet lämnas.
+  K.demo = on => {
+    if (on && !demo) {
+      let intro = null;
+      try { intro = localStorage.getItem('kk.th.intro'); } catch (e) { /* ingen lagring */ }
+      demo = { words: 3, read: Korsord.settings.get('autoRead'), intro };
+      if (demo.read) Korsord.settings.set('autoRead', false);
+      kryssStore.set('intro', true);
+    } else if (!on && demo) {
+      const d = demo;
+      demo = null;
+      if (d.read) Korsord.settings.set('autoRead', true);
+      try { if (d.intro == null) localStorage.removeItem('kk.th.intro'); else localStorage.setItem('kk.th.intro', d.intro); } catch (e) { /* ingen lagring */ }
+    }
+  };
+  // Filmen: Ingrid skriver ordet hon står i (eller nästa lediga), en bokstav i taget
+  K.demoType = (gap = 560) => {
+    const b = board;
+    if (!b) return;
+    const busy = sim && sim.st.phase === 'type' ? sim.st.wi : -1;
+    const open = wi => wi !== busy && b.p.words[wi].cells.some(c => !b.prog.get(c));
+    const wi = open(b.word) ? b.word : b.p.order.find(open);
+    if (wi == null) return;
+    if (wi !== b.word) b.selectWord(wi);
+    const step = () => {
+      if (board !== b || b.word !== wi || b.prog.wordFull(wi)) return;
+      b.input(b.p.cells[b.cur].answer);
+      setTimeout(step, gap);
+    };
+    setTimeout(step, 700);
+  };
+  K.board = () => board;
+  K.ready = () => !!board && board.root.isConnected;
+  K.stats = () => { const k = kt(); return k ? { with: k.with, status: k.status, letters: Object.assign({}, k.letters), words: Object.assign({}, k.words) } : null; };
+  return K;
+})();
+
+/* ---------- I spelramen: knappen, de som löser och textningen (Player.addon, 13d-player.js) ---------- */
+function KtBar() {
+  const s = useApp();
+  const k = s.kt;
+  if (!k) return html`<${Btn} kind="ok" icon="people" cls="kt-btn" onClick=${() => KryssTogether.pick(true)}>Lös tillsammans</${Btn}>`;
+  const on = k.status !== 'waiting';
+  return html`<span class="kt-seats" aria-live="polite">
+    <span class="gplay-seat"><${Avatar} id="ingrid" size=${40} muted=${s.me.muted} /><small>Du</small></span>
+    <span class=${cx('gplay-seat', !on && 'kt-wait')}><${Avatar} id=${k.with} size=${40} speaking=${k.speaking === k.with} /><small>${on ? firstName(k.with) : 'Väntar …'}</small></span>
+    ${on ? html`<${Btn} kind=${s.me.muted ? 'danger' : 'ok'} icon=${s.me.muted ? 'micOff' : 'mic'} onClick=${Act.toggleMute} cls="gplay-mic kt-mic" title=${s.me.muted ? 'Sätt på mikrofonen' : 'Stäng av mikrofonen'}>${s.me.muted ? 'Mikrofonen är av' : 'Mikrofonen'}</${Btn}>
+      <${Btn} kind="danger" icon="x" onClick=${() => KryssTogether.end()}>Sluta</${Btn}>`
+    : html`<${Btn} kind="danger" icon="x" onClick=${() => KryssTogether.end({ quiet: true })}>Ångra</${Btn}>`}
+  </span>`;
+}
+function KtFoot() {
+  const s = useApp();
+  const k = s.kt;
+  const c = k && k.captions[k.captions.length - 1];
+  return html`${k && k.status !== 'waiting' && s.settings.captions && html`<p class="gplay-cap kt-cap" aria-live="polite">${c
+      ? html`<${Avatar} id=${c.who} size=${34} /><strong>${firstName(c.who)}:</strong> ${c.text}`
+      : html`<${Icon} n="captions" size=${24} />Det ni säger till varandra visas här som text.`}</p>`}
+    ${s.senior.ktPick && html`<${KtPicker} />`}`;
+}
+// Vem vill du lösa krysset med? Vännerna (med lampan och om de är inne) och Anna i mobilen
+function KtPicker() {
+  const s = useApp();
+  const close = () => KryssTogether.pick(false);
+  const row = id => {
+    const q = P(id), fam = !!FAMILY[id];
+    const sub = fam ? 'Barnbarn, i mobilen' : q.lamp && q.online ? 'Har tänt sin lampa' : q.online ? 'Inne i plattan just nu' : 'Inte inne just nu';
+    return html`<button type="button" class=${cx('choice', 'kt-row', 'kt-' + id, (fam || q.online) && 'kt-here')} key=${id} onClick=${() => KryssTogether.invite(id)}>
+      <${Avatar} id=${id} size=${56} lamp=${!fam && q.lamp && q.online} online=${fam ? null : !!q.online} />
+      <span class="kt-row-t"><strong>${fullName(id)}</strong><small>${sub}</small></span>
+      <em class="kt-go"><${Icon} n="send" size=${22} />Bjud in</em>
+    </button>`;
+  };
+  return html`<div class="scrim kt-scrim" onClick=${e => { if (e.target === e.currentTarget) close(); }}>
+    <div class="modal kt-modal" role="dialog" aria-modal="true" aria-label="Lös krysset tillsammans">
+      <header class="modal-h"><${Icon} n="people" size=${30} /><h2>Vem vill du lösa krysset med?</h2><${Btn} kind="ghost" icon="x" onClick=${close}>Stäng</${Btn}></header>
+      <div class="choice-list">${KT_FRIENDS.map(row)}</div>
+      <p class="muted small">Den du bjuder in får frågan på sin platta eller i mobilen. Ni skriver i samma kryss och hör varandra, som i ett samtal.</p>
+    </div>
+  </div>`;
+}
+Player.addon('korsord', { bar: KtBar, foot: KtFoot });
+
+// Anna vill lösa dagens kryss med mormor (inbjudan från mobilen, visas överst på plattan)
+function KryssInviteModal({ m }) {
+  return html`<div class="modal call-in kt-invite" role="dialog" aria-modal="true" aria-label="Inbjudan till dagens kryss">
+    <div class="ring-av"><${Avatar} id=${m.from} size=${120} /></div>
+    <h2>${firstName(m.from)} vill lösa dagens kryss med dig</h2>
+    <p class="lead">${FAMILY[m.from] ? `${firstName(m.from)} sitter med mobilen.` : `${firstName(m.from)} sitter med sin platta.`} Ni skriver i samma kryss och pratar medan ni löser.</p>
+    <div class="row center">
+      <${Btn} kind="ok" big icon="pencil" onClick=${() => KryssTogether.accept(true)}>Ja, gärna</${Btn}>
+      <${Btn} big onClick=${() => KryssTogether.accept(false)}>Inte nu</${Btn}>
+    </div>
   </div>`;
 }
 
@@ -6622,9 +7164,9 @@ function PeoplePage() {
   const s = useApp();
   const tab = s.senior.people || 'nara';
   return html`<div class="pg people">
-    <header class="pg-head"><h1>Grannar och vänner</h1><p class="lead">Se vilka som bor nära dig, och föreslå att ni ses på riktigt.</p></header>
-    <${Tabs} value=${tab} onChange=${v => mut(x => { x.senior.people = v; })} tabs=${[{ id: 'nara', label: 'Nära mig', icon: 'pin' }, { id: 'vanner', label: 'Mina vänner', icon: 'heart' }]} />
-    ${tab === 'nara' ? html`<${NearTab} />` : html`<${FriendsTab} />`}
+    <header class="pg-head"><h1>Grannar, vänner och familj</h1><p class="lead">${tab === 'familj' ? 'Familjen ser bara det du väljer att dela, och kan skicka bilder och teckningar till dig.' : 'Se vilka som bor nära dig, och föreslå att ni ses på riktigt.'}</p></header>
+    <${Tabs} value=${tab} onChange=${v => mut(x => { x.senior.people = v; })} tabs=${[{ id: 'nara', label: 'Nära mig', icon: 'pin' }, { id: 'vanner', label: 'Mina vänner', icon: 'heart' }, { id: 'familj', label: 'Familjen', icon: 'home' }]} />
+    ${tab === 'nara' ? html`<${NearTab} />` : tab === 'familj' ? html`<${FamilyTab} />` : html`<${FriendsTab} />`}
   </div>`;
 }
 
@@ -6670,6 +7212,40 @@ function InviteSheet({ sh }) {
     <div class="choice-list">${OPTS.map(([k, ic, t, d]) => html`<button type="button" class="choice" onClick=${() => { Act.invite(to, k); closeSheet(); }}><${Icon} n=${ic} size=${30} /><span><strong>${t}</strong><small>${d}</small></span></button>`)}</div>
     <p class="muted small">${firstName(to)} får frågan på sin platta och svarar när det passar.</p>
   </${Sheet}>`;
+}
+
+// Familjen: de som är med, QR-koden som bjuder in fler, vad familjen ser, och bilderna och teckningarna de skickat.
+// QR-koden leder till familjens app i demon (#anhorig), så den som skannar den med sin mobil ser hur det blir.
+function FamilyTab() {
+  const s = useApp();
+  const qr = typeof DEMO_LINK !== 'undefined' && DEMO_LINK && DEMO_LINK.family;
+  return html`<div class="famtab">
+    <section class="card famtab-members">
+      <h2 class="card-h"><${Icon} n="home" size=${26} />Min familj</h2>
+      <ul class="famtab-list">
+        <li><${Avatar} id="anna" size=${60} /><span><strong>Anna Jönsson</strong><small>Barnbarn. Har appen i mobilen.</small></span></li>
+        <li><${Avatar} id="elsaj" size=${60} /><span><strong>Elsa</strong><small>Annas dotter, 8 år. Skickar teckningar med Annas mobil.</small></span></li>
+      </ul>
+    </section>
+    <section class="card famtab-qr">
+      <h2 class="card-h"><${Icon} n="camera" size=${26} />Bjud in fler i familjen</h2>
+      <div class="famtab-qr-row">
+        ${qr ? html`<svg class="famtab-code" viewBox=${`0 0 ${qr.n} ${qr.n}`} role="img" aria-label="QR-kod som bjuder in familjen" shape-rendering="crispEdges"><rect width=${qr.n} height=${qr.n} fill="#fff" /><path d=${qr.d} fill="#17212F" /></svg>`
+          : html`<span class="famtab-code famtab-nocode"><${Icon} n="camera" size=${56} /></span>`}
+        <p>Låt dina barn och barnbarn rikta mobilens kamera mot koden. Då kan de skicka bilder och teckningar, se när din lampa lyser och bjuda in dig att spela.</p>
+      </div>
+      <p class="muted small">Koden gäller i ett dygn. Du ser alltid vilka som är med, och kan ta bort någon när du vill.</p>
+    </section>
+    <section class="card famtab-share">
+      <h2 class="card-h"><${Icon} n="shield" size=${26} />Det här ser familjen</h2>
+      <${Toggle} id="famSees" on=${s.settings.familySees} onChange=${v => Act.set('familySees', v)} label="Min lampa, och att jag har använt plattan" text="Aldrig vad du skriver, eller vilka du pratar med." />
+    </section>
+    <section class="card famtab-fridge">
+      <h2 class="card-h"><${Icon} n="image" size=${26} />Från familjen</h2>
+      ${s.photos.length ? html`<div class="famtab-pics">${s.photos.map(p => html`<button type="button" class="famtab-pic" key=${p.id} onClick=${() => Act.photoOpen(p.id)} aria-label=${photoInfo(p.photo).title}><${Photo} id=${p.photo} />${p.heart && html`<span class="famtab-heart"><${Icon} n="heart" size=${20} /></span>`}</button>`)}</div>`
+        : html`<p class="empty">Här samlas bilderna och teckningarna som familjen skickar.</p>`}
+    </section>
+  </div>`;
 }
 
 function FriendsTab() {
@@ -6950,7 +7526,7 @@ function StSpel() {
     <ol class="st-steps">${[['13.30', 'Anmälan öppnar', 'signup'], ['14.00', 'Borden delas in', 'playing'], ['15.00', 'Spelstunden slutar', 'done']].map(([tm, txt, ph]) => html`<li class=${cx(sp.phase === ph && 'on', (ph === 'signup' && ['playing', 'done'].includes(sp.phase)) || (ph === 'playing' && sp.phase === 'done') ? 'past' : '')}><b>${tm}</b>${txt}</li>`)}</ol>
     ${sp.phase === 'closed' && html`<section class="st-card"><h2>Anmälan öppnar kl. 13.30</h2><p>Alla deltagare får en fråga på plattan en halvtimme innan. Förra veckan var det i snitt 19 som spelade.</p></section>`}
     ${sp.phase === 'signup' && html`<section class="st-card"><h2>Anmälda hittills (${Object.keys(sp.signups).length})</h2>
-      <div class="st-games">${['yatzy', 'canasta', 'fia', 'patiens', 'any'].map(g => html`<div class="st-game"><h3>${game(g).name} <em>${(byGame[g] || []).length}</em></h3>
+      <div class="st-games">${['yatzy', 'canasta', 'fia', 'patiens', 'dart', 'any'].map(g => html`<div class="st-game"><h3>${game(g).name} <em>${(byGame[g] || []).length}</em></h3>
         <ul>${(byGame[g] || []).map(id => html`<li key=${id}><${Avatar} id=${id} size=${28} /><span>${fullName(id)}${sp.signups[id].friend ? html`<small> med ${firstName(sp.signups[id].friend)}</small>` : ''}</span></li>`)}</ul></div>`)}</div></section>`}
     ${(sp.phase === 'playing' || sp.phase === 'done') && html`<section class="st-card"><h2>Borden kl. 14.00 (${sp.tables.length} bord, ${sp.tables.reduce((a, t) => a + t.seats.length, 0)} spelare)</h2>
       <div class="st-tables">${sp.tables.map(tb => html`<div class=${cx('st-tb', tb.seats.includes('ingrid') && 'ingrid')} key=${tb.id}>
@@ -7125,48 +7701,108 @@ function TvBingo() {
 }
 
 /* ---- 21-family.js ---- */
-/* ================= Anhöriga: barnbarnets sida i mobilen ================= */
-// Familjen bjuds in av deltagaren och ser bara det hon valt att dela. De kan skicka bildhälsningar med röst,
-// se när lampan är tänd och ringa. Allt landar på plattan utan att mormor behöver göra något.
+/* ================= Anhöriga: barnbarnets app i mobilen ================= */
+// Familjen bjuds in av Ingrid själv: hon visar QR-koden på plattan (Grannar, fliken Familjen) och de skannar den med
+// mobilen. De ser bara det hon valt att dela. De får en notis när lampan tänds, kan ringa, skicka bilder med röst och
+// barnens teckningar (fotade med mobilen) och bjuda in till ett spel eller dagens kryss (13g-kryss-tillsammans.js).
+// Allt landar på plattan utan att mormor behöver göra något, och hennes hjärta kommer tillbaka som en notis.
+//   s.family.route: hem | kamera (Anna fotar Elsas teckning) | teckning (bilden före den skickas)
 
 function FamilyApp() {
   const s = useApp();
   const f = s.family;
-  const sent = f.sent && s.photos.find(p => p.photo === f.sent);
-  const q = s.me;
-  const doing = s.room ? (s.room.kind === 'table' ? 'Spelar Yatzy på Spelstunden' : s.room.kind === 'fika' ? 'Pratar i Fikarummet' : s.room.with === 'anna' ? null : 'I ett samtal') : s.senior.sub === 'watch' ? 'Är med på bingon från träffpunkten' : null;
-  const [playing, setPlaying] = useState(false);
-  const calling = (s.calls.incoming && s.calls.incoming.from === 'anna') || (s.room && s.room.kind === 'call' && s.room.with === 'anna');
-  const play = async () => { setPlaying(true); Voice.stop('photo'); await Voice.say('photo', 'anna_' + f.photo); setPlaying(false); };
   return html`<div class="family">
-    <header class="fam-h"><${Logo} size=${34} /><span class="fam-t"><strong>Träffpunkt Hemma</strong><small>För anhöriga</small></span><${Avatar} id="anna" size=${38} /></header>
-    <div class="fam-body">
-      <h1>Hej Anna!</h1>
-      <section class="fam-card">
-        <div class="fam-who"><${Avatar} id="ingrid" size=${64} lamp=${q.lamp} /><span><strong>Mormor Ingrid</strong><small>Anderslöv</small></span></div>
-        ${s.settings.familySees ? html`<ul class="fam-status">
-          <li class=${q.lamp ? 'lit' : ''}><${Icon} n="lamp" size=${22} />${q.lamp ? 'Lampan är tänd. Hon vill gärna prata!' : 'Lampan är släckt just nu.'}</li>
-          ${doing && html`<li><${Icon} n="people" size=${22} />${doing}</li>`}
-          <li><${Icon} n="check" size=${22} />Har använt plattan i dag</li></ul>` : html`<p class="muted">Mormor har valt att inte dela något just nu.</p>`}
-        ${calling ? html`<p class="fam-calling"><${Icon} n="video" size=${20} />${s.room && s.room.kind === 'call' && s.room.with === 'anna' ? 'Du pratar med mormor.' : 'Ringer mormor…'}</p>`
-          : html`<div class="fam-btns"><${Btn} kind="ok" icon="video" small onClick=${Act.familyCall}>Videosamtal</${Btn}><${Btn} icon="phone" small onClick=${Act.familyCall}>Ring</${Btn}></div>`}
-      </section>
-      <section class="fam-card">
-        <h2>Skicka en bildhälsning</h2>
-        <div class="fam-photos">${PHOTOS.map(p => html`<button type="button" class=${cx('fam-ph', f.photo === p.id && 'on')} onClick=${() => Act.familyPhoto(p.id)} aria-pressed=${f.photo === p.id}><${Photo} id=${p.id} /></button>`)}</div>
-        <p class="fam-msg">${PHOTOS.find(p => p.id === f.photo).text}</p>
-        <button type="button" class="fam-voice" onClick=${play}><${Icon} n=${playing ? 'speaker' : 'play'} size=${22} /><span>Ditt röstmeddelande</span><small>${Math.round(Voice.dur('anna_' + f.photo))} sek</small></button>
-        <${Btn} kind="primary" icon="send" onClick=${Act.familySend} cls="fam-send">Skicka till mormor</${Btn}>
-        ${sent && html`<p class="fam-sent"><${Icon} n="check" size=${20} />Skickat kl. ${clockStr(sent.t)}.${sent.seen ? ' Mormor har sett bilden.' : ''}${sent.heart ? html` <span class="heart"><${Icon} n="heart" size=${18} />Hon skickade ett hjärta!</span>` : ''}</p>`}
-      </section>
-      <section class="fam-card">
-        <h2>Spela med mormor</h2>
-        <p class="muted">Bjud in mormor till ett parti Yatzy eller canasta. Hon får frågan på sin platta.</p>
-        ${f.game ? html`<p class="fam-sent"><${Icon} n="check" size=${20} />Inbjudan skickad.${f.game.seen ? ' Mormor har sett den.' : ''}</p>`
+    <header class="fam-h"><${Logo} size=${34} /><span class="fam-t"><strong>Träffpunkt Hemma</strong><small>För familjen</small></span><${Avatar} id="anna" size=${38} /></header>
+    ${f.push && html`<${FamPush} n=${f.push} key=${f.push.id} />`}
+    ${f.route === 'kamera' ? html`<${FamCamera} />` : f.route === 'teckning' ? html`<${FamDrawing} />` : html`<${FamHome} />`}
+  </div>`;
+}
+
+// Notisen överst i mobilen (lampan, hjärtat, krysset), som telefonens egna notiser
+function FamPush({ n }) {
+  return html`<div class="fam-push" role="status">
+    <span class="fam-push-ic"><${Icon} n=${n.icon || 'bell'} size=${20} /></span>
+    <span class="fam-push-t"><small>Träffpunkt Hemma</small><strong>${n.title}</strong>${n.text && html`<span>${n.text}</span>`}</span>
+    <em>nu</em>
+  </div>`;
+}
+
+// Röstmeddelandet som följer med bilden (Anna spelar upp det innan hon skickar)
+function FamVoice({ id }) {
+  const [playing, setPlaying] = useState(false);
+  const play = async () => { setPlaying(true); Voice.stop('photo'); await Voice.say('photo', id); setPlaying(false); };
+  return html`<button type="button" class="fam-voice" onClick=${play}><${Icon} n=${playing ? 'speaker' : 'play'} size=${22} /><span>Ditt röstmeddelande</span><small>${Math.round(Voice.dur(id))} sek</small></button>`;
+}
+
+function FamHome() {
+  const s = useApp();
+  const f = s.family, q = s.me;
+  const sent = f.sent && s.photos.find(p => p.photo === f.sent);
+  const doing = s.room ? (s.room.kind === 'table' ? 'Spelar Yatzy på Spelstunden' : s.room.kind === 'fika' ? 'Pratar i Fikarummet' : s.room.with === 'anna' ? null : 'I ett samtal') : s.senior.sub === 'watch' ? 'Är med på bingon från träffpunkten' : null;
+  const calling = (s.calls.incoming && s.calls.incoming.from === 'anna') || (s.room && s.room.kind === 'call' && s.room.with === 'anna');
+  const notes = (f.notes || []).slice(0, 3);
+  return html`<div class="fam-body">
+    <h1>Hej Anna!</h1>
+    <section class="fam-card fam-mormor">
+      <div class="fam-who"><${Avatar} id="ingrid" size=${64} lamp=${q.lamp && s.settings.familySees} /><span><strong>Mormor Ingrid</strong><small>Anderslöv</small></span></div>
+      ${s.settings.familySees ? html`<ul class="fam-status">
+        <li class=${q.lamp ? 'lit' : ''}><${Icon} n="lamp" size=${22} />${q.lamp ? 'Lampan är tänd. Hon vill gärna prata!' : 'Lampan är släckt just nu.'}</li>
+        ${doing && html`<li><${Icon} n="people" size=${22} />${doing}</li>`}
+        <li><${Icon} n="check" size=${22} />Har använt plattan i dag</li></ul>` : html`<p class="muted">Mormor har valt att inte dela något just nu.</p>`}
+      ${notes.length > 0 && html`<div class="fam-notes"><small>Senaste</small><ul>${notes.map(n => html`<li key=${n.id}><${Icon} n=${n.icon || 'bell'} size=${18} /><span>${n.note || n.title}</span><time>${n.day < 0 ? 'i går ' : ''}${clockStr(n.t)}</time></li>`)}</ul></div>`}
+      ${calling ? html`<p class="fam-calling"><${Icon} n="video" size=${20} />${s.room && s.room.kind === 'call' && s.room.with === 'anna' ? 'Du pratar med mormor.' : 'Ringer mormor…'}</p>`
+        : html`<div class="fam-btns"><${Btn} kind="ok" icon="video" small onClick=${Act.familyCall}>Videosamtal</${Btn}><${Btn} icon="phone" small onClick=${Act.familyCall}>Ring</${Btn}></div>`}
+    </section>
+    <section class="fam-card fam-pics">
+      <h2>Skicka en bild eller teckning</h2>
+      <${Btn} kind="primary" icon="camera" onClick=${Act.familyCamera} cls="fam-draw-btn">Fota en teckning</${Btn}>
+      <p class="fam-or">eller välj en bild</p>
+      <div class="fam-photos">${PHOTOS.map(p => html`<button type="button" class=${cx('fam-ph', f.photo === p.id && 'on')} onClick=${() => Act.familyPhoto(p.id)} aria-pressed=${f.photo === p.id}><${Photo} id=${p.id} /></button>`)}</div>
+      <p class="fam-msg">${photoInfo(f.photo).text}</p>
+      <${FamVoice} id=${'anna_' + f.photo} />
+      <${Btn} icon="send" onClick=${Act.familySend} cls="fam-send">Skicka bilden till mormor</${Btn}>
+      ${sent && html`<p class="fam-sent"><${Icon} n="check" size=${20} /><span>${photoInfo(sent.photo).drawing ? 'Teckningen skickades' : 'Skickat'} kl. ${clockStr(sent.t)}.${sent.seen ? ' Mormor har sett den.' : ''}${sent.heart ? html` <span class="heart"><${Icon} n="heart" size=${18} />Hon skickade ett hjärta!</span>` : ''}</span></p>`}
+    </section>
+    <section class="fam-card fam-play">
+      <h2>Spela med mormor</h2>
+      <p class="muted">Bjud in mormor till ett parti Yatzy, eller lös dagens kryss tillsammans. Hon får frågan på sin platta.</p>
+      <div class="fam-play-btns">
+        ${f.game ? html`<p class="fam-sent"><${Icon} n="check" size=${20} />Inbjudan till Yatzy skickad.${f.game.seen ? ' Mormor har sett den.' : ''}</p>`
           : html`<${Btn} icon="dice" small onClick=${Act.familyGame}>Bjud in till Yatzy i kväll</${Btn}>`}
-      </section>
-      <p class="fam-note"><${Icon} n="shield" size=${18} />Du ser bara det Ingrid har valt att dela. Hon bjöd in dig från sin platta.</p>
+        ${f.kryss && f.kryss.status !== 'done' && f.kryss.status !== 'no'
+          ? html`<p class="fam-sent"><${Icon} n=${f.kryss.status === 'on' ? 'pencil' : 'check'} size=${20} />${{ sent: 'Frågan om krysset är skickad till mormor.', seen: 'Mormor har fått frågan om krysset.', on: 'Ni löser dagens kryss tillsammans.' }[f.kryss.status]}</p>`
+          : html`<${Btn} icon="pencil" small onClick=${KryssTogether.fromFamily}>Lös dagens kryss med mormor</${Btn}>`}
+      </div>
+    </section>
+    <p class="fam-note"><${Icon} n="shield" size=${18} />Du ser bara det mormor har valt att dela. Hon bjöd in dig med QR-koden på sin platta.</p>
+  </div>`;
+}
+
+// Kameran: teckningen ligger på köksbordet, och appen hittar papperet och rättar till det
+function FamCamera() {
+  const s = useApp();
+  return html`<div class="fam-cam">
+    <div class="fam-cam-top"><button type="button" class="fam-cam-x" onClick=${Act.familyHome}><${Icon} n="x" size=${20} />Avbryt</button><strong>Fota teckningen</strong></div>
+    <div class="fam-cam-view">
+      <${Drawing} table />
+      <span class="fam-cam-found"><${Icon} n="check" size=${18} sw=${3} />Teckningen hittad</span>
+      ${s.family.flash && html`<span class="fam-flash"></span>`}
     </div>
+    <p class="fam-cam-tip">Håll mobilen över teckningen. Appen rättar till den själv.</p>
+    <div class="fam-cam-bar"><button type="button" class="fam-shutter" aria-label="Ta bilden" onClick=${Act.familySnap}><span></span></button></div>
+  </div>`;
+}
+
+// Bilden på teckningen, före den skickas (med Annas röstmeddelande)
+function FamDrawing() {
+  return html`<div class="fam-body fam-prev">
+    <h1>Elsas teckning</h1>
+    <div class="fam-draw"><${Photo} id=${DRAWING.id} /></div>
+    <p class="fam-auto"><${Icon} n="check" size=${18} />Rättad och beskuren av appen</p>
+    <p class="fam-msg">${DRAWING.text}</p>
+    <${FamVoice} id=${'anna_' + DRAWING.id} />
+    <${Btn} kind="primary" icon="send" onClick=${Act.familySendDrawing} cls="fam-send fam-send-draw">Skicka till mormor</${Btn}>
+    <${Btn} small icon="camera" onClick=${Act.familyCamera}>Ta om bilden</${Btn}>
   </div>`;
 }
 
@@ -7176,7 +7812,7 @@ function FamilyApp() {
 // ensure: körs före hoppet i tid (till exempel anmälan till Spelstunden, som måste finnas när borden delas in kl. 14.00).
 
 // title och text kan vara en funktion av läget (steget vid spelbordet följer spelet Ingrid valde)
-const TABLE_WORD = { yatzy: 'Yatzy', canasta: 'Canasta', fia: 'Fia', patiens: 'Patiens' };
+const TABLE_WORD = { yatzy: 'Yatzy', canasta: 'Canasta', fia: 'Fia', patiens: 'Patiens', dart: 'Dart' };
 const tourGame = s => { const tb = s.spel.tables.find(x => x.id === s.spel.mine); return tb ? tb.game : (s.spel.signups.ingrid && s.spel.signups.ingrid.game) || 'yatzy'; };
 const tourTitle = (st, s = App.s) => typeof st.title === 'function' ? st.title(s) : st.title;
 const tourText = (st, s = App.s) => typeof st.text === 'function' ? st.text(s) : st.text;
@@ -7200,11 +7836,11 @@ const TOUR = [
     act: { label: 'Extra stor text och mörk skärm (av och på)', run: () => mut(s => { const on = s.settings.size !== 'xstor'; s.settings.size = on ? 'xstor' : 'stor'; s.settings.dark = on; }) },
     text: ['Plattan anpassas efter den som använder den. Textstorleken ändras med ett tryck, mörk skärm är skönare för trötta ögon och plattan kan läsa upp det som står.',
       'Textstorleken följer med in i spelen. Under Hjälp finns dessutom en stor knapp för Större text.'] },
-  { id: 'lampa', title: 'Tänd lampan', t: T(9, 20), view: 'platta',
-    setup: s => { s.senior.route = 'idag'; },
+  { id: 'lampa', title: 'Tänd lampan', t: T(9, 20), view: 'platta-anhorig',
+    setup: s => { s.senior.route = 'idag'; s.family.route = 'hem'; },
     act: { label: 'Tänd Ingrids lampa', run: () => { if (!App.s.me.lamp) Act.toggleLamp(); } },
-    text: ['Förr tände man en lampa i fönstret när man gärna tog emot besök. Här fungerar det likadant.',
-      'Tryck på Min lampa uppe till höger. Karin ser att lampan lyser och ringer upp efter en liten stund.'] },
+    text: ['Förr tände man en lampa i fönstret när man gärna tog emot besök. Här fungerar det likadant: vännerna ser lampan på sina plattor, och familjen får en notis i mobilen.',
+      'Tryck på Min lampa uppe till höger. Anna får en notis direkt, och Karin ringer upp efter en liten stund.'] },
   { id: 'fika', title: 'Fikarummet', t: T(10, 2), view: 'platta',
     setup: () => { setTimeout(() => Act.joinFika(), 50); },
     text: ['Fikarummet är öppet med en värd förmiddag och eftermiddag. Man går in och ut som på en riktig träffpunkt och ser vilka som är där.',
@@ -7225,10 +7861,29 @@ const TOUR = [
     setup: s => { s.senior.route = 'spela'; s.senior.sub = null; s.room = null; s.senior.game = { id: 'canasta' }; },
     text: ['Spelen finns alltid i plattan: Canasta, Yatzy, Fia med knuff, Patiens och Dagens kryss. De har plattans utseende, stor text och lugnt tempo, och Ingrids riktiga namn står redan i spelet.',
       'Tryck på Spela mot datorn. Tillbaka uppe till höger tar henne tillbaka till plattan.'] },
-  { id: 'familj', title: 'Bildhälsning från barnbarnet', t: T(12, 20), view: 'platta-anhorig',
-    setup: s => { s.senior.route = 'idag'; s.family.route = 'hem'; },
-    text: ['Barnbarnet Anna har en enkel sida i mobilen. Hon ser om mormors lampa lyser och kan skicka en bild med ett röstmeddelande.',
-      'Tryck på Skicka till mormor i mobilen. Bilden kommer direkt till plattan. Tryck sedan på Videosamtal, så ringer Anna.'] },
+  { id: 'kryss', title: 'Dagens kryss tillsammans', t: T(11, 50), view: 'platta',
+    setup: s => { s.senior.route = 'spela'; s.senior.sub = null; s.room = null; },
+    act: { label: 'Öppna krysset och bjud in Karin', run: () => { openKryss('L'); setTimeout(() => KryssTogether.invite('karin'), 600); } },
+    text: ['Dagens kryss är två nya korsord varje dag, samma för alla deltagare. Korsord löser man gärna ihop, och det går när som helst på dagen, inte bara på Spelstunden.',
+      'Öppna Lilla krysset och tryck på Lös tillsammans. Ingrid bjuder in Karin, som får frågan på sin platta. Karins bokstäver kommer direkt, i hennes färg, och det de säger till varandra textas.'] },
+  // Familjen: Ingrid bjuder in dem med en QR-kod och bestämmer vad de ser. Det sköts av familjen själv, inte av personalen.
+  { id: 'familj', title: 'Familjen bjuds in', t: T(12, 20), view: 'platta-anhorig',
+    setup: s => {
+      Object.assign(s.senior, { route: 'grannar', people: 'familj', sub: null });
+      s.family.route = 'hem';
+      // (hoppar man hit direkt: lampan tändes i morse, och Anna fick en notis då)
+      if (!s.me.lamp) {
+        Object.assign(s.me, { lamp: true, lampVoiced: true, karinCalled: true });
+        s.family.notes = [{ id: 'fn-lampa', kind: 'lamp', icon: 'lamp', title: 'Mormor har tänt sin lampa', note: 'Mormor tände sin lampa', t: T(9, 20) }].concat(s.family.notes || []);
+      }
+    },
+    text: ['Familjen bjuds in av Ingrid själv, med en QR-kod på plattan. Barn och barnbarn skannar den med mobilen. Ingrid bestämmer vad de ser: lampan och att hon har använt plattan, aldrig vad hon skriver eller vem hon pratar med.',
+      'I mobilen ser Anna mormors lampa och får en notis när den tänds. Hon kan ringa med ett tryck. Familjedelen sköts av Ingrid och familjen själva, utan att personalen behöver göra något.'] },
+  { id: 'teckning', title: 'En teckning från Elsa', t: T(12, 26), view: 'platta-anhorig',
+    setup: s => { s.senior.route = 'idag'; s.senior.sub = null; s.family.route = 'hem'; },
+    act: { label: 'Fota och skicka Elsas teckning', run: () => { Act.familyCamera(); setTimeout(Act.familySnap, 1500); setTimeout(Act.familySendDrawing, 3200); } },
+    text: ['Annas dotter Elsa, 8 år, har ritat en teckning till gammelmormor. Anna fotar den med mobilen, och appen rättar till bilden själv.',
+      'Tryck på Fota en teckning i mobilen, på knappen och sedan på Skicka till mormor. Teckningen kommer direkt till plattan, och när Ingrid skickar ett hjärta ser Anna och Elsa det. Familjen kan också bjuda in till Yatzy eller dagens kryss.'] },
   { id: 'anmalan', title: 'Anmälan till Spelstunden', t: T(13, 30), view: 'platta',
     // (bildhälsningen från förra steget stängs, annars ligger den över anmälan)
     setup: s => { s.senior.route = 'idag'; s.senior.idle = false; s.photos.forEach(p => { p.seen = true; }); s.queue = s.queue.filter(q => q.kind !== 'photo'); },
@@ -7249,7 +7904,8 @@ const TOUR = [
       if (g === 'yatzy') return [`Ingrid sitter vid bordet ${tb ? tb.name : 'Smygehuk'} med ${who}. Rösten är på från början och namnen syns.`,
         'Spela gärna en omgång: tryck på Slå, spara tärningar och välj en rad i protokollet. Knappen Tips hjälper den som är osäker.'];
       return [`Ingrid sitter vid bordet ${tb.name} med ${who} och spelar ${game(g).name}. Spelet fyller plattan, och överst syns de andra vid bordet, mikrofonen och Lämna bordet.`,
-        g === 'patiens' ? 'Alla spelar samma giv och tävlar om att bli klar först. Vid namnen syns hur långt var och en har kommit. I demon är det datorn som spelar de andras kort.'
+        g === 'dart' ? 'Alla kastar tre pilar i tur och ordning i 301, och plattan räknar poängen. Man siktar med fingret och kastar med en knapp. I demon är det datorn som kastar de andras pilar.'
+          : g === 'patiens' ? 'Alla spelar samma giv och tävlar om att bli klar först. Vid namnen syns hur långt var och en har kommit. I demon är det datorn som spelar de andras kort.'
           : 'Det som sägs vid bordet visas som text längst ned. I demon är det datorn som spelar de andras drag.'];
     } },
   { id: 'bingo', title: 'Bingo från träffpunkten', t: T(15, 0), view: 'platta-tv',
@@ -7257,11 +7913,12 @@ const TOUR = [
     act: { label: 'Tv:n i ett eget fönster (andra skärm)', href: '#skarm' },
     text: ['Träffpunkt Trelleborg sänder bingo. De som är hemma spelar med på plattan och syns på tv:n i salen.',
       'Tryck på numren när de ropas, och på BINGO när raden är full. Hälsningar läses upp av bingovärden. Ingen stol står tom.'] },
-  { id: 'personal', title: 'Personalens översikt', t: T(15, 30), view: 'personal',
-    setup: s => { s.staff.route = 'oversikt'; },
+  { id: 'personal', title: 'Personalens vy', t: T(15, 30), view: 'personal',
+    // (Ingrid har lämnat bingon: annars fortsätter värden att ropa från hennes platta medan personalens vy visas)
+    setup: s => { Voice.stop('live'); s.staff.route = 'oversikt'; s.senior.route = 'idag'; s.senior.sub = null; s.room = null; },
     act: { label: 'Visa månadens frågor på plattan', run: () => mut(s => { s.view = s.device ? 'platta' : 'personal-platta'; s.staff.route = 'rapport'; s.senior.route = 'idag'; s.senior.sub = null; s.room = null; s.queue = []; s.senior.sheet = { kind: 'survey', step: 0 }; }) },
-    text: ['Personalen planerar veckans program, startar sändningar och ser vem som bett om ett samtal under Omtanke. Tre korta frågor på plattan en gång i månaden visar om ensamheten minskar.',
-      'Statistiken är sammanräknad och visar om tjänsten gör nytta: hur många som är med, hur mycket tid man är tillsammans och om fler går till träffpunkterna.'] },
+    text: ['Personalen på träffpunkten har en egen vy i en vanlig dator. Översikten visar vilka som är inne, vad som händer i dag och vem som har bett om ett samtal under Omtanke.',
+      'Här planeras programmet, sändningar startas och meddelanden går ut till alla plattor. Rapporten är sammanräknad och visar om ensamheten minskar, utan att någon enskild kan följas.'] },
   { id: 'meddelande', title: 'Meddelande till alla plattor', t: T(15, 40), view: 'personal-platta',
     setup: s => { Voice.stop('live'); s.staff.route = 'meddelanden'; s.senior.route = 'idag'; s.senior.sub = null; s.room = null; },
     act: { label: 'Skicka stormvarningen', run: () => Act.sendNotice('storm') },
@@ -7285,7 +7942,8 @@ const Tour = {
       // på en riktig platta syns en skärm i taget: plattan i stället för delade vyer (bilden från Anna kommer av sig själv)
       s.view = s.device ? ({ 'platta-tv': 'platta', 'platta-anhorig': 'platta', 'personal-platta': 'platta' }[st.view] || st.view) : st.view;
       if (s.device && st.id === 'meddelande') { const s0 = App.s; setTimeout(() => { if (App.s === s0 && !App.s.notices.length) Act.sendNotice('storm'); }, 4000); }
-      if (s.device && st.view === 'platta-anhorig') { const s0 = App.s; setTimeout(() => { if (App.s === s0 && !App.s.photos.length) mut(x => Sim.receivePhoto(x, 'fotboll', true, true)); }, 5000); }
+      // (i filmen skickar kapitlet själv teckningen: 22c-autotour.js)
+      if (s.device && st.id === 'teckning' && !AutoTour.on()) { const s0 = App.s; setTimeout(() => { if (App.s === s0 && !App.s.photos.some(p => p.photo === DRAWING.id)) mut(x => Sim.receivePhoto(x, DRAWING.id, true, true)); }, 5000); }
       if (st.setup) st.setup(s);
     });
   },
@@ -7324,6 +7982,22 @@ const byText = (sel, re) => [...document.querySelectorAll(sel)].find(e => re.tes
 const clickEl = el => { if (el) el.click(); };
 // Berättaren har pratat klart (för en stund sedan, så att repliker som väntade på honom har hunnit börja) och ingen pratar
 const settled = () => { const s = AutoTour.state(); return !!s && !!s.narr && s.narr.done && s.t - (s.narr.doneAt || 0) > 400 && !Voice.busy(); };
+// Familjens app i mobilen: bläddra mjukt fram till ett kort (med requestAnimationFrame, så att filmens klocka styr).
+// Mobilen kan vara förminskad i presentationen: avståndet på skärmen räknas om till mobilens egna bildpunkter.
+function famScroll(sel) {
+  const el = document.querySelector(sel), box = el && el.closest('.fam-body');
+  if (!box) return;
+  const bb = box.getBoundingClientRect(), sc = bb.height / (box.offsetHeight || 1) || 1;
+  const from = box.scrollTop, to = clamp(from + (el.getBoundingClientRect().top - bb.top) / sc - 12, 0, box.scrollHeight - box.clientHeight);
+  const t0 = performance.now();
+  const step = now => {
+    const k = Math.min(1, (now - t0) / 700), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    box.scrollTop = from + (to - from) * e;
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const ktNum = (k, who) => ((App.s.kt || {})[k] || {})[who] || 0;
 
 // Yatzy vid bordet: spara tärningarna med det vanligaste talet (högst om det är lika) och skriv på bästa raden
 function autoHold() {
@@ -7379,6 +8053,7 @@ const AUTO = {
   lampa: { cues: [
     { at: 800, spot: '.tb-lamp', note: 'Ingrid tänder sin lampa' },
     { after: 1600, run: () => { if (!App.s.me.lamp) Act.toggleLamp(); } },
+    { after: 1000, spot: '.fam-push', note: 'Familjen får en notis i mobilen' },
     { when: () => App.s.queue.some(q => q.kind === 'call'), max: 16000, spot: '.scrim .btn-ok', note: 'Karin ser lampan och ringer' },
     // (Ingrid svarar när plattan har sagt att Karin ringer)
     { after: 2000, when: settled, max: 8000, run: () => Act.answerCall(), spot: null },
@@ -7402,14 +8077,46 @@ const AUTO = {
     { at: 900, spot: '.gplay-bar', note: 'Spelen har plattans utseende och en Tillbaka-knapp' },
     { when: () => !!document.querySelector('.gframe-if') && !document.querySelector('.gframe-note'), max: 9000, run: () => Bus.emit('game-demo'), spot: null },
     { after: 1600, spot: '.gframe', note: 'Ingrid spelar mot datorn, i lugnt tempo' }], tail: 6500 },
+  // (krysset visas tomt och det som skrivs sparas inte: den som tittar har kanske redan börjat på dagens kryss)
+  kryss: { cues: [
+    { at: 0, run: () => KryssTogether.demo(true) },
+    { at: 800, spot: '.kryss-card', note: 'Dagens kryss: två nya korsord varje dag' },
+    { after: 2200, run: () => openKryss('L'), spot: null },
+    { when: () => KryssTogether.ready(), max: 6000 },
+    { after: 1200, spot: '.kt-btn', note: 'Korsord löser man gärna ihop' },
+    { after: 1800, run: () => KryssTogether.pick(true), spot: null },
+    { after: 1000, spot: '.kt-karin', note: 'Karin har tänt sin lampa' },
+    { after: 1800, run: () => KryssTogether.invite('karin'), spot: '.kt-seats', note: 'Karin får frågan på sin platta' },
+    { when: () => (App.s.kt || {}).status === 'on', max: 8000, spot: '.kt-seats', note: 'Karin är med, och de hör varandra' },
+    { when: () => ktNum('letters', 'karin') > 0, max: 16000, spot: () => document.querySelector('.kx-c.peer'), note: 'Karin skriver, i sin egen färg' },
+    { when: () => ktNum('words', 'karin') > 0, max: 12000, spot: '.kx-cluebar', note: 'Ingrid tar ett eget ord' },
+    { after: 600, run: () => KryssTogether.demoType() },
+    { when: () => ktNum('words', 'ingrid') > 0, max: 12000, spot: '.kt-cap', note: 'Det de säger till varandra textas' }], tail: 5200,
+    exit: () => { KryssTogether.end({ quiet: true }); KryssTogether.demo(false); mut(s => { s.senior.game = null; s.senior.ktPick = false; }); } },
   familj: { cues: [
-    { at: 1000, spot: '.fam-send', note: 'Anna skickar en bild till mormor' },
-    { after: 1700, run: () => Act.familySend() },
-    { when: () => !!document.querySelector('.photo-m'), max: 8000, spot: '.photo-m', note: 'Bilden kommer direkt till plattan' },
-    { after: 3000, spot: '.photo-m .btn-lamp', note: 'Ingrid skickar ett hjärta tillbaka' },
-    { after: 1400, run: () => { const p = App.s.photos[0]; if (p) Act.photoHeart(p.id); } },
-    { after: 1200, spot: '.fam-sent', note: 'Anna ser hjärtat direkt' }], tail: 3600,
-    exit: () => mut(s => { s.photos.forEach(p => { p.seen = true; }); s.queue = s.queue.filter(q => q.kind !== 'photo'); }) },
+    { at: 900, spot: '.famtab-qr', note: 'Familjen bjuds in med en QR-kod' },
+    { after: 3600, spot: '.famtab-share', note: 'Ingrid bestämmer själv vad familjen ser' },
+    { after: 3200, spot: '.fam-notes', note: 'Anna fick en notis när lampan tändes' },
+    { after: 3000, spot: '.fam-btns', note: 'Ringa eller videosamtal, med ett tryck' }], tail: 3400 },
+  teckning: { cues: [
+    { at: 900, run: () => famScroll('.fam-pics'), spot: null },
+    { after: 800, spot: '.fam-draw-btn', note: 'Elsa har ritat. Anna fotar teckningen' },
+    { after: 2000, run: () => Act.familyCamera(), spot: '.fam-cam-view', note: 'Appen hittar papperet och rättar till det' },
+    { after: 2800, run: () => Act.familySnap(), spot: null },
+    { when: () => App.s.family.route === 'teckning', max: 3000 },
+    { after: 700, spot: '.fam-draw', note: 'Elsas teckning, med Annas röst' },
+    { after: 2600, spot: '.fam-send-draw', note: 'Anna skickar den till gammelmormor' },
+    { after: 1400, run: () => Act.familySendDrawing(), spot: null },
+    { when: () => !!document.querySelector('.photo-m'), max: 8000, spot: '.photo-m', note: 'Teckningen kommer direkt till plattan' },
+    // (Ingrid lyssnar på Annas hälsning när plattan har sagt sitt, och skickar sedan ett hjärta)
+    { after: 1800, when: settled, max: 9000, spot: () => byText('.photo-m .btn', /Lyssna/), note: 'Med Annas röst' },
+    { after: 1000, run: () => { const p = App.s.photos.find(x => x.photo === DRAWING.id); if (p) Act.playPhotoVoice(p.id); } },
+    { after: 1500, when: settled, max: 15000, spot: '.photo-m .btn-lamp', note: 'Ingrid skickar ett hjärta' },
+    { after: 1400, run: () => { const p = App.s.photos.find(x => x.photo === DRAWING.id); if (p) Act.photoHeart(p.id); } },
+    { after: 700, spot: '.fam-push', note: 'Anna och Elsa ser hjärtat direkt' },
+    { after: 3200, run: () => famScroll('.fam-play'), spot: null },
+    { after: 900, spot: '.fam-play', note: 'Familjen kan bjuda in till Yatzy och dagens kryss' }], tail: 3600,
+    exit: () => mut(s => { s.photos.forEach(p => { p.seen = true; }); s.queue = s.queue.filter(q => q.kind !== 'photo'); s.family.route = 'hem'; }) },
   anmalan: { cues: [
     { when: () => !!document.querySelector('.scrim .gp'), max: 5000 },
     { after: 1800, spot: '.scrim .gp', note: 'Ingrid väljer Yatzy' },
@@ -7434,9 +8141,14 @@ const AUTO = {
     { when: () => { if (App.s.live.status === 'calling' && !App.s.live.claim && !Voice.busy()) Act.liveSkip(); return App.s.live.hint > 0; }, max: 30000, spot: '.bingo-btn', note: 'BINGO!' },
     { after: 1500, run: () => Act.claim(), spot: null },
     { when: () => App.s.live.status === 'won', max: 15000, spot: () => document.querySelector('.tv-home') || document.querySelector('.bingo-win'), note: 'Ingrid syns på tv:n i salen' }], tail: 6500 },
+  // (i takt med berättaren: vyn, vilka som är inne, programmet, sändningarna, Omtanke och rapporten)
   personal: { cues: [
-    { at: 900, spot: () => byText('.st-card', /Omtanke/), note: 'Den som vill bli uppringd' },
-    { after: 3600, spot: () => byText('.st-card', /Aktiva deltagare/), note: 'Hur många som är med, vecka för vecka' }], tail: 3800 },
+    { at: 700, spot: '.st-side nav', note: 'Personalens egen vy, i en vanlig dator' },
+    { after: 2400, spot: '.kpis', note: 'Vilka som är inne just nu' },
+    { after: 2200, run: () => Act.staffGo('program'), spot: () => byText('.st-card', /Dagens program/), note: 'Programmet syns direkt på alla plattor' },
+    { after: 2200, run: () => Act.staffGo('sandning'), spot: '.st-live .st-card', note: 'Sändningarna startas härifrån' },
+    { after: 2400, run: () => Act.staffGo('omtanke'), spot: '.st-omlist', note: 'Den som har bett om ett samtal, och bara med samtycke' },
+    { after: 2600, run: () => Act.staffGo('rapport'), spot: '.st-card.watermark', note: 'Sammanräknat: ingen enskild kan följas' }], tail: 4400 },
   meddelande: { cues: [
     { at: 1000, spot: () => byText('.st-card .btn', /Skicka till plattorna/), note: 'Ett meddelande till alla plattor' },
     { after: 1800, run: () => { if (!App.s.notices.length) Act.sendNotice('storm'); }, spot: null },
@@ -7713,7 +8425,7 @@ const SOURCES = [
 const PRINCIPLES = [
   ['user', 'Riktiga namn', 'Alla deltagare träffar personal när de börjar och använder sitt riktiga namn, som inte går att byta. Det gör det tryggt att prata med nya människor.'],
   ['calendar', 'Något varje dag', 'Ett fast program, som på träffpunkten: fika med värd, Spelstunden och sändningar. Den som vill kan göra något med andra varje dag.'],
-  ['dice', 'Spelen samlar', 'Canasta, Yatzy, fia och patiens ger något att samlas kring. Samtalet kommer av sig självt, precis som vid spelborden på träffpunkten.'],
+  ['dice', 'Spelen samlar', 'Canasta, Yatzy, fia, patiens och dart ger något att samlas kring. Samtalet kommer av sig självt, precis som vid spelborden på träffpunkten.'],
   ['mic', 'Rösten först', 'Att prata är lättare än att skriva. Rummen har ljud från början, allt textas och mikrofonen stängs av med en knapp.'],
   ['people', 'Från skärm till verklighet', 'Plattformen ska få fler att träffas på riktigt: grannar får förslag att följas åt, och den som är hemma syns på tv:n i salen.'],
   ['check', 'Allt ingår', 'Plattan kommer laddad och inloggad, utan lösenord. Supporten sköter uppdateringar, uppkoppling och byte om något går sönder.']
@@ -7721,10 +8433,11 @@ const PRINCIPLES = [
 const DAY = [
   ['08.58', 'Plattan står i laddstället på köksbordet och visar en tydlig dagklocka.'],
   ['09.00', 'God morgon! Plattan frågar hur hon mår. Svarar hon ”Sådär” kan hon be att någon ringer.'],
-  ['09.20', 'Hon tänder sin lampa. Karin ser det och ringer: ska de åka till träffpunkten på onsdag?'],
+  ['09.20', 'Hon tänder sin lampa. Familjen får en notis i mobilen, och Karin ringer: ska de åka till träffpunkten på onsdag?'],
   ['10.00', 'Förmiddagsfika i Fikarummet med Karin, Bengt och Sonja. Lena är värd.'],
   ['10.30', 'Sittgympa från Träffpunkt Trelleborg. Ingrid gör rörelserna för knäna vid köksbordet.'],
-  ['12.30', 'Barnbarnet Anna skickar en bild från fotbollsmatchen, med ett röstmeddelande.'],
+  ['11.50', 'Dagens kryss: Ingrid bjuder in Karin, och de löser samma kryss tillsammans och pratar medan de skriver.'],
+  ['12.25', 'Annas dotter Elsa har ritat en teckning. Anna fotar den och skickar den till plattan, och ett hjärta kommer tillbaka.'],
   ['13.30', 'Anmälan till Spelstunden. Hon väljer Yatzy och vill gärna sitta med Karin.'],
   ['14.00', 'Plattformen delar in alla i bord. Ingrid spelar med Karin, Bengt och Sonja, med röst.'],
   ['15.00', 'Bingo live från Träffpunkt Trelleborg. Ingrid får bingo hemifrån, och salen ser det på tv:n.']
@@ -7740,7 +8453,10 @@ const FEATURES = [
   ['board', 'Anslagstavlan', 'Minns du?, trädgård, recept och frågor till personalen. Allt kan läsas upp och talas in.'],
   ['tv', 'Sändningar', 'Live från träffpunkterna, och filmer att se igen.'],
   ['pin', 'Grannar', 'Vilka som bor nära, visat per ort, och förslag att ses.'],
-  ['image', 'Familjen', 'Bildhälsningar med röst, och lampan syns i mobilen.'],
+  ['image', 'Familjen', 'Bjuds in med en QR-kod på plattan. Notis när lampan tänds, bilder och barnens teckningar med röst, och inbjudningar till spel.'],
+  ['pencil', 'Dagens kryss', 'Två nya korsord varje dag. Lös ensam, eller tillsammans med en vän eller familjen, när det passar.'],
+  ['dice', 'Spelen', 'Canasta, Yatzy, fia, patiens och dart finns alltid i plattan, mot datorn eller med andra, i lugnt tempo.'],
+  ['eye', 'Efter var och en', 'Större text, mörk skärm och uppläsning med ett tryck. Textstorleken följer med in i spelen.'],
   ['heart', 'Omtanke', 'Personalen ser vem som bett om ett samtal, eller inte använt plattan på några dagar. Bara med samtycke. Det är inget larm.']
 ];
 
@@ -7943,7 +8659,7 @@ function Proposal() {
 
     <section class="doc-sec doc-small">
       <h2>Om demon</h2>
-      <p>Demon visar en dag i tjänsten. Personerna är påhittade och deras röster är gjorda med AI (ElevenLabs). Spelen i demon (Canasta, Yatzy, Fia med knuff och Patiens) är färdiga och går att spela. De bygger på webbappar som redan finns, här med Träffpunkt Hemmas utseende.</p>
+      <p>Demon visar en dag i tjänsten. Personerna är påhittade och deras röster är gjorda med AI (ElevenLabs). Spelen i demon (Canasta, Yatzy, Fia med knuff, Patiens, Dart och Dagens kryss) är färdiga och går att spela. De flesta bygger på webbappar som redan finns, här med Träffpunkt Hemmas utseende.</p>
       <h2>Källor</h2>
       <ol class="sources">${SOURCES.map(([t, u]) => html`<li><a href=${u} target="_blank" rel="noopener">${t}</a></li>`)}</ol>
       <p class="doc-copy">${COPYRIGHT}</p>
@@ -7987,11 +8703,14 @@ function Calc() {
 /* ================= Förslaget på en sida (A4, att lämna över på mötet) ================= */
 // Visas med #ensida i adressen och skrivs ut till PDF med tools/pdf.mjs --ensida.
 
+// Dagen i förslaget (DAY) utom det som inte får plats på en sida: krysset med Karin finns i förslaget och filmen
+const ONE_SKIP = ['11.50'];
+
 // Principerna i kort form (hela texten finns i förslaget)
 const ONE_POINTS = [
   ['Riktiga namn', 'Alla träffar personal när de börjar, och namnet går inte att byta.'],
   ['Något varje dag', 'Fika med värd, Spelstunden och sändningar från träffpunkterna.'],
-  ['Spelen samlar', 'Canasta, Yatzy, fia och patiens ger något att samlas kring.'],
+  ['Spelen samlar', 'Canasta, Yatzy, fia, patiens och dart ger något att samlas kring.'],
   ['Rösten först', 'Att prata är lättare än att skriva, och allt textas.'],
   ['Från skärm till verklighet', 'Grannar får förslag att ses, och den som är hemma syns på tv:n i salen.'],
   ['Allt ingår', 'Plattan kommer klar att använda, utan lösenord.']
@@ -8016,7 +8735,7 @@ function OnePager() {
         <p>En platta som är klar att använda, med uppkoppling, en värd och ett fast program varje dag. Den bygger vidare på Träffpunkt Trelleborg och Träffpunkt Anderslöv, för den som inte kan ta sig dit.</p>
         <ul>${ONE_POINTS.map(([h, t]) => html`<li><strong>${h}.</strong> ${t}</li>`)}</ul></section>
       <section><h2>En dag med Ingrid, 84 år</h2>
-        <ol class="one-day">${DAY.map(([tm, t]) => html`<li><b>${tm}</b>${t}</li>`)}</ol></section>
+        <ol class="one-day">${DAY.filter(([tm]) => !ONE_SKIP.includes(tm)).map(([tm, t]) => html`<li><b>${tm}</b>${t}</li>`)}</ol></section>
     </div>
     <div class="one-cols">
       <section><h2>Pilot våren 2027</h2>
@@ -8177,7 +8896,7 @@ function GuidePanel({ onClose }) {
           <button type="button" class="g-btn g-next" onClick=${Tour.next} disabled=${i === TOUR.length - 1}>Nästa steg<${Icon} n="right" size=${18} /></button></div>
       </div>`
       : html`<div class="g-step"><p>Visningen följer Ingrid, 84 år i Anderslöv, genom en dag med Träffpunkt Hemma. Varje steg ställer klockan och visar rätt skärm.</p>
-        <button type="button" class="g-btn g-next" onClick=${() => AutoTour.start()}><${Icon} n="play" size=${18} />Spela upp visningen (5 min)</button>
+        <button type="button" class="g-btn g-next" onClick=${() => AutoTour.start()}><${Icon} n="play" size=${18} />Spela upp visningen (7 min)</button>
         <button type="button" class="g-btn" onClick=${() => Tour.go(0)}><${Icon} n="steps" size=${18} />Visa själv, steg för steg</button>
         <p class="g-small">Du kan också trycka runt fritt på plattan och hoppa i tiden med knapparna uppe till höger.</p></div>`}
     <p class="g-small g-keys">Piltangenterna eller en presentationsklicker byter steg.</p>
@@ -8203,7 +8922,7 @@ function StartCard() {
       <h1>Träffpunkt Hemma</h1>
       <p class="start-lead">En digital träffpunkt för äldre i Trelleborgs kommun. Följ Ingrid, 84 år i Anderslöv, genom en dag: fika, Spelstunden, bingo från träffpunkten och ett samtal från en vän.</p>
       <div class="start-btns">
-        <button type="button" class="start-go" onClick=${() => start('film')}><${Icon} n="play" size=${22} />Se visningen<small>Drygt 5 minuter, med berättarröst</small></button>
+        <button type="button" class="start-go" onClick=${() => start('film')}><${Icon} n="play" size=${22} />Se visningen<small>Drygt 7 minuter, med berättarröst</small></button>
         <button type="button" class="start-steg" onClick=${() => start('steg')}><${Icon} n="steps" size=${20} />Visa själv, steg för steg</button>
         <button type="button" class="start-free" onClick=${() => start('fritt')}>Utforska fritt</button>
       </div>
@@ -8251,7 +8970,7 @@ function DemoPanel({ onClose }) {
     <div class="dp-sec"><small>Guidad visning${s.tour.on ? ` · steg ${i + 1} av ${TOUR.length}` : ''}</small>
       ${s.tour.on && html`<p class="dp-title">${tourTitle(st, s)}</p><p class="dp-text">${tourText(st, s)[0]}</p>`}
       <div class="dp-row"><button type="button" onClick=${Tour.prev} disabled=${!s.tour.on || i === 0}>Föregående</button><button type="button" class="on" onClick=${() => s.tour.on ? Tour.next() : Tour.go(0)}>${s.tour.on ? 'Nästa steg' : 'Steg för steg'}</button></div>
-      <div class="dp-row"><button type="button" class="on dp-film" onClick=${() => { onClose(); AutoTour.start(); }}>Spela upp visningen (5 min)</button></div></div>
+      <div class="dp-row"><button type="button" class="on dp-film" onClick=${() => { onClose(); AutoTour.start(); }}>Spela upp visningen (7 min)</button></div></div>
     <div class="dp-sec"><small>Klockan: ${clockStr(s.t)}</small><div class="dp-row wrap">${JUMPS.map(([l, t]) => html`<button type="button" onClick=${() => Act.jump(t)}>${l}</button>`)}</div></div>
     <div class="dp-sec"><small>Visa</small><div class="dp-row wrap">${views.map(([v, l]) => html`<button type="button" class=${s.view === v ? 'on' : ''} onClick=${() => Act.view(v)}>${l}</button>`)}</div></div>
     <div class="dp-sec"><div class="dp-row"><button type="button" onClick=${() => { Act.restart(); }}>Börja om dagen</button>${s.yatzy && !s.yatzy.over ? html`<button type="button" onClick=${Act.yFast}>Spola Yatzy</button>` : ''}</div></div>
@@ -8644,7 +9363,7 @@ const Main = {
   }
 };
 
-if (/[?&]debug\b/.test(location.search)) window.TH = { App, Act, Sim, Tour, TOUR, Player, AutoTour, Narrator, Offline, mut };
+if (/[?&]debug\b/.test(location.search)) window.TH = { App, Act, Sim, Tour, TOUR, Player, AutoTour, Narrator, Offline, KryssTogether, mut };
 Main.boot();
 })();
 </script>
